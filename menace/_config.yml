@@ -1,0 +1,5 @@
+# in _config.yml
+title: "MENACE Revisited"
+# logo: images/logo.png
+execute:
+  execute_notebooks: "off"
