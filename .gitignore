@@ -137,3 +137,5 @@ ENV/
 
 .idea/
 
+menace/_build/
+
