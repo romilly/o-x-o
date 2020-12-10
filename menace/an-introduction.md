@@ -1,4 +1,4 @@
-## MENACE in APL
+# MENACE in APL
 
 This is a short book that implements Donald Michie's MENACE in software using the APL language.
 
