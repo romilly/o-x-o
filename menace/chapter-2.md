@@ -1,30 +1,10 @@
-{
- "cells": [],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Dyalog APL",
-   "language": "apl",
-   "name": "dyalog-kernel"
-  },
-  "language_info": {
-   "file_extension": ".apl",
-   "mimetype": "text/apl",
-   "name": "APL"
-  },
-  "pycharm": {
-   "stem_cell": {
-    "cell_type": "raw",
-    "source": [
-     "# Exploring Dyalog APL \n",
-     "\n",
-     "\n"
-    ],
-    "metadata": {
-     "collapsed": false
-    }
-   }
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+# Exploring Dyalog APL
+
+I suggest that you follow [this advice](https://rojergs.github.io/MDAPL/README.html)
+which was written for Dyalog's free on-line version of **Mastering Dyalog APL**.
+
+The notebooks in this book are in [this MENACE repository](https://github.com/romilly/o-x-o).
+
+There are also some great free resources listed on Dyalog's [TryAPL](https://tryapl.org/) website.
+
+

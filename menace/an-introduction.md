@@ -2,7 +2,7 @@
 
 This is a short book that implements Donald Michie's MENACE in software using the APL language.
 
-It's a *work in progress*, but it is currently about 60% complete.
+It's a *work in progress*, but it is currently about 70% complete.
 
 It's not an APL tutorial.
 
