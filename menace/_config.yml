@@ -5,3 +5,5 @@ copyright                   : "2020"
 # logo: images/logo.png
 execute:
   execute_notebooks: "off"
+repository:
+  url                       : https://github.com/yourusername/yourbookrepo
