@@ -263,10 +263,12 @@ We could create that board like this:</p>
 ...
 </span></div></div>
 </div>
-<p>In APL we create character literals by enclosing their characters in single quotation marks. The result is a character <em>vector</em> (a list of characters). We can create a matrix by asking APL to reshape the vector. <code class="docutils literal notranslate"><span class="pre">⍴</span></code> stands for <em>reshape</em>; it reshapes the array on its right using the shape on its right.</p>
+<p>In APL we create character literals by enclosing their characters in single quotation marks.
+The result is a character <em>vector</em> (a list of characters).
+We can create a matrix by asking APL to reshape the vector. <code class="docutils literal notranslate"><span class="pre">⍴</span></code> stands for <em>reshape</em>; it reshapes the array on its right using the shape on its left.</p>
 <p>That way of displaying a board position is great for humans, but there are better ways to represent a board in an APL program. The way we’ll do it is to represent a board as a numeric vector. The vector will have a zero for an unfilled position, a 1 for an <code class="docutils literal notranslate"><span class="pre">×</span></code> and a 2 for a <code class="docutils literal notranslate"><span class="pre">○</span></code>.</p>
 <p>The board we saw above would be represented by the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.</p>
-<p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of characters. As you may know, the mathematical world is divied about how to index things. Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
+<p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of characters. As you may know, the mathematical world is divided about how to index things. Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
 <p>APL supports both approaches. You tell APL which you want to use by setting the <em>index origin</em> to 0 or 1.</p>
 <p>In APL, the index origin is a system variable called ⎕io. The line below sets it to 0.</p>
 <div class="cell docutils container">
@@ -307,7 +309,7 @@ We could create that board like this:</p>
 </div>
 <p>How can we generate all the 19683 board positions?</p>
 <p>The first step is to generate all the numbers from 0 to 19682.</p>
-<p>In APL we can do that using <code class="docutils literal notranslate"><span class="pre">⍳</span></code>. IN the lines below, we’ll store the list of numbers in a vaiable called <code class="docutils literal notranslate"><span class="pre">boards</span></code> and then display the first 6 numbers just to check that APL did what we wanted.</p>
+<p>In APL we can do that using <code class="docutils literal notranslate"><span class="pre">⍳</span></code>. IN the lines below, we’ll store the list of numbers in a variable called <code class="docutils literal notranslate"><span class="pre">boards</span></code> and then display the first 6 numbers just to check that APL did what we wanted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">boards</span> <span class="kd">←</span> <span class="o">⍳</span><span class="m">19683</span>
