@@ -1,5 +1,7 @@
 # in _config.yml
 title: "MENACE Revisited"
+author                      : Romilly Cocking
+copyright                   : "2020"
 # logo: images/logo.png
 execute:
   execute_notebooks: "off"
