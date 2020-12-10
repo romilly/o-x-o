@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reinforcement Learning from the ground up &#8212; MENACE Revisited</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exploring Dyalog APL" href="chapter-2.html" />
+    <link rel="prev" title="MENACE in APL" href="an-introduction.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">MENACE Revisited</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="an-introduction.html">
+   MENACE in APL
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Reinforcement Learning from the ground up
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-2.html">
+   Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-3.html">
+   Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-4.html">
+   Reinforcement Learning with MENACE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-5.html">
+   Paying the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="about-the-author.html">
+   About the author
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/chapter-1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/chapter-1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fun-with-the-menace">
+   Fun with the MENACE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-long-long-time-ago">
+     A long, long time ago
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#samuel-s-checker-player">
+     Samuel’s checker player
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#donald-michie-s-menace">
+     Donald Michie’s MENACE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recent-progress-in-rl">
+     Recent progress in RL
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#michie-s-menace-revisited">
+     Michie’s MENACE revisited
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#o-x-o">
+   O-X-O
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="reinforcement-learning-from-the-ground-up">
+<h1>Reinforcement Learning from the ground up<a class="headerlink" href="#reinforcement-learning-from-the-ground-up" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="fun-with-the-menace">
+<h2>Fun with the MENACE<a class="headerlink" href="#fun-with-the-menace" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-long-long-time-ago">
+<h3>A long, long time ago<a class="headerlink" href="#a-long-long-time-ago" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes smart people jump to dumb conclusions.</p>
+<p>Back in 1965 I attended my first programming course at the University of London Institute of Computer Science.</p>
+<p>Our trainer was great. He was an academic lecturer with a wealth of programming experience, and we all learned a lot. But he wasn’t right about everything he told us.</p>
+<p>On the last day he ran an <em>Ask Me Anything</em> session.</p>
+<p>One of the students asked him if a computer program could ever beat consistently humans at chess.
+He answered immediately with a firm <em>No</em>.</p>
+<p>He explained: “The program could only play by the programmer’s rules, so it could never be a better player than the programmer.”</p>
+<p>He had no conception of a program that could learn from its mistakes and improve its strategy.</p>
+<p>He can’t have known that several researchers had already published details of programs that did exactly that. They implemented <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a> strategies.</p>
+</div>
+<div class="section" id="samuel-s-checker-player">
+<h3>Samuel’s checker player<a class="headerlink" href="#samuel-s-checker-player" title="Permalink to this headline">¶</a></h3>
+<p>In 1959 A L Samuel wrote about a program that played checkers (known as draughts in the UK). The program learned to improve its game. Checkers is not as complex as chess, but it is not a trivial game. Samuel’s implementation payed the game surprisingly well. This was was a significant milestone in the development of AI.</p>
+<p>Another early program played a simpler game.</p>
+</div>
+<div class="section" id="donald-michie-s-menace">
+<h3>Donald Michie’s MENACE<a class="headerlink" href="#donald-michie-s-menace" title="Permalink to this headline">¶</a></h3>
+<p>Most of us have played <a class="reference external" href="https://en.wikipedia.org/wiki/Tic-tac-toe"><em>Tic-tac-toe</em></a>, or <em>Noughts and Crosses</em> as it’s known in the UK.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Donald_Michie">Donald Michie</a> (a pioneer in AI) realised that Noughts and Crosses is a good candidate if you’re looking a way to start exploring game-playing AI.</p>
+<p>In 1960 Michie created <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">MENACE</a>, the <em>Matchbox Educable Noughts And Crosses Engine</em>.</p>
+<p>MENACE was a mechancial computer based on matchboxes filled with coloured beads. MENACE’s moves were determined by picking a bead at random from the appropriate matchbox. When the game was over the beads were adjusted depending on the outcome of the game.</p>
+<p>This simple design was enough for it to become a decent player when it had played enough games against a human opponent.</p>
+<p>MENACE was also implemented in software on a Pegasus computer.</p>
+<p>I first read about MENACE in the Penguin Science Survey 1962 vol 2. You can see a picture of the original matchbox MENACE below.</p>
+<p><img alt="MENACE" src="_images/menace-1961.jpg" /></p>
+<p>RL (Reinforcement Learning) has been actively studied by researchers since the early implementations.</p>
+</div>
+<div class="section" id="recent-progress-in-rl">
+<h3>Recent progress in RL<a class="headerlink" href="#recent-progress-in-rl" title="Permalink to this headline">¶</a></h3>
+<p>Recent RL successes include Deep Mind’s AlphaGo and AlphaZero.</p>
+<p>We’ve also seen the publication of a long-awaited second edition of <a class="reference external" href="https://www.amazon.co.uk/Reinforcement-Learning-Introduction-Richard-Sutton/dp/0262039249/">Sutton and Barto’s seminal book</a> on RL.</p>
+<p>My long-time friend and mentor, Tom Westerdale, has formalised the relationship between temporal difference methods and Evolutionary Adaptive Systems.</p>
+<p>There’s a lot of interest in RL at present and Michie’s MENACE is a great way to get familiar with the basics.</p>
+</div>
+<div class="section" id="michie-s-menace-revisited">
+<h3>Michie’s MENACE revisited<a class="headerlink" href="#michie-s-menace-revisited" title="Permalink to this headline">¶</a></h3>
+<p>Several people have replicated MENACE over the years.</p>
+<p>Matthew Scroggs built a mechanical replica which was used by Hannah Fry and Matt Parker in the <a class="reference external" href="https://www.mscroggs.co.uk/blog/71">2019 Royal Society Christmas Lecture</a> to demonstrate how machine learning works. Scroggs also wrote a <a class="reference external" href="https://github.com/mscroggs/MENACE">JavaScript implementation</a>.</p>
+<p>Scroggs intoduced MENACE to Oliver Child, and Child, while still at school, created his own <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">replica</a>.</p>
+<p>I too am keen to replicate MENACE.</p>
+<p>This is the first of a series of Jupyter Notebooks that will build up a simple implementation in <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> (which stands for <em>A Programming Language</em>) is very well suited to the task.</p>
+<p>APL was designed as a language for exposition, and it implements the algorithms that we’ll need simply and concisely.</p>
+</div>
+</div>
+<div class="section" id="o-x-o">
+<h2>O-X-O<a class="headerlink" href="#o-x-o" title="Permalink to this headline">¶</a></h2>
+<p>I’m going to be talking about the game a good deal. Both the UK and US names are a bit tedious to type. In the notebooks that follow I will refer to the game as O-X-O.</p>
+<p>The notebooks will explore the game and its implementation.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "dyalog-kernel"
+        },
+        kernelOptions: {
+            kernelName: "dyalog-kernel",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'dyalog-kernel'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="an-introduction.html" title="previous page">MENACE in APL</a>
+    <a class='right-next' id="next-link" href="chapter-2.html" title="next page">Exploring Dyalog APL</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

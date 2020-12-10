@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playing the game &#8212; MENACE Revisited</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About the author" href="about-the-author.html" />
+    <link rel="prev" title="Reinforcement Learning with MENACE" href="chapter-4.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">MENACE Revisited</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="an-introduction.html">
+   MENACE in APL
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-1.html">
+   Reinforcement Learning from the ground up
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-2.html">
+   Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-3.html">
+   Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-4.html">
+   Reinforcement Learning with MENACE
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Playing the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="about-the-author.html">
+   About the author
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/chapter-5.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/chapter-5.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-symmetries">
+   Using symmetries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#canonical-representations">
+   Canonical representations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-a-position-s-canonical-representation">
+     Defining a position’s canonical representation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="playing-the-game">
+<h1>Playing the game<a class="headerlink" href="#playing-the-game" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we’ll start looking at how to play the game.</p>
+<p>First, we’ll load in the work we did on symmetries in the previous notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook4.dws saved Thu Dec 10 10:13:18 2020
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">fns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">encode  m       r       show    
+</span></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">)vars</span></code> is another useful system command. It shows us the names of the variables that <code class="docutils literal notranslate"><span class="pre">)copy</span></code> brought in for us.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">vars</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">board1  boards  encoded hereDir i       mi      mr180   mr270   mr90    r180    r270    r90     start   symmetries      
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-symmetries">
+<h2>Using symmetries<a class="headerlink" href="#using-symmetries" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start by looking at how we can use our work on symmetries to reduce the number of board positions we need to consider when playing.</p>
+<p>For any given board position there are up to seven other positions that are equivalent to it.</p>
+<p>Why did I say <em>up to</em>?</p>
+<p>Some board configurations are symmetric, so some transformations will leave them unchanged.</p>
+<p>Here’s an extreme example. Imagine that <code class="docutils literal notranslate"><span class="pre">x</span></code> has played in the centre of the board.
+The board is the same whether you rotate it, reflect it, combine rotations and reflections or leave it unchanged.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span> <span class="o">⊢</span> <span class="nv">symmetric</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;....×....&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+.×.
+...
+</span></div></div>
+</div>
+<p>To examine the symmetries using APL we need to convert the board to its vector representation.</p>
+<p>Let’s create a function to do that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">see</span><span class="kd">←</span><span class="kt">{{</span><span class="o">,</span><span class="s1">&#39;.×○&#39;</span><span class="o">⍳</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">⍤</span><span class="m">2</span><span class="o">⊣</span><span class="bp">⍵</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It’s a little more complicated than you might expect becasue it can handle arrays of boards as well as individual boards.</p>
+<p>Let’s try it out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="nv">sym</span> <span class="kd">←</span> <span class="nv">see</span> <span class="nv">symmetric</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 1 0 0 0 0
+</span></div></div>
+</div>
+<p>You can think of <code class="docutils literal notranslate"><span class="pre">see</span></code> as an inverse to <code class="docutils literal notranslate"><span class="pre">show</span></code>.</p>
+<p>Let’s check the symmetric transformations on the board.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">sym</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 0 1 0 0 0 0
+</span></div></div>
+</div>
+<p>They are all identical (as they should be).</p>
+<p>How can we get rid of the redundant copies?</p>
+<p>APL has a primitive function <em>Unique</em> represented as <code class="docutils literal notranslate"><span class="pre">∪</span></code> which does just that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">∪</span><span class="nv">sym</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span> <span class="c1">⍝ the unique version</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 1 0 0 0 0
+</span></div></div>
+</div>
+<p>Let’s look at a position with some symmetry.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span> <span class="nv">asymmetric</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;.×.×○×...&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">.×.
+×○×
+...
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="nv">less</span> <span class="kd">←</span> <span class="nv">see</span> <span class="nv">asymmetric</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 0 1 2 1 0 0 0
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">less</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 0 1 2 1 0 0 0
+0 1 0 0 2 1 0 1 0
+0 0 0 1 2 1 0 1 0
+0 1 0 1 2 0 0 1 0
+0 1 0 1 2 1 0 0 0
+0 1 0 1 2 0 0 1 0
+0 0 0 1 2 1 0 1 0
+0 1 0 0 2 1 0 1 0
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">∪</span><span class="nv">less</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 0 1 2 1 0 0 0
+0 1 0 0 2 1 0 1 0
+0 0 0 1 2 1 0 1 0
+0 1 0 1 2 0 0 1 0
+</span></div></div>
+</div>
+<p>Now there are four distinct transformations.</p>
+<p>Let’s see what they are.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="o">∪</span><span class="nv">less</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┐
+│.×.│.×.│...│.×.│
+│×○×│.○×│×○×│×○.│
+│...│.×.│.×.│.×.│
+└───┴───┴───┴───┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">board1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">××.
+.○○
+.×.
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="o">∪</span><span class="nv">board1</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
+│××.│..×│.×.│.○.│.××│×..│.×.│.○.│
+│.○○│×○×│○○.│×○×│○○.│×○×│.○○│×○×│
+│.×.│.○.│.××│×..│.×.│.○.│××.│..×│
+└───┴───┴───┴───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">board1</span></code> is asymmetric and so it has eight distinct symmetries.</p>
+</div>
+<div class="section" id="canonical-representations">
+<h2>Canonical representations<a class="headerlink" href="#canonical-representations" title="Permalink to this headline">¶</a></h2>
+<p>In order to apply Michie’s first simplification we need a way of converting every board position to <em>just one</em> of its symmetries.</p>
+<p>We’ll use the idea of a <em>canonical representation</em>. I’ve borrowed that term from Mathematics, but the mathematical details don’t matter to us.
+You’ll see how we create and use canonical representations in below.</p>
+<div class="section" id="defining-a-position-s-canonical-representation">
+<h3>Defining a position’s canonical representation<a class="headerlink" href="#defining-a-position-s-canonical-representation" title="Permalink to this headline">¶</a></h3>
+<p>As we’ve seen, every board position is a member of a set of one to eight boards which can be regarded as the same as far as the game is concerned.</p>
+<p>The functions <code class="docutils literal notranslate"><span class="pre">encode</span></code> and <code class="docutils literal notranslate"><span class="pre">decode</span></code> allow us to switch between the vector representation of the position and a number in the range zero to 19682.</p>
+<p>The symmetries of a given position form a set of up to eight vectors, and each vector can be converted to its unique number using <code class="docutils literal notranslate"><span class="pre">decode</span></code>.
+We’ll take the smallest of those numbers, convert that to a vector and use that as the canonical representation of the position.</p>
+<p>Let’s do that for the boards we just considered: <code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">less</span></code> and <code class="docutils literal notranslate"><span class="pre">board1</span></code>.
+We are going to perform the same operation on each, so we can save time by defining a function to do it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">encode</span> <span class="o">⌊</span><span class="na">⌿</span> <span class="nv">decode</span> <span class="bp">⍵</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span><span class="kt">}</span>
+<span class="nv">show</span> <span class="nv">canonical</span> <span class="nv">sym</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+.×.
+...
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">canonical</span> <span class="nv">less</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+×○×
+.×.
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">canonical</span> <span class="nv">board1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">..×
+×○×
+.○.
+</span></div></div>
+</div>
+<p>Can we find out the canonical representations of all positions?</p>
+<p>Let’s try</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">all</span> <span class="kd">←</span> <span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RANK ERROR
+canonical[0] canonical←{encode⌊⌿decode ⍵[symmetries]}
+                                        ∧
+</pre></div>
+</div>
+</div>
+</div>
+<p>What’s gone wrong?</p>
+<p>We’ve used a simple version of indexing in the definition of canonical.
+The <code class="docutils literal notranslate"><span class="pre">[]</span></code> form of indexing corresponds to the notation that is used in a lot of programming languages, but the format is slightly different for vectors and matrices.</p>
+<p>Luckily APL has another form of indexing based on  the <em>Index function</em> represented as <code class="docutils literal notranslate"><span class="pre">⌷</span></code>.</p>
+<p>You can see how it works in the example below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">⊂</span><span class="m">0</span> <span class="m">3</span> <span class="m">2</span><span class="p">)</span><span class="o">⌷</span><span class="m">7</span> <span class="m">8</span> <span class="m">9</span> <span class="m">10</span> <span class="m">20</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">7 10 9
+</span></div></div>
+</div>
+<p>I’ve called the function we want <code class="docutils literal notranslate"><span class="pre">ild</span></code>, which is short for <em>index last dimension</em>.</p>
+<p>Here’s its definition, along with an updated definition of canonical.</p>
+<p>#TODO: add canonical</p>
+<p>ild ← {(⊂⍺) ⌷[¯1+⍴⍴⍵]⍵} ⍝ index last dimension</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "dyalog-kernel"
+        },
+        kernelOptions: {
+            kernelName: "dyalog-kernel",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'dyalog-kernel'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="chapter-4.html" title="previous page">Reinforcement Learning with MENACE</a>
+    <a class='right-next' id="next-link" href="about-the-author.html" title="next page">About the author</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
