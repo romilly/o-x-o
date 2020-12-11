@@ -175,6 +175,22 @@
 
         <!-- Source interaction buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/romilly/o-x-o"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fchapter-3.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -236,7 +252,7 @@ Michie used one matchbox for each possible board configuration, and the player p
 a coloured bead at random to decide what move MENACE would make.</p>
 <p>How many relevant board configurations are there?</p>
 <p>This isn’t a trivial question, since many board configurations could never be reached in play.</p>
-<p>Theree’s an obvious upper limit, though. We can count all the board configurations without considering whether they could be reached.</p>
+<p>There’s an obvious upper limit, though. We can count all the board configurations without considering whether they could be reached.</p>
 <p>Each square of the board can be empty, contain a nought or contain a cross.
 There are three possibilities for each of the nine cells, so there are three to the power 9 in total.</p>
 <p>Here’s how we calculate that in APL.</p>
@@ -535,10 +551,9 @@ Pure mathematicians tend to count from 0, but applied mathematicians often count
 <p>We’ve now created the tools we need to work on the next stage of our implementation of MENACE.</p>
 <p>In the next notebook we will look at the relationship between symmetries (rotations and reflections) of board configurations.</p>
 <p>We will want to use <code class="docutils literal notranslate"><span class="pre">encode</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> so we will save our work ready to reuse in the next notebook.</p>
-<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook3.dws</span></code>.</p>
-<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option.
-When we openedthe notebook it silently loaded a workspace with a different name.
-APL will not change that name unless we tell it to.</p>
+<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook2.dws</span></code>.</p>
+<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option because the notebook software silently loads a workspace with a different name.</p>
+<p>APL will not change that name unless we tell it to.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook3</span> <span class="o">-</span><span class="nv">force</span>
@@ -546,7 +561,7 @@ APL will not change that name unless we tell it to.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Fri Dec 11 12:22:47 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Thu Dec 10 13:58:56 2020
 </span></div></div>
 </div>
 </div>
