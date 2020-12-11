@@ -2,7 +2,7 @@
 title: "MENACE Revisited"
 author                      : Romilly Cocking
 copyright                   : "2020"
-# logo: images/logo.png
+logo: images/Tic_Tac_Toe.png
 execute:
   execute_notebooks: "off"
 repository:
