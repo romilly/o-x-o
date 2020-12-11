@@ -166,9 +166,7 @@
 <node TEXT="jupyter" ID="ID_791065339" CREATED="1607594115616" MODIFIED="1607594119415">
 <node TEXT="jupyter API" ID="ID_1178768674" CREATED="1607594120484" MODIFIED="1607594207543" LINK="https://nbformat.readthedocs.io/en/latest/api.html"/>
 <node TEXT="jupyter{book}" ID="ID_1651776405" CREATED="1607681707106" MODIFIED="1607681717524"/>
-<node TEXT="MyST" ID="ID_725112297" CREATED="1607689155153" MODIFIED="1607689348953" LINK="https://myst-parser.readthedocs.io/en/latest/index.html">
-<icon BUILTIN="stop-sign"/>
-</node>
+<node TEXT="MyST" ID="ID_725112297" CREATED="1607689155153" MODIFIED="1607695591564" LINK="https://myst-parser.readthedocs.io/en/latest/index.html"/>
 </node>
 </node>
 </node>
