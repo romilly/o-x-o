@@ -229,12 +229,20 @@
 <h1>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="exploring-menace-in-apl">
 <h2>Exploring MENACE in APL<a class="headerlink" href="#exploring-menace-in-apl" title="Permalink to this headline">¶</a></h2>
-<p>Michie’s MENACE used machboxes to remember waht had happened in previous games. Michie used one matchbox for each possible board configuration, and the player picked a coloured bead at random to decide what move to make.</p>
+<p>Michie’s MENACE used matchboxes to remember what had happened in previous games.
+Michie used one matchbox for each possible board configuration, and the player picked
+a coloured bead at random to decide what move MENACE would make.</p>
 <p>How many relevant board configurations are there?</p>
 <p>This isn’t a trivial question, since many board configurations could never be reached in play.</p>
 <p>Theree’s an obvious upper limit, though. We can count all the board configurations without considering whether they could be reached.</p>
-<p>Each square of the board can be empty, contain a nought or contain a cross. There are three possibilities for each of the nine cells, so there are three to the power 9 in total.</p>
-<p>Here’s how we calculate that in APL. Note that exponentiation is represented by * in APL. (APL uses × for multiplication.)</p>
+<p>Each square of the board can be empty, contain a nought or contain a cross.
+There are three possibilities for each of the nine cells, so there are three to the power 9 in total.</p>
+<p>Here’s how we calculate that in APL.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Exponentiation is represented by <code class="docutils literal notranslate"><span class="pre">*</span></code> in APL.
+APL uses <code class="docutils literal notranslate"><span class="pre">×</span></code> for multiplication.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
@@ -246,9 +254,11 @@
 </span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">19683
 </span></div></div>
 </div>
-<p>It’s interesting to know how many positions there are, but we’ll need to eliminate the ones that are impossible or redundant.</p>
+<p>It’s interesting to know how many positions there are, but we’ll need to eliminate the ones that are impossible
+or redundant.</p>
 <p>We need some way of representing a board position.</p>
-<p>We can <em>visualise</em> each board position as a 3 by 3 matrix of characters: a <code class="docutils literal notranslate"><span class="pre">×</span></code> for a cross, a <code class="docutils literal notranslate"><span class="pre">○</span></code> for a nought, and  a <code class="docutils literal notranslate"><span class="pre">.</span></code> for an unfilled square. That means that an empty board does not just look like white space.</p>
+<p>We can <em>visualise</em> each board position as a 3 by 3 matrix of characters: a <code class="docutils literal notranslate"><span class="pre">×</span></code> for a cross, a <code class="docutils literal notranslate"><span class="pre">○</span></code> for a nought,
+and  a <code class="docutils literal notranslate"><span class="pre">.</span></code> for an unfilled square. That means that an empty board does not just look like white space.</p>
 <p>Suppose the first player placed an ‘x’ in the centre.
 We could create that board like this:</p>
 <div class="cell docutils container">
@@ -264,13 +274,18 @@ We could create that board like this:</p>
 </span></div></div>
 </div>
 <p>In APL we create character literals by enclosing their characters in single quotation marks.
-The result is a character <em>vector</em> (a list of characters).
-We can create a matrix by asking APL to reshape the vector. <code class="docutils literal notranslate"><span class="pre">⍴</span></code> stands for <em>reshape</em>; it reshapes the array on its right using the shape on its left.</p>
-<p>That way of displaying a board position is great for humans, but there are better ways to represent a board in an APL program. The way we’ll do it is to represent a board as a numeric vector. The vector will have a zero for an unfilled position, a 1 for an <code class="docutils literal notranslate"><span class="pre">×</span></code> and a 2 for a <code class="docutils literal notranslate"><span class="pre">○</span></code>.</p>
+The result is a character <em>vector</em> (a list of characters).</p>
+<p>We can create a matrix by asking APL to reshape the vector.
+<code class="docutils literal notranslate"><span class="pre">⍴</span></code> stands for <em>reshape</em>; it reshapes the array on its right using the shape on its left.</p>
+<p>That way of displaying a board position is great for humans, but there are better ways to represent a board
+in an APL program. The way we’ll do it is to represent a board as a numeric vector.
+The vector will have a zero for an unfilled position, a 1 for an <code class="docutils literal notranslate"><span class="pre">×</span></code> and a 2 for a <code class="docutils literal notranslate"><span class="pre">○</span></code>.</p>
 <p>The board we saw above would be represented by the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.</p>
-<p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of characters. As you may know, the mathematical world is divided about how to index things. Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
+<p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of
+characters. As you may know, the mathematical world is divided about how to index things.
+Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
 <p>APL supports both approaches. You tell APL which you want to use by setting the <em>index origin</em> to 0 or 1.</p>
-<p>In APL, the index origin is a system variable called ⎕io. The line below sets it to 0.</p>
+<p>In APL, the index origin is a system variable called <code class="docutils literal notranslate"><span class="pre">⎕io</span></code>. The line below sets it to 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
