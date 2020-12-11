@@ -1,4 +1,4 @@
-# Exploring Dyalog APL
+# Appendix A - Exploring Dyalog APL
 
 I suggest that you follow [this advice](https://rojergs.github.io/MDAPL/README.html)
 which was written for Dyalog's free on-line version of **Mastering Dyalog APL**.
