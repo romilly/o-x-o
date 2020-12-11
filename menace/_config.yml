@@ -6,7 +6,7 @@ copyright                   : "2020"
 execute:
   execute_notebooks: "off"
 repository:
-  url                       : https://github.com/yourusername/yourbookrepo
+  url                       : https://github.com/romilly/o-x-o
   html:
     use_repository_button: true
     use_issues_button: true
