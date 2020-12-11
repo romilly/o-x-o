@@ -187,7 +187,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/yourusername/yourbookrepo/master?urlpath=tree/chapter-3.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-3.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -533,9 +533,10 @@ Pure mathematicians tend to count from 0, but applied mathematicians often count
 <p>We’ve now created the tools we need to work on the next stage of our implementation of MENACE.</p>
 <p>In the next notebook we will look at the relationship between symmetries (rotations and reflections) of board configurations.</p>
 <p>We will want to use <code class="docutils literal notranslate"><span class="pre">encode</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> so we will save our work ready to reuse in the next notebook.</p>
-<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook2.dws</span></code>.</p>
-<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option because the notebook software silently loads a workspace with a different name.</p>
-<p>APL will not change that name unless we tell it to.</p>
+<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook3.dws</span></code>.</p>
+<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option.
+When we openedthe notebook it silently loaded a workspace with a different name.
+APL will not change that name unless we tell it to.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook3</span> <span class="o">-</span><span class="nv">force</span>
@@ -543,7 +544,7 @@ Pure mathematicians tend to count from 0, but applied mathematicians often count
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Thu Dec 10 13:58:56 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Fri Dec 11 12:22:47 2020
 </span></div></div>
 </div>
 </div>

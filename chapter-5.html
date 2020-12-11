@@ -187,7 +187,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/yourusername/yourbookrepo/master?urlpath=tree/chapter-5.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-5.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -248,7 +248,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook4.dws saved Thu Dec 10 10:13:18 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook4.dws saved Fri Dec 11 12:25:20 2020
 </span></div></div>
 </div>
 <div class="cell docutils container">
@@ -258,7 +259,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">encode  m       r       show    
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">decode  encode  m       r       show    
 </span></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">)vars</span></code> is another useful system command. It shows us the names of the variables that <code class="docutils literal notranslate"><span class="pre">)copy</span></code> brought in for us.</p>
@@ -272,6 +273,7 @@
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">board1  boards  encoded hereDir i       mi      mr180   mr270   mr90    r180    r270    r90     start   symmetries      
 </span></div></div>
 </div>
+<p>As we saw earlier, <code class="docutils literal notranslate"><span class="pre">⎕io</span></code> is <em>not</em> copied, so we’ll need to set it to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
@@ -458,14 +460,14 @@ You’ll see how we create and use canonical representations in below.</p>
 <h3>Defining a position’s canonical representation<a class="headerlink" href="#defining-a-position-s-canonical-representation" title="Permalink to this headline">¶</a></h3>
 <p>As we’ve seen, every board position is a member of a set of one to eight boards which can be regarded as the same as far as the game is concerned.</p>
 <p>The functions <code class="docutils literal notranslate"><span class="pre">encode</span></code> and <code class="docutils literal notranslate"><span class="pre">decode</span></code> allow us to switch between the vector representation of the position and a number in the range zero to 19682.</p>
-<p>The symmetries of a given position form a set of up to eight vectors, and each vector can be converted to its unique number using <code class="docutils literal notranslate"><span class="pre">decode</span></code>.
-We’ll take the smallest of those numbers, convert that to a vector and use that as the canonical representation of the position.</p>
+<p>The symmetries of a given position form a set of up to eight vectors, and each vector can be converted to its unique number using <code class="docutils literal notranslate"><span class="pre">decode</span></code>.</p>
+<p>We’ll take the smallest of those numbers and use that as the canonical representation of the position.</p>
 <p>Let’s do that for the boards we just considered: <code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">less</span></code> and <code class="docutils literal notranslate"><span class="pre">board1</span></code>.
 We are going to perform the same operation on each, so we can save time by defining a function to do it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">encode</span> <span class="o">⌊</span><span class="na">⌿</span> <span class="nv">decode</span> <span class="bp">⍵</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span><span class="kt">}</span>
-<span class="nv">show</span> <span class="nv">canonical</span> <span class="nv">sym</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span> <span class="o">⌊</span><span class="na">⌿</span> <span class="nv">decode</span> <span class="bp">⍵</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span><span class="kt">}</span>
+<span class="nv">show</span> <span class="nv">encode</span> <span class="nv">canonical</span> <span class="nv">sym</span>
 </pre></div>
 </div>
 </div>
@@ -477,7 +479,7 @@ We are going to perform the same operation on each, so we can save time by defin
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">canonical</span> <span class="nv">less</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">encode</span> <span class="nv">canonical</span> <span class="nv">less</span>
 </pre></div>
 </div>
 </div>
@@ -489,7 +491,7 @@ We are going to perform the same operation on each, so we can save time by defin
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">canonical</span> <span class="nv">board1</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">encode</span> <span class="nv">canonical</span> <span class="nv">board1</span>
 </pre></div>
 </div>
 </div>
@@ -517,7 +519,7 @@ canonical[0] canonical←{encode⌊⌿decode ⍵[symmetries]}
 </div>
 <p>What’s gone wrong?</p>
 <p>We’ve used a simple version of indexing in the definition of canonical.
-The <code class="docutils literal notranslate"><span class="pre">[]</span></code> form of indexing corresponds to the notation that is used in a lot of programming languages, but the format is slightly different for vectors and matrices.</p>
+The <code class="docutils literal notranslate"><span class="pre">[]</span></code> form of indexing corresponds to the notation that is used in a lot of programming languages, but the format is slightly different for vectors and matrices. The syntax above works for vectors, but we’re using it with a matrix.</p>
 <p>Luckily APL has another form of indexing based on  the <em>Index function</em> represented as <code class="docutils literal notranslate"><span class="pre">⌷</span></code>.</p>
 <p>You can see how it works in the example below.</p>
 <div class="cell docutils container">
@@ -530,10 +532,27 @@ The <code class="docutils literal notranslate"><span class="pre">[]</span></code
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">7 10 9
 </span></div></div>
 </div>
-<p>I’ve called the function we want <code class="docutils literal notranslate"><span class="pre">ild</span></code>, which is short for <em>index last dimension</em>.</p>
-<p>Here’s its definition, along with an updated definition of canonical.</p>
+<p>Below you’ll see it used in a function called <code class="docutils literal notranslate"><span class="pre">ild</span></code>, which is short for <em>index last dimension</em>.</p>
+<p>Here’s the definition for <code class="docutils literal notranslate"><span class="pre">ild</span></code>, along with an updated definition of canonical.</p>
 <p>#TODO: add canonical</p>
-<p>ild ← {(⊂⍺) ⌷[¯1+⍴⍴⍵]⍵} ⍝ index last dimension</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ild</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="o">⊂</span><span class="bp">⍺</span><span class="p">)</span> <span class="o">⌷</span><span class="sr">[</span><span class="m">¯1</span><span class="o">+⍴⍴</span><span class="bp">⍵</span><span class="sr">]</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ index last dimension</span>
+<span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⌊</span><span class="na">⌿</span><span class="nv">decode</span> <span class="nv">symmetries</span> <span class="nv">ild</span> <span class="bp">⍵</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span> <span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">19683
+</span></div></div>
+</div>
 </div>
 </div>
 </div>
