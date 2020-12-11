@@ -165,6 +165,7 @@
 </node>
 <node TEXT="jupyter" ID="ID_791065339" CREATED="1607594115616" MODIFIED="1607594119415">
 <node TEXT="jupyter API" ID="ID_1178768674" CREATED="1607594120484" MODIFIED="1607594207543" LINK="https://nbformat.readthedocs.io/en/latest/api.html"/>
+<node TEXT="jupyter{book}" ID="ID_1651776405" CREATED="1607681707106" MODIFIED="1607681717524"/>
 </node>
 </node>
 </node>
