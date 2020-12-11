@@ -257,7 +257,7 @@ APL uses <code class="docutils literal notranslate"><span class="pre">×</span><
 <p>It’s interesting to know how many positions there are, but we’ll need to eliminate the ones that are impossible
 or redundant.</p>
 <p>We need some way of representing a board position.</p>
-<p>We can <em>visualise</em> each board position as a 3 by 3 matrix of characters: a <code class="docutils literal notranslate"><span class="pre">×</span></code> for a cross, a <code class="docutils literal notranslate"><span class="pre">○</span></code> for a nought,
+<p>We can show each board position as a 3 by 3 matrix of characters: a <code class="docutils literal notranslate"><span class="pre">×</span></code> for a cross, a <code class="docutils literal notranslate"><span class="pre">○</span></code> for a nought,
 and  a <code class="docutils literal notranslate"><span class="pre">.</span></code> for an unfilled square. That means that an empty board does not just look like white space.</p>
 <p>Suppose the first player placed an ‘x’ in the centre.
 We could create that board like this:</p>
@@ -282,10 +282,14 @@ in an APL program. The way we’ll do it is to represent a board as a numeric ve
 The vector will have a zero for an unfilled position, a 1 for an <code class="docutils literal notranslate"><span class="pre">×</span></code> and a 2 for a <code class="docutils literal notranslate"><span class="pre">○</span></code>.</p>
 <p>The board we saw above would be represented by the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.</p>
 <p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of
-characters. As you may know, the mathematical world is divided about how to index things.
+characters.</p>
+<p>As you may know, the mathematical world is divided about how to index things.
 Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>APL supports both approaches. You tell APL which you want to use by setting the <em>index origin</em> to 0 or 1.</p>
 <p>In APL, the index origin is a system variable called <code class="docutils literal notranslate"><span class="pre">⎕io</span></code>. The line below sets it to 0.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
