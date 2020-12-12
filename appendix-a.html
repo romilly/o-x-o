@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search &#8212; MENACE Revisited</title>
+    <title>Appendix A - Exploring Dyalog APL &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -36,7 +36,6 @@
     
   <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
 
-    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -54,15 +53,13 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script src="_static/searchtools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
-  <script src="searchindex.js" defer></script>
-  
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About the author" href="about-the-author.html" />
+    <link rel="prev" title="Playing the game" href="chapter-4.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
 
 
 
@@ -84,7 +81,7 @@
   <h1 class="site-logo" id="site-title">MENACE Revisited</h1>
   
 </a>
-</div><form class="bd-search d-flex align-items-center" action="#" method="get">
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
@@ -96,7 +93,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning
@@ -112,8 +109,8 @@
    Playing the game
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="appendix-a.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Appendix A - Exploring Dyalog APL
   </a>
  </li>
@@ -154,6 +151,23 @@
         </button>
         
         
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/appendix-a.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
         <!-- Source interaction buttons -->
 
 <div class="dropdown-buttons-trigger">
@@ -165,7 +179,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fsearch.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fappendix-a.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -186,6 +200,42 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-dyalog-apl">
+   Getting Dyalog APL
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-the-notebooks">
+   Running the notebooks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#apl-quickstart">
+   APL Quickstart
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#books">
+   Books
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mastering-dyalog-apl">
+     Mastering Dyalog APL
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -193,27 +243,57 @@
         
               <div>
                 
-  <h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <script>$('#fallback').hide();</script>
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
-  </div>
-  <p>
-    Searching for multiple words only shows matches that contain
-    all words.
-  </p>
-  <form action="" method="get">
-    <input type="text" name="q" aria-labelledby="search-documentation" value="" />
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>
-  
-  <div id="search-results">
-  
-  </div>
+  <div class="section" id="appendix-a-exploring-dyalog-apl">
+<h1>Appendix A - Exploring Dyalog APL<a class="headerlink" href="#appendix-a-exploring-dyalog-apl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="getting-dyalog-apl">
+<h2>Getting Dyalog APL<a class="headerlink" href="#getting-dyalog-apl" title="Permalink to this headline">¶</a></h2>
+<p>Dyalog APL is free for non-commercial use. It runs on Windows, Linux and OS/X.</p>
+<p>You can <a class="reference external" href="https://www.dyalog.com/download-zone.htm">download it here</a>.</p>
+<p>There is also a <a class="reference external" href="https://www.dyalog.com/dyalog/raspberry-pi.htm">32 bit version available for the Raspberry Pi</a>.</p>
+</div>
+<div class="section" id="running-the-notebooks">
+<h2>Running the notebooks<a class="headerlink" href="#running-the-notebooks" title="Permalink to this headline">¶</a></h2>
+<p>I suggest that you follow <a class="reference external" href="https://rojergs.github.io/MDAPL/README.html">this advice</a>
+which was written for Dyalog’s free on-line version of <strong>Mastering Dyalog APL</strong>.
+It will tell you how to install the Jupyter software that you need to run notebooks, and how to install the Dyalog APL kernel for Jupyter which enables you to run notebooks that use APL.</p>
+<p>The notebooks used in this book are in <a class="reference external" href="https://github.com/romilly/o-x-o">this MENACE repository</a>.</p>
+</div>
+<div class="section" id="apl-quickstart">
+<h2>APL Quickstart<a class="headerlink" href="#apl-quickstart" title="Permalink to this headline">¶</a></h2>
+<p>There are some great free resources listed on Dyalog’s <a class="reference external" href="https://tryapl.org/">TryAPL</a> website.</p>
+</div>
+<div class="section" id="books">
+<h2>Books<a class="headerlink" href="#books" title="Permalink to this headline">¶</a></h2>
+<p>There are two books that you may want to look at.</p>
+<div class="section" id="mastering-dyalog-apl">
+<h3>Mastering Dyalog APL<a class="headerlink" href="#mastering-dyalog-apl" title="Permalink to this headline">¶</a></h3>
+<p>The book is currently available in two versions.</p>
+<ol class="simple">
+<li><p>The original book is somewhat out-of-date but you can get it <span class="xref myst">here</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
@@ -223,6 +303,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="chapter-4.html" title="previous page">Playing the game</a>
+    <a class='right-next' id="next-link" href="about-the-author.html" title="next page">About the author</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
