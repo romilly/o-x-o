@@ -9,3 +9,8 @@ I am migrating the old private MENACE notebooks to this public repository and pr
 
 The book is under way - incomplete but readable.
 
+Today I will
+1. ~~Tidy up the Appendix and README~~
+1. Finish the chapter on canonical board representations.
+1. Sthe next chapter.
+
