@@ -168,6 +168,7 @@
 <node TEXT="jupyter{book}" ID="ID_1651776405" CREATED="1607681707106" MODIFIED="1607681717524"/>
 <node TEXT="MyST" ID="ID_725112297" CREATED="1607689155153" MODIFIED="1607695591564" LINK="https://myst-parser.readthedocs.io/en/latest/index.html"/>
 </node>
+<node TEXT="The book!" ID="ID_522980206" CREATED="1607760213744" MODIFIED="1607760294122" LINK="https://romilly.github.io/o-x-o/an-introduction.html"/>
 </node>
 </node>
 </map>
