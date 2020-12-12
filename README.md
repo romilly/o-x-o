@@ -8,4 +8,4 @@ The book is build from the notebooks from the repository.
 
 You can execute the notebooks and explore the code if you have jupyter, Dyalog APL and the dyalog-jupyter kernel installed.
 
-There's more informatiom abut how to set up the required environment [here]().
+There's more informatiom abut how to set up the required environment [here](https://romilly.github.io/o-x-o/appendix-a.html).

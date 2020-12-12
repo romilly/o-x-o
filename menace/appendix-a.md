@@ -21,6 +21,7 @@ The notebooks used in this book are in [this MENACE repository](https://github.c
 There are some great free resources listed on Dyalog's [TryAPL](https://tryapl.org/) website.
 
 
+
 ## Books
 
 There are two books that you may want to look at.
@@ -29,7 +30,19 @@ There are two books that you may want to look at.
 
 The book is currently available in two versions.
 
-1. The original book is somewhat out-of-date but you can get it [here]()
+1. The original book is somewhat out of date, but you can find out how to get it [here](https://www.dyalog.com/mastering-dyalog-apl.htm)
+1. An updated but incomplete version is [available online](https://rojergs.github.io/MDAPL/README.html).
+
+### Learn APL on the $5 Raspberry Pi
+
+![Learn APL](images/Learn_APL.jpg)
+
+*Disclosure*: I wrote it, it's currently incomplete, and it also needs updating.
+
+However, you can get it [free on LeanPub](https://leanpub.com/learnapl).
+You will need to reduce the price from the recommended 5$ using the price slider on the web page.
+
+The current contents will help you to understand much of the code in this book.
 
 
 
