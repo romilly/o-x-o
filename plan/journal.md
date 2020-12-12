@@ -12,5 +12,5 @@ The book is under way - incomplete but readable.
 Today I will
 1. ~~Tidy up the Appendix and README~~
 1. Finish the chapter on canonical board representations.
-1. Sthe next chapter.
+1. Start the next chapter.
 
