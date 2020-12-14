@@ -707,11 +707,8 @@ The syntax above works for vectors, but we’re using it with a matrix.</p>
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">1
 </span></div></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In APL a <em>function</em> returns data as its result. An <em>operator</em> corresponds to what other languages call a <em>higher order function</em>. It takes functions and/or data and returns a <em>function</em> as its result</p>
-</div>
-<p>Let’s create a new function that will determine if a given position is ok (in otehr words, possible).</p>
+<p>In APL a <em>function</em> returns data as its result. An <em>operator</em> corresponds to what other languages call a <em>higher order function</em>. It takes functions and/or data and returns a <em>function</em> as its result.</p>
+<p>Let’s create a new function that will determine if a given position is ok (in other words, possible).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ok</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">0</span> <span class="m">1</span> <span class="o">∊</span><span class="na">⍨</span> <span class="nv">cd</span> <span class="bp">⍵</span><span class="kt">}</span>
@@ -771,6 +768,90 @@ The syntax above works for vectors, but we’re using it with a matrix.</p>
 │...│...│...│...│
 │...│..×│×..│×.○│
 └───┴───┴───┴───┘
+</span></div></div>
+</div>
+<p>Let’s explore the whole set of canonical positions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">uc</span> <span class="kd">←</span> <span class="nv">encode</span> <span class="o">∪</span> <span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">2862 9
+</span></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">uc</span></code> is the matrix of unique canonical positions.</p>
+<p>Let’s see which ones look possible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">ucp</span> <span class="kd">←</span> <span class="nv">uc</span><span class="na">⌿⍨</span><span class="nv">ok</span> <span class="nv">uc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">850 9
+</span></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ucp</span></code> contains a matrix of the unique coanonical possible positions.</p>
+<p>There are only 850, which is manageable.</p>
+<p>Here are the first 19. They just fit across the page without wrapping.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="m">19</span><span class="o">↑</span><span class="nv">ucp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│
+│...│...│...│...│...│...│...│...│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│
+│...│..×│.×.│.×○│.○×│×.○│××○│×○×│.×○│.○.│.○×│×.○│×○.│×○○│○..│○.×│○×.│○×○│○○×│
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<p>It would be interesting to see a few ordered by move mumber.</p>
+<p>It’s easy to find the move number for each row in <code class="docutils literal notranslate"><span class="pre">ucp</span></code>.
+It’s just the total of non-zero values in that row.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">mn</span> <span class="kd">←</span> <span class="o">+</span><span class="na">/</span><span class="nv">ucp</span><span class="o">≠</span><span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">850
+</span></div></div>
+</div>
+<p>APL has a pair of sorting functions called <em>upgrade</em> <code class="docutils literal notranslate"><span class="pre">⍋</span></code>and <em>downgrade</em> <code class="docutils literal notranslate"><span class="pre">⍒</span></code>.</p>
+<p>They return permutation vectors that will sort their arguments into ascending or descending order.</p>
+<p>We can use upgrade on <code class="docutils literal notranslate"><span class="pre">mn</span></code> to reorder <code class="docutils literal notranslate"><span class="pre">ucp</span></code> and then display the first few plausible game positions.
+We’ll also show which move number they ocurr at.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">mnp</span> <span class="kd">←</span> <span class="o">⍋</span><span class="nv">mn</span>
+<span class="o">↑</span><span class="p">(</span><span class="nv">list</span>  <span class="m">19</span><span class="o">↑</span><span class="nv">ucp</span><span class="sr">[</span><span class="nv">mnp</span><span class="sr">;]</span><span class="p">)</span> <span class="p">(</span><span class="m">19</span><span class="o">↑</span><span class="nv">mn</span><span class="sr">[</span><span class="nv">mnp</span><span class="sr">]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│..×│...│...│...│
+│...│...│...│.×.│...│...│...│..×│..×│..○│.×.│.×.│.○.│.○.│×.○│...│...│...│..×│
+│...│..×│.×.│...│.×○│.○×│×.○│.○.│○..│×..│..○│.○.│..×│.×.│...│○..│××○│×○×│.×○│
+├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
+│0  │1  │1  │1  │2  │2  │2  │2  │2  │2  │2  │2  │2  │2  │2  │2  │3  │3  │3  │
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook4</span> <span class="o">-</span><span class="nv">force</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook4.dws saved Mon Dec 14 11:15:34 2020
 </span></div></div>
 </div>
 </div>
