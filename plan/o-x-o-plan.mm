@@ -95,8 +95,39 @@
 </node>
 <node TEXT="next" ID="ID_1278697102" CREATED="1591596972826" MODIFIED="1591596976661"/>
 <node TEXT="win" ID="ID_694042977" CREATED="1591603416372" MODIFIED="1591603429944"/>
+<node TEXT="improvements" ID="ID_992435874" CREATED="1608014638101" MODIFIED="1608014643176">
 <node TEXT="improve diagrams" ID="ID_823157726" CREATED="1607588997269" MODIFIED="1607589005209"/>
 <node TEXT="automated tests?" ID="ID_679802581" CREATED="1607595995523" MODIFIED="1607596001465"/>
+<node TEXT="explain we&apos;re creating a DSL" ID="ID_479042855" CREATED="1608014651428" MODIFIED="1608014660833"/>
+<node TEXT="graph dependednces" ID="ID_1011465581" CREATED="1608014661276" MODIFIED="1608014728975"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Generate from the text.
+    </p>
+    <p>
+      Use dot
+    </p>
+    <p>
+      Layer by chapter
+    </p>
+    <p>
+      Include hyperlinks
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="code" ID="ID_201907315" CREATED="1608014670380" MODIFIED="1608014672181"/>
+<node TEXT="vars" ID="ID_1800926931" CREATED="1608014673427" MODIFIED="1608014675591"/>
+</node>
+<node TEXT="hyperlinks to Dyalog docs for each primitiive used" ID="ID_831005654" CREATED="1608014731227" MODIFIED="1608014761566"/>
+<node TEXT="add links top other books of mine" ID="ID_56796681" CREATED="1608016424612" MODIFIED="1608016437215"/>
+</node>
 </node>
 <node TEXT="Review" FOLDED="true" POSITION="left" ID="Freemind_Link_1153466861" CREATED="1266488259116" MODIFIED="1266488895851" COLOR="#fb1802">
 <icon BUILTIN="xmag"/>

@@ -1,0 +1,66 @@
+digraph defs {
+show [shape=box]
+encode [shape=box]
+decode [shape=box]
+list [shape=box]
+m [shape=box]
+r [shape=box]
+see [shape=box]
+canonical [shape=box]
+ild [shape=box]
+cd [shape=box]
+ok [shape=box]
+wf [shape=box]
+wp [shape=box]
+show -> list;
+decode -> canonical;
+symmetries -> canonical;
+ild -> canonical;
+cd -> ok;
+wpi -> wf;
+ild -> wf;
+wf -> wp;
+boards -> encoded;
+r -> r90;
+i -> r90;
+r -> r180;
+r -> r180;
+r -> r270;
+r -> r270;
+m -> mi;
+m -> mr90;
+r -> mr90;
+m -> mr180;
+r -> mr180;
+m -> mr270;
+r -> mr270;
+i -> symmetries;
+r -> symmetries;
+r -> symmetries;
+r -> symmetries;
+mi -> symmetries;
+mr -> symmetries;
+mr -> symmetries;
+mr -> symmetries;
+see -> sym;
+symmetric -> sym;
+see -> less;
+asymmetric -> less;
+canonical -> all;
+encode -> all;
+encode -> samples;
+encode -> uc;
+canonical -> uc;
+encode -> uc;
+uc -> ucp;
+ok -> ucp;
+uc -> ucp;
+ucp -> mn;
+mn -> mnp;
+rows -> wpi;
+cols -> wpi;
+diagonals -> wpi;
+rows -> wpi;
+cols -> wpi;
+diagonals -> wpi;
+}
