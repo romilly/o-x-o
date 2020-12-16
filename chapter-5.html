@@ -55,7 +55,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Appendix A - Exploring Dyalog APL" href="appendix-a.html" />
+    <link rel="next" title="&lt;no title&gt;" href="chapter-6.html" />
     <link rel="prev" title="Exploring the game" href="chapter-4.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -250,7 +250,7 @@
 <li><p>look at how to see if a move has won the game, and</p></li>
 <li><p>find possible moves if the game is still open.</p></li>
 </ol>
-<p>As usual, we will rpoepare the ground by copying in the work we did in the previous chapter and setting ⎕io to zero.</p>
+<p>As usual, we will proepare the ground by copying in the work we did in the previous chapter and setting ⎕io to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook4</span>
@@ -294,7 +294,7 @@ the diagonals: 0 4 8  2 4 6</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
-<span class="o">⊢</span><span class="nv">wpi</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">rows</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cols</span> <span class="kd">←</span> <span class="o">⍉</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">d</span> <span class="kd">←</span> <span class="m">2</span> <span class="m">3</span><span class="o">⍴↑</span><span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉⌽</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">⋄</span> <span class="o">⊃⍪</span><span class="na">/</span><span class="nv">rows</span> <span class="nv">cols</span> <span class="nv">d</span><span class="kt">}</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
+<span class="o">⊢</span><span class="nv">wpi</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">rows</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cols</span> <span class="kd">←</span> <span class="o">⍉</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">diagonals</span> <span class="kd">←</span> <span class="m">2</span> <span class="m">3</span><span class="o">⍴↑</span><span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉⌽</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">⋄</span> <span class="o">⊃⍪</span><span class="na">/</span><span class="nv">rows</span> <span class="nv">cols</span> <span class="nv">diagonals</span><span class="kt">}</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
 </pre></div>
 </div>
 </div>
@@ -310,12 +310,18 @@ the diagonals: 0 4 8  2 4 6</p>
 </span></div></div>
 </div>
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">wpi</span></code> to write a function <code class="docutils literal notranslate"><span class="pre">wf</span></code> which will tell us if a position is a win or not.</p>
+<p>We’ll use <code class="docutils literal notranslate"><span class="pre">ild</span></code> to create the possible locations for three-in-a-row <code class="docutils literal notranslate"><span class="pre">×</span></code>s and <code class="docutils literal notranslate"><span class="pre">○</span></code>s, and then use <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2∘.=</span></code> to see where each location contains a <code class="docutils literal notranslate"><span class="pre">×</span></code> or a <code class="docutils literal notranslate"><span class="pre">○</span></code>. Finally we <em>and</em> (<code class="docutils literal notranslate"><span class="pre">∧</span></code>) each element in a row of three, <em>or</em> (<code class="docutils literal notranslate"><span class="pre">∨</span></code>) the results, and <em>or</em> them again to find out if there’s a win.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span>wf ← {∨⌿∨/^/1 2∘.=wpi ild ⍵} ⍝ is this a win?
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
+
+Rebuilding user command cache... done
+</span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -358,7 +364,7 @@ the diagonals: 0 4 8  2 4 6</p>
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">220
 </span></div></div>
 </div>
-<p>Let’s check a few of them. We’ll create a function <code class="docutils literal notranslate"><span class="pre">wp</span></code> which filters out wins from a matrix of positions,  apply it to ucp, and show the first nineteen of them.</p>
+<p>Let’s check them. We’ll create a function <code class="docutils literal notranslate"><span class="pre">wp</span></code> which filters out wins from a matrix of positions,  apply it to ucp, and show the first few.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wp</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍵</span><span class="na">⌿⍨</span><span class="nv">wf</span> <span class="bp">⍵</span><span class="kt">}</span>
@@ -416,7 +422,7 @@ the diagonals: 0 4 8  2 4 6</p>
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="chapter-4.html" title="previous page">Exploring the game</a>
-    <a class='right-next' id="next-link" href="appendix-a.html" title="next page">Appendix A - Exploring Dyalog APL</a>
+    <a class='right-next' id="next-link" href="chapter-6.html" title="next page">&lt;no title&gt;</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
