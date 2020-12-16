@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>&lt;no title&gt; &#8212; MENACE Revisited</title>
+    <title>Finding the next move &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -93,7 +93,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning
@@ -112,6 +112,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-5.html">
    Possible games
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Finding the next move
   </a>
  </li>
  <li class="toctree-l1">
@@ -222,15 +227,6 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="simple nav section-nav flex-column">
-</ul>
-
-        </nav>
-        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -238,8 +234,11 @@
         
               <div>
                 
-  <p>We’ve built up a useful collection of APL tools. We’ve got almost all the code we need to implment MENACE.</p>
-<p>In this chapter we will add some more functions to our toolbox. One will look at the possible moves from a given board position. Another will undo a given symmetric transformation.</p>
+  <div class="section" id="finding-the-next-move">
+<h1>Finding the next move<a class="headerlink" href="#finding-the-next-move" title="Permalink to this headline">¶</a></h1>
+<p>We’ve built up a useful collection of APL tools. We’ve got almost all the code we need to implement MENACE.</p>
+<p>In this chapter we will add some more functions to our toolbox. One will look at the possible moves from a given board position.
+Another will undo a given symmetric transformation.</p>
 <p>First, as usual, we will copy in work from the previous chapter and set the index origin to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -466,6 +465,7 @@
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook6.dws saved Wed Dec 16 14:49:11 2020
 </span></div></div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
