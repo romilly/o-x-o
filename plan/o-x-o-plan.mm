@@ -198,7 +198,7 @@
 </node>
 <node TEXT="jupyter" ID="ID_791065339" CREATED="1607594115616" MODIFIED="1607594119415">
 <node TEXT="jupyter API" ID="ID_1178768674" CREATED="1607594120484" MODIFIED="1607594207543" LINK="https://nbformat.readthedocs.io/en/latest/api.html"/>
-<node TEXT="jupyter{book}" ID="ID_1651776405" CREATED="1607681707106" MODIFIED="1607681717524"/>
+<node TEXT="jupyter{book}" ID="ID_1651776405" CREATED="1607681707106" MODIFIED="1608219014405" LINK="https://jupyterbook.org/intro.html"/>
 <node TEXT="MyST" ID="ID_725112297" CREATED="1607689155153" MODIFIED="1607695591564" LINK="https://myst-parser.readthedocs.io/en/latest/index.html"/>
 </node>
 <node TEXT="The book!" ID="ID_522980206" CREATED="1607760213744" MODIFIED="1607946618307" LINK="https://romilly.github.io/o-x-o/chapter-1.html"/>

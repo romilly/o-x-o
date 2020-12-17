@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 import nbformat
 
@@ -26,6 +27,12 @@ class Notebook:
     def add(self, cell: Cell):
         self.cells.append(cell)
 
+    def markdown_cells(self) -> List['MarkdownCell']:
+        return list(cell for cell in self.cells if cell.cell_type() == 'markdown')
+
+    def apl_cells(self) -> List['MarkdownCell']:
+        return list(cell for cell in self.cells if cell.cell_type() == 'code')
+
 
 class MarkdownCell(Cell):
     pass
@@ -46,8 +53,5 @@ def read_apl_book_from(file_name):
         if cell.cell_type in ['markdown','code']:
             klass = MarkdownCell if cell.cell_type == 'markdown' else APLCell
             result.add(klass(cell))
-
     return result
 
-
-read_apl_book_from('../../menace/chapter-5.ipynb')

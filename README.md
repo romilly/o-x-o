@@ -2,7 +2,7 @@
 
 This project is an implementation of Donald Michie's MENACE in APL.
 
-It contains the source for a [jupyter{book}](https://romilly.github.io/o-x-o/an-introduction.html)
+It contains the source for a [jupyter{book}](https://romilly.github.io/o-x-o/chapter-1.html)
 
 The book is build from the notebooks from the repository.
 
