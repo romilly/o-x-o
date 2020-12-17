@@ -12,6 +12,8 @@ cd [shape=box]
 ok [shape=box]
 wf [shape=box]
 wp [shape=box]
+next_moves [shape=box]
+next [shape=box]
 show -> list;
 decode -> canonical;
 symmetries -> canonical;
@@ -20,6 +22,14 @@ cd -> ok;
 wpi -> wf;
 ild -> wf;
 wf -> wp;
+updated -> next;
+gaps -> next;
+updated -> next;
+updated -> next;
+gaps -> next;
+n -> next;
+gaps -> next;
+updated -> next;
 boards -> encoded;
 r -> r90;
 i -> r90;
@@ -63,4 +73,8 @@ diagonals -> wpi;
 rows -> wpi;
 cols -> wpi;
 diagonals -> wpi;
+show -> board2;
+samples -> board2;
+board -> empty;
+samples -> board3;
 }

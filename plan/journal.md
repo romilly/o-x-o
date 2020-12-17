@@ -14,3 +14,12 @@ Today I will
 1. Finish the chapter on canonical board representations.
 1. Start the next chapter.
 
+## Thursday 17 December 2020
+
+I've been lax in maintaining the journal, but I have done a lot of work each day.
+
+Today I need to round out, improve and finish Chapter 6.
+I think Ch 7 will get us to the point where MENACE can play against a human opponent.
+
+The plan is for Ch 8 to cover a version that maintains history in an APL file, and Ch 9 to plot performance.
+
