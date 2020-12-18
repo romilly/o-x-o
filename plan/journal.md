@@ -31,3 +31,5 @@ https://www.rigb.org/christmas-lectures/watch/2019/secrets-and-lies/how-to-bend-
 
 I updated the README, and added a link from the introduction to Appendix A.
 
+I'm going to explore my game player in chapter 7, but I won't add it to the book toc yet.
+
