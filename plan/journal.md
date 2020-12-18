@@ -27,5 +27,7 @@ and Ch 9 to plot performance.
 Note for tomorrow: the RI video demo of MENACE is at 37:30 in
 https://www.rigb.org/christmas-lectures/watch/2019/secrets-and-lies/how-to-bend-the-rules
 
+## Friday 18 December 2020
 
+I updated the README, and added a link from the introduction to Appendix A.
 
