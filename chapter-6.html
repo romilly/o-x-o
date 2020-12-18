@@ -237,8 +237,7 @@
   <div class="section" id="finding-the-next-move">
 <h1>Finding the next move<a class="headerlink" href="#finding-the-next-move" title="Permalink to this headline">¶</a></h1>
 <p>We’ve built up a useful collection of APL tools. We’ve got almost all the code we need to implement MENACE.</p>
-<p>In this chapter we will add some more functions to our toolbox. One will look at the possible moves from a given board position.
-Another will undo a given symmetric transformation.</p>
+<p>In this chapter we will add another function to our toolbox. It will look at the possible moves from a given board position.</p>
 <p>First, as usual, we will copy in work from the previous chapter and set the index origin to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -247,7 +246,8 @@ Another will undo a given symmetric transformation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook5.dws saved Mon Dec 14 17:31:48 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook5.dws saved Mon Dec 14 17:31:48 2020
 </span></div></div>
 </div>
 <div class="cell docutils container">
@@ -259,18 +259,6 @@ Another will undo a given symmetric transformation.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍕</span><span class="na">¨</span><span class="o">⍳</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─┬─┬─┬─┬─┬─┬─┬─┬─┐
-│0│1│2│3│4│5│6│7│8│
-└─┴─┴─┴─┴─┴─┴─┴─┴─┘
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">vars</span>
 </pre></div>
 </div>
@@ -279,6 +267,9 @@ Another will undo a given symmetric transformation.</p>
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">asymmetric      board1  boards  encoded hereDir i       less    mi      mn      mnp     mr180   mr270   mr90    r180    r270    r90     samples start   sym     symmetric       symmetries      uc      ucp     v       wpi     
 </span></div></div>
 </div>
+<p>We’ll start by developing a function that will display all the possible next moves for a given board position.</p>
+<p>We’ll develop and test our work using the positions we stored in <code class="docutils literal notranslate"><span class="pre">samples</span></code>. You may remember than not all of those positions could be reached in play, but they can still be used to develop and test our <em>next</em> function.</p>
+<p>Here are the samples we created earlier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">samples</span>
@@ -310,9 +301,35 @@ Another will undo a given symmetric transformation.</p>
 └───┴───┴───┴───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
+<p>The core idea is that, given a board position, we will display all the possible moves by filling in the blank squares by the appropriate digit.</p>
+<p>Here’s an example using one of the samples with the board on the left and the output on the right.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌───┬───┐
+│...│123│
+│...│456│
+│×.○│×7○│
+└───┴───┘
+</pre></div>
+</div>
+<p>We want to put the digits one to seven into the blank cells.</p>
+<p>There are two issues here.</p>
+<ol class="simple">
+<li><p>The result should be a character matrix, so we want to put the <em>characters</em> <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">7</span></code> into the appropriate cells of the matrix.</p></li>
+<li><p>Indexing a vector into a matrix is a bit ticky. Life wold be easier if we could index into a vector. Then we could reshape the result back to a three by three matrix afterwards.</p></li>
+</ol>
+<p>We’ll experiment and work our way, step by step, towards a function to do that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">board2</span> <span class="kd">←</span> <span class="nv">show</span> <span class="nv">samples</span><span class="sr">[</span><span class="m">4</span><span class="sr">;]</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">pos4</span> <span class="kd">←</span> <span class="nv">samples</span><span class="sr">[</span><span class="m">4</span><span class="sr">;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 1 0 2
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">pos4</span>
 </pre></div>
 </div>
 </div>
@@ -322,9 +339,10 @@ Another will undo a given symmetric transformation.</p>
 ×.○
 </span></div></div>
 </div>
+<p>We want to identify the empty cells on the board. That’s easy. They are the zero items in the vector <code class="docutils literal notranslate"><span class="pre">pos4</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">empty</span> <span class="kd">←</span> <span class="s1">&#39;.&#39;</span><span class="o">=,</span><span class="nv">board2</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">blanks</span> <span class="kd">←</span> <span class="m">0</span><span class="o">=</span><span class="nv">pos4</span>
 </pre></div>
 </div>
 </div>
@@ -332,9 +350,68 @@ Another will undo a given symmetric transformation.</p>
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">1 1 1 1 1 1 0 1 0
 </span></div></div>
 </div>
+<p>Where are they in the vector?</p>
+<p>There’s an APL primitive to do that :)</p>
+<p>It’s <em>Where</em>, represented by <code class="docutils literal notranslate"><span class="pre">⍸</span></code>. It converts a boolean vector to a vector of indices, one index for each <code class="docutils literal notranslate"><span class="pre">1</span></code> in the vector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴↑</span><span class="p">(</span><span class="m">1</span><span class="o">+⍳</span><span class="p">(</span><span class="o">+</span><span class="na">/</span><span class="s1">&#39;.&#39;</span><span class="o">=,</span><span class="nv">board2</span><span class="p">))</span> <span class="kt">{</span><span class="o">⍕</span><span class="na">¨</span><span class="bp">⍺</span><span class="kt">}</span><span class="na">@</span><span class="kt">{</span><span class="s1">&#39;.&#39;</span><span class="o">=</span><span class="bp">⍵</span><span class="kt">}</span> <span class="o">,</span><span class="nv">board2</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍸</span><span class="nv">blanks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5 7
+</span></div></div>
+</div>
+<p>How many blank cells are there? That’s just a <em>plus reduction</em> written <code class="docutils literal notranslate"><span class="pre">+/</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="na">/</span><span class="nv">blanks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">7
+</span></div></div>
+</div>
+<p>Let’s create the characters <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">7</span></code>. We’ll use our old friend <code class="docutils literal notranslate"><span class="pre">⍳</span></code> to generate the numbers, and then another APL primitive function called <em>format</em> <code class="docutils literal notranslate"><span class="pre">⍕</span></code> to turn the numbers into characters.</p>
+<p>If we provide <code class="docutils literal notranslate"><span class="pre">⍕</span></code> with the vector 1 0 on its left, it will format the numbers on its right into one-character fields.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="m">1</span> <span class="m">0</span><span class="o">⍕</span><span class="m">1</span><span class="o">+⍳+</span><span class="na">/</span><span class="nv">blanks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">1234567
+</span></div></div>
+</div>
+<p>Let’s create and display a board matrix based on pos4.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">show</span> <span class="nv">pos4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+...
+×.○
+</span></div></div>
+</div>
+<p>We’ve created a vector of characters and a vector of of indices.</p>
+<p>If we</p>
+<ol class="simple">
+<li><p>Turn <code class="docutils literal notranslate"><span class="pre">board4</span></code> into a vector,</p></li>
+<li><p>Index the charcaters into the vector using those indices, and</p></li>
+<li><p>reshape the result back into a 3 by 3 matrix</p></li>
+</ol>
+<p>we’re done!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">bv</span> <span class="kd">←</span> <span class="o">,</span><span class="nv">show</span> <span class="nv">pos4</span>
+<span class="nv">bv</span><span class="sr">[</span><span class="o">⍸</span><span class="m">0</span><span class="o">=</span><span class="nv">pos4</span><span class="sr">]</span> <span class="kd">←</span> <span class="m">1</span> <span class="m">0</span><span class="o">⍕</span><span class="m">1</span><span class="o">+⍳+</span><span class="na">/</span><span class="m">0</span><span class="o">=</span><span class="nv">pos4</span>
+<span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="nv">bv</span>
 </pre></div>
 </div>
 </div>
@@ -344,16 +421,11 @@ Another will undo a given symmetric transformation.</p>
 ×7○
 </span></div></div>
 </div>
+<p>We can combine all of that into a function <code class="docutils literal notranslate"><span class="pre">moves</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next_moves</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span> <span class="m">3</span><span class="o">⍴↑</span><span class="p">(</span><span class="m">1</span><span class="o">+⍳</span><span class="p">(</span><span class="o">+</span><span class="na">/</span><span class="s1">&#39;.&#39;</span><span class="o">=,</span><span class="bp">⍵</span><span class="p">))</span> <span class="kt">{</span><span class="o">⍕</span><span class="na">¨</span><span class="bp">⍺</span><span class="kt">}</span><span class="na">@</span><span class="kt">{</span><span class="s1">&#39;.&#39;</span><span class="o">=</span><span class="bp">⍵</span><span class="kt">}</span> <span class="o">,</span><span class="bp">⍵</span><span class="kt">}</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next_moves</span> <span class="nv">board2</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">moves</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">blanks</span> <span class="kd">←</span> <span class="m">0</span><span class="o">=</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">bv</span> <span class="kd">←</span> <span class="o">,</span><span class="nv">show</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">bv</span><span class="sr">[</span><span class="o">⍸</span><span class="nv">blanks</span><span class="sr">]</span> <span class="kd">←</span> <span class="m">1</span> <span class="m">0</span><span class="o">⍕</span><span class="m">1</span><span class="o">+⍳+</span><span class="na">/</span><span class="nv">blanks</span> <span class="p">⋄</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="nv">bv</span> <span class="kt">}</span>
+<span class="nv">moves</span> <span class="nv">pos4</span>
 </pre></div>
 </div>
 </div>
@@ -363,99 +435,7 @@ Another will undo a given symmetric transformation.</p>
 ×7○
 </span></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next_moves</span> <span class="na">¨</span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span><span class="nv">show</span> <span class="nv">samples</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
-│123│123│123│123│123│123│123│○○○│
-│456│456│456│456│456│456│456│○○○│
-│789│78×│×78│×7×│×7○│○78│○7○│○○○│
-└───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">n</span> <span class="kd">←</span> <span class="m">1</span> <span class="m">0</span><span class="o">⍕</span><span class="m">1</span><span class="o">+⍳</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">123456789
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">updated</span> <span class="kd">←</span> <span class="o">,</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">gaps</span> <span class="kd">←</span> <span class="s1">&#39;.&#39;</span><span class="o">=</span><span class="nv">updated</span> <span class="p">⋄</span> <span class="nv">updated</span><span class="sr">[</span><span class="o">⍸</span><span class="nv">gaps</span><span class="sr">]</span><span class="kd">←</span> <span class="nv">n</span><span class="sr">[</span><span class="o">⍳+</span><span class="na">/</span><span class="nv">gaps</span><span class="sr">]</span> <span class="p">⋄</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="nv">updated</span><span class="kt">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next</span> <span class="nv">board2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">123
-456
-×7○
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span><span class="nv">show</span> <span class="nv">samples</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
-│...│...│...│...│...│...│...│○○○│
-│...│...│...│...│...│...│...│○○○│
-│...│..×│×..│×.×│×.○│○..│○.○│○○○│
-└───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span> <span class="o">⊢</span><span class="nv">board3</span> <span class="kd">←</span> <span class="nv">samples</span><span class="sr">[</span><span class="m">7</span><span class="sr">;]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">2 2 2 2 2 2 2 2 2
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next</span> <span class="nv">show</span> <span class="nv">board3</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">○○○
-○○○
-○○○
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">next</span><span class="na">¨</span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span><span class="nv">show</span> <span class="nv">samples</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
-│123│123│123│123│123│123│123│○○○│
-│456│456│456│456│456│456│456│○○○│
-│789│78×│×78│×7×│×7○│○78│○7○│○○○│
-└───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
-</div>
+<p>We’ll save the work we did in this chapter.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook6</span> <span class="o">-</span><span class="nv">force</span>
@@ -463,9 +443,10 @@ Another will undo a given symmetric transformation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook6.dws saved Wed Dec 16 14:49:11 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook6.dws saved Thu Dec 17 15:50:07 2020
 </span></div></div>
 </div>
+<p>In the next chapter we will start to implement a MENACE player.</p>
 </div>
 
     <script type="text/x-thebe-config">

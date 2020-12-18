@@ -55,7 +55,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="chapter-6.html" />
+    <link rel="next" title="Finding the next move" href="chapter-6.html" />
     <link rel="prev" title="Exploring the game" href="chapter-4.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -112,6 +112,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Possible games
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-6.html">
+   Finding the next move
   </a>
  </li>
  <li class="toctree-l1">
@@ -267,9 +272,9 @@
 <div class="section" id="win-lose-draw">
 <h2>Win, lose, draw<a class="headerlink" href="#win-lose-draw" title="Permalink to this headline">¶</a></h2>
 <p>How can we find if a position is a winning position?</p>
-<p>We need to see if there’s a row, a column or a diagonal where there are thre <code class="docutils literal notranslate"><span class="pre">×</span></code>s or three <code class="docutils literal notranslate"><span class="pre">○</span></code>s.</p>
+<p>We need to see if there’s a row, a column or a diagonal where there are three <code class="docutils literal notranslate"><span class="pre">×</span></code>s or three <code class="docutils literal notranslate"><span class="pre">○</span></code>s.</p>
 <p>We will start by finding a way to pick out the contents of all the positions that could lead to a win.</p>
-<p>If we create a 3 by 3 matrix on the numbers from zero to nine we could list the indices that corespond to a winning line.</p>
+<p>If we create a 3 by 3 matrix on the numbers from zero to nine we could list the indices that correspond to a winning line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
@@ -286,7 +291,7 @@
 the rows: 0 1 2  3 4 5  6 7 8
 the columns: 0 3 6  1 4 7  2 5 8
 the diagonals: 0 4 8  2 4 6</p>
-<p>Actually, we can get APL to check our work. APL has two useful functions, reverse <code class="docutils literal notranslate"><span class="pre">⌽</span></code> and transpose <code class="docutils literal notranslate"><span class="pre">⍉</span></code>.</p>
+<p>Actually, we can get APL to check our work. APL has two relevant functions, reverse <code class="docutils literal notranslate"><span class="pre">⌽</span></code> and transpose <code class="docutils literal notranslate"><span class="pre">⍉</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
@@ -306,7 +311,10 @@ the diagonals: 0 4 8  2 4 6</p>
 </span></div></div>
 </div>
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">wpi</span></code> to write a function <code class="docutils literal notranslate"><span class="pre">wf</span></code> which will tell us if a position is a win or not.</p>
-<p>We’ll use <code class="docutils literal notranslate"><span class="pre">ild</span></code> to create the possible locations for three-in-a-row <code class="docutils literal notranslate"><span class="pre">×</span></code>s and <code class="docutils literal notranslate"><span class="pre">○</span></code>s, and then use <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2∘.=</span></code> to see where each location contains a <code class="docutils literal notranslate"><span class="pre">×</span></code> or a <code class="docutils literal notranslate"><span class="pre">○</span></code>. Finally we <em>and</em> (<code class="docutils literal notranslate"><span class="pre">∧</span></code>) each element in a row of three, <em>or</em> (<code class="docutils literal notranslate"><span class="pre">∨</span></code>) the results, and <em>or</em> them again to find out if there’s a win.</p>
+<p>We’ll use <code class="docutils literal notranslate"><span class="pre">ild</span></code> to create the possible locations for three-in-a-row <code class="docutils literal notranslate"><span class="pre">×</span></code>s and <code class="docutils literal notranslate"><span class="pre">○</span></code>s,
+and then use <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2∘.=</span></code> to see where each location contains a <code class="docutils literal notranslate"><span class="pre">×</span></code> or a <code class="docutils literal notranslate"><span class="pre">○</span></code>.
+Finally, we <em>and</em> (<code class="docutils literal notranslate"><span class="pre">∧</span></code>) each element in a row of three,
+<em>or</em> (<code class="docutils literal notranslate"><span class="pre">∨</span></code>) the results, and <em>or</em> them again to find out if there’s a win.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span>wf ← {∨⌿∨/^/1 2∘.=wpi ild ⍵} ⍝ is this a win?
@@ -360,7 +368,8 @@ Rebuilding user command cache... done
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">220
 </span></div></div>
 </div>
-<p>Let’s check them. We’ll create a function <code class="docutils literal notranslate"><span class="pre">wp</span></code> which filters out wins from a matrix of positions,  apply it to ucp, and show the first few.</p>
+<p>Let’s check them. We’ll create a function <code class="docutils literal notranslate"><span class="pre">wp</span></code> which filters out wins from a matrix of positions,  apply it to ucp,
+and show the first few.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wp</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍵</span><span class="na">⌿⍨</span><span class="nv">wf</span> <span class="bp">⍵</span><span class="kt">}</span>
@@ -418,7 +427,7 @@ Rebuilding user command cache... done
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="chapter-4.html" title="previous page">Exploring the game</a>
-    <a class='right-next' id="next-link" href="chapter-6.html" title="next page">&lt;no title&gt;</a>
+    <a class='right-next' id="next-link" href="chapter-6.html" title="next page">Finding the next move</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
