@@ -1,3 +1,4 @@
+(appendix-a) =
 # Appendix A - Exploring Dyalog APL
 
 ## Getting Dyalog APL
