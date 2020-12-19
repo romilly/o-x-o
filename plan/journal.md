@@ -33,3 +33,14 @@ I updated the README, and added a link from the introduction to Appendix A.
 
 I'm going to explore my game player in chapter 7, but I won't add it to the book toc yet.
 
+## Saturday 19 December 2020
+
+I can't yet implement the human player in a notebook, as ⍞ is not supported in the dyalog-jupyter kernel.
+
+I have implemented it, in part, in `notebook7a.dws`.
+
+For now, I will concentrate on
+1. The random player (a quick win, or more accurately a quick *loss*).
+1. The updating menace player.
+
+That would be enough for me to start training a MENACE version.

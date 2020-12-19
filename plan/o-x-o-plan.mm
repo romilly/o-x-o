@@ -85,6 +85,7 @@
 </node>
 </node>
 <node TEXT="Tasks" POSITION="right" ID="Freemind_Link_857865306" CREATED="1266488223477" MODIFIED="1591596750246" COLOR="#de5613">
+<node TEXT="implementation" ID="ID_667640021" CREATED="1608374657561" MODIFIED="1608374665089">
 <node TEXT="new notebook" ID="ID_58314772" CREATED="1591596892875" MODIFIED="1591596901629"/>
 <node TEXT="use integers, encode, decode, show" ID="ID_1866444348" CREATED="1591596902027" MODIFIED="1591596931237"/>
 <node TEXT="symmetries" ID="ID_1069063700" CREATED="1591596934794" MODIFIED="1591596964004"/>
@@ -95,11 +96,29 @@
 </node>
 <node TEXT="next" ID="ID_1278697102" CREATED="1591596972826" MODIFIED="1591596976661"/>
 <node TEXT="win" ID="ID_694042977" CREATED="1591603416372" MODIFIED="1591603429944"/>
+<node TEXT="game_runner" ID="ID_866707998" CREATED="1608374694048" MODIFIED="1608374702980">
+<node TEXT="create config" ID="ID_781371979" CREATED="1608374704136" MODIFIED="1608374707716"/>
+<node TEXT="players" ID="ID_1506782304" CREATED="1608374708120" MODIFIED="1608374710884"/>
+</node>
+</node>
+<node TEXT="documentation" ID="ID_967357045" CREATED="1608374679296" MODIFIED="1608374684605">
+<node TEXT="explain UK English" ID="ID_1484885902" CREATED="1608374718272" MODIFIED="1608374725170"/>
+</node>
 <node TEXT="improvements" ID="ID_992435874" CREATED="1608014638101" MODIFIED="1608014643176">
 <node TEXT="explain we&apos;re creating a DSL" ID="ID_479042855" CREATED="1608014651428" MODIFIED="1608014660833"/>
 <node TEXT="check intros, conclusions for each chapter." ID="ID_938949770" CREATED="1608108715052" MODIFIED="1608108739389"/>
 <node TEXT="improve diagrams" ID="ID_823157726" CREATED="1607588997269" MODIFIED="1607589005209"/>
 <node TEXT="automated tests?" ID="ID_679802581" CREATED="1607595995523" MODIFIED="1607596001465"/>
+<node TEXT="hyperlinks to Dyalog docs for each primitiive used" ID="ID_831005654" CREATED="1608014731227" MODIFIED="1608014761566"/>
+<node TEXT="add links top other books of mine" ID="ID_56796681" CREATED="1608016424612" MODIFIED="1608016437215"/>
+<node TEXT="check for numbersd (0,1 etc) instead of zero, one" ID="ID_130402617" CREATED="1608111588543" MODIFIED="1608111604186"/>
+<node TEXT="Add an image of a MENACE matchbox" ID="ID_371570816" CREATED="1608374739832" MODIFIED="1608374749483"/>
+<node TEXT="check use of &#x22a2; vs +" ID="ID_91117859" CREATED="1608376761089" MODIFIED="1608376771701">
+<node TEXT="explain rules for APL display." ID="ID_1066259595" CREATED="1608376783761" MODIFIED="1608376803092"/>
+</node>
+</node>
+<node TEXT="tools for writing" ID="ID_1667167224" CREATED="1608374816239" MODIFIED="1608374822546">
+<node TEXT="Notebook analysis code in Python" ID="ID_1562453046" CREATED="1608374828246" MODIFIED="1608374845959">
 <node TEXT="graph dependednces" ID="ID_1011465581" CREATED="1608014661276" MODIFIED="1608014728975"><richcontent TYPE="NOTE">
 
 <html>
@@ -125,12 +144,15 @@
 <node TEXT="code" ID="ID_201907315" CREATED="1608014670380" MODIFIED="1608014672181"/>
 <node TEXT="vars" ID="ID_1800926931" CREATED="1608014673427" MODIFIED="1608014675591"/>
 </node>
-<node TEXT="hyperlinks to Dyalog docs for each primitiive used" ID="ID_831005654" CREATED="1608014731227" MODIFIED="1608014761566"/>
-<node TEXT="add links top other books of mine" ID="ID_56796681" CREATED="1608016424612" MODIFIED="1608016437215"/>
-<node TEXT="check for numbersd (0,1 etc) instead of zero, one" ID="ID_130402617" CREATED="1608111588543" MODIFIED="1608111604186"/>
+<node TEXT="use to apply Yahoo style guide" ID="ID_989749798" CREATED="1608374868414" MODIFIED="1608375022927">
+<node TEXT="check title case" ID="ID_994442175" CREATED="1608374861542" MODIFIED="1608374868009"/>
+<node TEXT="check heading levels" ID="ID_581714811" CREATED="1608375028563" MODIFIED="1608375032901"/>
+<node TEXT="check titles flow" ID="ID_907138384" CREATED="1608375033387" MODIFIED="1608375041535"/>
 </node>
 </node>
-<node TEXT="Review" FOLDED="true" POSITION="left" ID="Freemind_Link_1153466861" CREATED="1266488259116" MODIFIED="1266488895851" COLOR="#fb1802">
+</node>
+</node>
+<node TEXT="Review" POSITION="left" ID="Freemind_Link_1153466861" CREATED="1266488259116" MODIFIED="1266488895851" COLOR="#fb1802">
 <icon BUILTIN="xmag"/>
 <node TEXT="WW" ID="Freemind_Link_1466796877" CREATED="1266488965666" MODIFIED="1296303686570" COLOR="#ffcc00" BACKGROUND_COLOR="#006666">
 <icon BUILTIN="button_ok"/>
@@ -143,6 +165,23 @@
 </node>
 <node TEXT="Questions" ID="Freemind_Link_1003502265" CREATED="1266489024048" MODIFIED="1296303570801" COLOR="#00cccc">
 <icon BUILTIN="help"/>
+<node TEXT="What does jupyter{book} do about metadata?" ID="ID_1811737877" CREATED="1608375078618" MODIFIED="1608375142388"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      This has an impact on search engine results
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="How responsive is the content?" ID="ID_145048983" CREATED="1608375233096" MODIFIED="1608375246561"/>
+<node TEXT="how can I fix the output of nested arrays" ID="ID_802671237" CREATED="1608375502693" MODIFIED="1608375518200"/>
 </node>
 <node TEXT="Surprises" ID="Freemind_Link_19217072" CREATED="1266489032944" MODIFIED="1296303119998" COLOR="#ff0000" BACKGROUND_COLOR="#ffff00">
 <icon BUILTIN="messagebox_warning"/>
@@ -186,6 +225,7 @@
 </richcontent>
 </node>
 <node TEXT="Oliver Child&apos;s article in chalkdust magazine" ID="ID_1943588441" CREATED="1607075681365" MODIFIED="1607076858357" LINK="https://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/"/>
+<node TEXT="RI lecture" ID="ID_1755874228" CREATED="1608365780194" MODIFIED="1608371469967" LINK="https://www.rigb.org/christmas-lectures/watch/2019/secrets-and-lies/how-to-bend-the-rules"/>
 </node>
 <node TEXT="OXO" ID="ID_370465858" CREATED="1607092169084" MODIFIED="1607092173638">
 <node TEXT="http://www.mathrec.org/old/2002jan/solutions.html" ID="ID_1797027239" CREATED="1607092175133" MODIFIED="1607092175133" LINK="http://www.mathrec.org/old/2002jan/solutions.html"/>
