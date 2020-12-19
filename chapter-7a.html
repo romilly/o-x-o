@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reinforcement Learning From The Ground Up &#8212; MENACE Revisited</title>
+    <title>Playing the game &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,7 +55,6 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Reinforcement Learning" href="chapter-2.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -86,8 +85,8 @@
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-1.html">
    Reinforcement Learning From The Ground Up
   </a>
  </li>
@@ -168,7 +167,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/chapter-1.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/chapter-7a.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -188,7 +187,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fchapter-1.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fchapter-7a.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -209,7 +208,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-1.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-7a.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -232,36 +231,9 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#once-upon-a-time">
-   Once Upon A Time
+  <a class="reference internal nav-link" href="#the-menace-configuration">
+   The MENACE configuration
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reinforcement-learning">
-   Reinforcement Learning
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#samuel-s-checkers-player">
-     Samuel’s Checkers Player
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#donald-michie-s-menace">
-     Donald Michie’s MENACE
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#recent-progress-in-rl">
-     Recent Progress In RL
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#michie-s-menace-revisited">
-     Michie’s MENACE Revisited
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -274,97 +246,83 @@
         
               <div>
                 
-  <div class="section" id="reinforcement-learning-from-the-ground-up">
-<h1>Reinforcement Learning From The Ground Up<a class="headerlink" href="#reinforcement-learning-from-the-ground-up" title="Permalink to this headline">¶</a></h1>
-<p>This book implements Donald Michie’s
-<a class="reference external" href="https://en.wikipedia.org/wiki/Matchbox_Educable_Noughts_and_Crosses_Engine">MENACE</a> using <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
-<p>The implementation builds an APL <a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>
-(Domain-specific language) that implements <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a>
-in the game Noughts and Crosses (Tic-tac-toe).</p>
-<p>I plan to add a Python implementation later so that the two can be compared.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> is a programming language developed by
-<a class="reference external" href="https://en.wikipedia.org/wiki/Kenneth_E._Iverson">Kenneth E. Iverson</a>.
-APL is unmatched for expressing complex operations on arrays.</p>
-<p>This short book is a <em>work in progress</em>. It is currently about 80% complete.</p>
-<p>I hope that the book has enough explanation and code examples for you to be able to follow the flow.
-It introduces language elements as they are needed. It isn’t a systematic introduction to the language,
-but you will learn a lot of useful APL constructs from it.</p>
-<p>If you would like to learn more APL or want to experiment with the code in the
-notebooks, you can find out do that in <a class="reference internal" href="appendix-a.html"><span class="doc">Appendix A</span></a>.</p>
-<div class="section" id="once-upon-a-time">
-<h2>Once Upon A Time<a class="headerlink" href="#once-upon-a-time" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes smart people jump to dumb conclusions.</p>
-<p>Back in 1965 I attended my first programming course at the University of London Institute of Computer Science.</p>
-<p>Our trainer was great. He was an academic lecturer with a wealth of programming experience, and we all learned a lot.
-But he wasn’t right about everything he told us.</p>
-<p>On the last day he ran an <em>Ask Me Anything</em> session.</p>
-<p>One of the students asked him if a computer program could ever beat consistently humans at chess.
-He answered immediately with a firm <em>No</em>.</p>
-<p>He explained:
-“The program could only play by the programmer’s rules, so it could never be a better player than the programmer.”</p>
-<p>He had no conception of a program that could learn from its mistakes and improve its strategy.</p>
+  <div class="section" id="playing-the-game">
+<h1>Playing the game<a class="headerlink" href="#playing-the-game" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we’ll explore the code that will run a game of Noughts and Crosses.</p>
+<p>The goal is to create a framweork that makes it easy to run MENACE with a variety of different player types.</p>
+<p>Specifically, we’ll implement</p>
+<ol class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">random</span></code> player function which will pick a legal move at random, and</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">menace</span></code> player that learns using MENACE’s strategy to chose which move to make</p></li>
+</ol>
+<p>Later we’ll look at creating a <code class="docutils literal notranslate"><span class="pre">perfect</span></code> player who makes the best possible moves throughout the game.</p>
+<p>I don’t yet know how to capture user input from a program running in an APL jupyter notebook, but it’s easy to do when running a program using Dyalog’s RIDE interface. Appendix B (when written) will describe how to run a version of MENACE that also supports human players.</p>
+<p>Each of these players will be implemented as an APL function which will take the current MENACE configuration as an argument, make a move and return an updated configuration as its result.</p>
+<p>We’ll plug the players into a <code class="docutils literal notranslate"><span class="pre">game_runnner</span></code> which we will implement as a <em>user-defined</em> operator.</p>
+<p>Recall that in APL, a <em>function</em> returns data but an <em>operator</em> returns a function. Our <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will take a pair of player functions as arguments and return a function that will play an entire game.</p>
+<p>That function will take an array that captures the MENACE configuration as an argument and return an updated configuration as its result.</p>
+<p>In this chapter we will assume that all the games are played in a single APL session. In the <em>next</em> chapter we will implement a simple way of retaining that data so that MENACE can learn across multiple sessions.</p>
+<div class="section" id="the-menace-configuration">
+<h2>The MENACE configuration<a class="headerlink" href="#the-menace-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The MENACE configuration will contain the information needed by the players.</p>
+<p>The original version of MENACE tracked the value of moves by using beads in a matchbox. The beads were adjusted when a game was over.</p>
+<p>A player that applies MENACE’s strategy needs that information so we will need to include it in the MENACE configuration. The function that implements a random player will ignore it.</p>
+<p>MENACE also tracked the moves made during a game by requiring its human agent to leave open each matchbox used, with the selected bead visible. It needed that information for its adjustments, so we will include that too.</p>
+<p>Throughout a game <strong>all</strong> player types need to know the configuration for the current board. If we track the moves actually made during a game, the current board is simply the last of the moves in the current game, so the game history contains it.</p>
+<p>Eventually we may want to examine MENACE’s performance over time. For that reason the configuration will maintain a history of wins, draws and losses. The <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will maintain that information but the player functions will ignore it.</p>
+<p>In summary, then, the MENACE configuration will contain three items:</p>
+<ol class="simple">
+<li><p>An array of notional <em>bead counts</em>. The format of that data is described below.</p></li>
+<li><p>A history of the current game, held as a matrix of position vectors, one row per move.</p></li>
+<li><p>A vector of MENACE’s game results. A win is represented by 1, a draw by 0 and a loss by ¯1.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook6</span>
+</pre></div>
 </div>
-<div class="section" id="reinforcement-learning">
-<h2>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h2>
-<p>He can’t have known that several researchers had already published details of programs that did exactly that.
-They implemented <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a> strategies.
-One of the first, and most famous, was Samuels’ checkers player.</p>
-<div class="section" id="samuel-s-checkers-player">
-<h3>Samuel’s Checkers Player<a class="headerlink" href="#samuel-s-checkers-player" title="Permalink to this headline">¶</a></h3>
-<p>In 1959 <a class="reference external" href="https://en.wikipedia.org/wiki/Arthur_Samuel">A H Samuel</a> wrote about a program
-that played <a class="reference external" href="https://en.wikipedia.org/wiki/Draughts">Draughts</a> (known as Checkers in the USA).</p>
-<p>The program learned to improve its game. Draughts or Checkers is not as complex as chess, but it is not a trivial game.
-Samuel’s implementation played the game surprisingly well. This was a significant milestone in the development of AI.</p>
-<p>Another early program played a simpler game.</p>
 </div>
-<div class="section" id="donald-michie-s-menace">
-<h3>Donald Michie’s MENACE<a class="headerlink" href="#donald-michie-s-menace" title="Permalink to this headline">¶</a></h3>
-<p>Most of us have played <a class="reference external" href="https://en.wikipedia.org/wiki/Tic-tac-toe"><em>Tic-tac-toe</em></a>, or <em>Noughts and Crosses</em> as it’s known in the UK.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Donald_Michie">Donald Michie</a> (a pioneer in AI) realised that Noughts and Crosses is a
-good candidate if you’re looking a way to start exploring game-playing AI.</p>
-<p>In 1960 Michie created <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">MENACE</a>,
-the <em>Matchbox Educable Noughts And Crosses Engine</em>.</p>
-<p>MENACE was a mechanical computer based on matchboxes filled with coloured beads.
-MENACE’s moves were determined by picking a bead at random from the appropriate matchbox.
-When the game was over the beads were adjusted depending on the outcome of the game.</p>
-<p>This simple design was enough for it to become a decent player when it had played enough games against a human opponent.</p>
-<p>MENACE was also implemented in software on a Pegasus computer.</p>
-<p>I first read about MENACE in the Penguin Science Survey 1962 vol 2.
-You can see a picture of the original matchbox MENACE below.</p>
-<p><img alt="MENACE" src="_images/menace-1961.jpg" /></p>
-<p>RL (Reinforcement Learning) has been actively studied by researchers since the early implementations.</p>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook6.dws saved Thu Dec 17 15:50:07 2020
+</span></div></div>
 </div>
-<div class="section" id="recent-progress-in-rl">
-<h3>Recent Progress In RL<a class="headerlink" href="#recent-progress-in-rl" title="Permalink to this headline">¶</a></h3>
-<p>Recent RL successes include Deep Mind’s AlphaGo and AlphaZero.</p>
-<p>We’ve also seen the publication of a long-awaited second edition of
-Sutton and Barto’s seminal
-<a class="reference external" href="https://www.amazon.co.uk/Reinforcement-Learning-Introduction-Richard-Sutton/dp/0262039249/">book</a> on RL.</p>
-<p>The book includes a description of Michie’s MENACE.</p>
-<p>Many people when they first encounter MENACE think of its learning as a form of evolution.</p>
-<p>My long-time friend and mentor, Tom Westerdale, has formalised the relationship between temporal difference methods and
-Evolutionary Adaptive Systems.</p>
-<p>There’s a lot of interest in RL at present and Michie’s MENACE is a great way to get familiar with the basics.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
+</pre></div>
 </div>
-<div class="section" id="michie-s-menace-revisited">
-<h3>Michie’s MENACE Revisited<a class="headerlink" href="#michie-s-menace-revisited" title="Permalink to this headline">¶</a></h3>
-<p>Several people have replicated MENACE over the years.</p>
-<p>Michie and D. Martin created an <a class="reference external" href="https://www.gwern.net/docs/rl/1963-michie.pdf">extended simulation</a>
-on a Ferranti Pegasus 2.</p>
-<p>Matthew Scroggs built a mechanical replica which was used by Hannah Fry and Matt Parker in the
-<a class="reference external" href="https://www.mscroggs.co.uk/blog/71">2019 Royal Society Christmas Lecture</a> to demonstrate how machine learning works.
-Scroggs also wrote a <a class="reference external" href="https://github.com/mscroggs/MENACE">JavaScript implementation</a>.</p>
-<p>Scroggs intoduced MENACE to Oliver Child, and Child, while still at school,
-created his own <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">replica</a>.</p>
-<p>I, too, am keen to replicate MENACE.</p>
-<p>This book is based on a series of Jupyter Notebooks that will build up a simple implementation
-of MENACE in <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>
-(which stands for <em>A Programming Language</em>) is very well suited to the task.</p>
-<p>APL was designed as a language for exposition, and it implements the algorithms that we’ll need simply and concisely.</p>
-<p>The notebooks will explore the game and its implementation.</p>
-<div class="toctree-wrapper compound">
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">human_player</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">board</span> <span class="nv">moves</span> <span class="nv">menace</span> <span class="nv">history</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="vg">⍞</span> <span class="kd">←</span> <span class="nv">show</span> <span class="nv">board</span> <span class="p">⋄</span> <span class="nv">move</span> <span class="kd">←</span> <span class="nv">ask</span> <span class="s1">&#39;which move&#39;</span> <span class="p">⋄</span> <span class="nv">board</span> <span class="nv">moves</span> <span class="nv">menace</span> <span class="nv">history</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ask</span> <span class="kd">←</span> <span class="kt">{</span> <span class="vg">⍞</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="p">(</span><span class="o">⍴</span><span class="bp">⍵</span><span class="p">)</span><span class="o">↓</span><span class="vg">⍞</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="c1">⍝ ask &#39;name?&#39; ⍝ JUPYTER NOTEBOOK: Input through ⍞ is not supported</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook7</span> <span class="o">-</span><span class="nv">force</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Sat Dec 19 08:30:58 2020
+</span></div></div>
 </div>
 </div>
 </div>
@@ -397,7 +355,6 @@ of MENACE in <a class="reference external" href="https://www.dyalog.com/">Dyalog
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="chapter-2.html" title="next page">Reinforcement Learning</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

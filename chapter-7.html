@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playing the game &#8212; MENACE Revisited</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/Tic_Tac_Toe.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">MENACE Revisited</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-1.html">
+   Reinforcement Learning From The Ground Up
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-2.html">
+   Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-3.html">
+   Reinforcement Learning with MENACE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-4.html">
+   Exploring the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-5.html">
+   Possible games
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-6.html">
+   Finding the next move
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-a.html">
+   Appendix A - Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="about-the-author.html">
+   About the author
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/chapter-7.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/romilly/o-x-o"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fchapter-7.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-7.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-menace-configuration">
+   The MENACE configuration
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tracking-menace-s-beads">
+     Tracking MENACE’s Beads
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menace-s-learning-rule">
+     MENACE’s Learning Rule
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="playing-the-game">
+<h1>Playing the game<a class="headerlink" href="#playing-the-game" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we’ll explore the code that will run a game of Noughts and Crosses.</p>
+<p>The goal is to create a framework that makes it easy to run MENACE with a variety of different player types.</p>
+<p>Specifically, we’ll implement</p>
+<ol class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">random</span></code> player function which will pick a legal move at random, and</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">menace</span></code> player that learns by using MENACE’s strategy to chose which move to make.</p></li>
+</ol>
+<p>Later we’ll look at creating a <code class="docutils literal notranslate"><span class="pre">perfect</span></code> player who makes the best possible moves throughout the game.</p>
+<p>I don’t yet know how to capture user input from a program running in an APL jupyter notebook, but it’s easy to do when running a program using Dyalog’s RIDE interface. Appendix B (when written) will describe how to run a version of MENACE that also supports human players.</p>
+<p>Each of these players will be implemented as an APL function which will take the current MENACE configuration as an argument, make a move and return an updated configuration as its result.</p>
+<p>We’ll plug the players into a <code class="docutils literal notranslate"><span class="pre">game_runnner</span></code> which we will implement as a <em>user-defined</em> operator.</p>
+<p>Recall that in APL, a <em>function</em> returns data but an <em>operator</em> returns a function. Our <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will take a pair of player functions as arguments and return a function that will play an entire game.</p>
+<p>That function will take an array that captures the MENACE configuration as an argument and return an updated configuration as its result.</p>
+<p>In this chapter we will assume that all the games are played in a single APL session. In the <em>next</em> chapter we will implement a simple way of retaining that data so that MENACE can learn across multiple sessions.</p>
+<div class="section" id="the-menace-configuration">
+<h2>The MENACE configuration<a class="headerlink" href="#the-menace-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The MENACE configuration will contain the information needed by the players.</p>
+<p>The original version of MENACE tracked the value of moves by using beads in a matchbox. The beads were adjusted when a game was over.</p>
+<p>A player that applies MENACE’s strategy needs that information so we will need to include it in the MENACE configuration. The function that implements a random player will ignore it.</p>
+<p>MENACE also tracked the moves made during a game by requiring its human agent to leave open each matchbox used, with the selected bead visible. It needed that information for its adjustments, so we will include that too.</p>
+<p>Throughout a game <strong>all</strong> player types need to know the configuration for the current board. If we track the moves actually made during a game, the current board is simply the last of the moves in the current game, so the game history contains it.</p>
+<p>Eventually we may want to examine MENACE’s performance over time. For that reason the configuration will maintain a history of wins, draws and losses. The <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will maintain that information but the player functions will ignore it.</p>
+<p>In summary, then, the MENACE configuration will contain three items:</p>
+<ol class="simple">
+<li><p>An array of notional <em>bead counts</em>. The format of that data is described below.</p></li>
+<li><p>A history of the current game, held as a matrix of position vectors, one row per move.</p></li>
+<li><p>A vector of MENACE’s game results. A win is represented by 1, a draw by 0 and a loss by ¯1.</p></li>
+</ol>
+<div class="section" id="tracking-menace-s-beads">
+<h3>Tracking MENACE’s Beads<a class="headerlink" href="#tracking-menace-s-beads" title="Permalink to this headline">¶</a></h3>
+<p>The original MATCHBOX-based MENACE remembered the consequences of past games using matchboxes and beads.</p>
+<ol class="simple">
+<li><p>It used one matchbox for each board position that MENACE might enounter.</p></li>
+<li><p>Each machbox was labelled. The label showed the position represented by the box, and showed each possible move from that position. Possible moves were shown in different colours.</p></li>
+<li><p>Each matchbox contained beads of colours that matched those on the label. The beads determined the probability that MENACE would make the corresponding move.</p></li>
+</ol>
+<p>In our implementation we will maintain a two element vector, with each element an array.</p>
+<p>The first element will be a vector of decoded (numerical) canonical possible positions.
+The second element will be a matrix of bead counts, with one row per possible position and 9 columns.</p>
+<p>Each column will corespond to one of the cells in the game board, and will contain the number of virtual beads corresponding to that move. Some moves will not be possible from the starting position. We will initialse those bead counts to zero, and they will never get updated, since the correponding moves will never be made.</p>
+<p>The values for possible moves will be initialised to some fixed number when a new MENACE configuration is created, and will then get adjusted at the end of each game by MENACE’s learning rule.</p>
+</div>
+<div class="section" id="menace-s-learning-rule">
+<h3>MENACE’s Learning Rule<a class="headerlink" href="#menace-s-learning-rule" title="Permalink to this headline">¶</a></h3>
+<p>At the end of a game MENACE adjusted the bead counts.</p>
+<ol class="simple">
+<li><p>If MENACE <em>won</em> it added three beads of the same colour matching those picked during the game.</p></li>
+<li><p>If MENACE <em>drew</em> it added one bead of the appropriate colour to each matchbox used.</p></li>
+<li><p>If MENACE <em>lost</em> it removed three beads of the appropriate colour from each matchbox used.</p></li>
+</ol>
+<p>We’ll do the same to our virtual bead counts.</p>
+<p>Let’s start by copying in our earlier work. Then we will look at how to initialise the virtual bead data. MENACE started with 20 beads in each matchbox, but we will make that a changeable parameter called <code class="docutils literal notranslate"><span class="pre">starting_count</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook6.dws saved Sat Dec 19 14:41:35 2020
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The bead data is a two-element vector.</p>
+<p>The first is a vector of decoded plausible canonical positions. We saved that in a variable <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>.</p>
+<p>The second is a matrix of bead counts, with one row for each position in <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>, and nine columns corrspnding to the nine squares on the board. Each column shoud contain the initial bean count for those positions that are empty, and zero for each position that has already been filled.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">starting_count</span> <span class="kd">←</span> <span class="m">20</span>
+<span class="nv">bc</span> <span class="kd">←</span> <span class="p">((</span><span class="o">⍴</span><span class="nv">ucpn</span><span class="p">)</span><span class="o">,</span><span class="m">9</span><span class="p">)</span><span class="o">⍴</span> <span class="nv">starting_count</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we need to set the bead counts to zero for easch position that has been filled.</p>
+<p>We’ll do that in stages. First we’ll convert encode values in <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>, That will give us a matrix <code class="docutils literal notranslate"><span class="pre">ucp</span></code> with one row per position and one column per board position.</p>
+<p>Next we’ll look for the non-zeros in <code class="docutils literal notranslate"><span class="pre">ucp</span></code>, keep the corresponding positions of bead counts unchanged, and set the rest to zero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ucp</span> <span class="kd">←</span> <span class="nv">encode</span> <span class="nv">ucpn</span> <span class="c1">⍝ a matric with one board position per row</span>
+<span class="nv">non_zero</span> <span class="kd">←</span> <span class="m">0</span><span class="o">≠</span><span class="nv">ucp</span> <span class="c1">⍝ a matrix with a 1 for each non-empty position and a 0 for every empty one.</span>
+<span class="nv">bc</span> <span class="kd">←</span> <span class="nv">bc</span> <span class="o">×</span> <span class="nv">non_zero</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="m">5</span><span class="o">↑</span><span class="nv">ucp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┐
+│...│...│...│...│...│
+│...│...│...│...│...│
+│...│..×│.×.│.×○│.○×│
+└───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">5</span><span class="o">↑</span><span class="nv">bc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0  0  0
+0 0 0 0 0 0 0  0 20
+0 0 0 0 0 0 0 20  0
+0 0 0 0 0 0 0 20 20
+0 0 0 0 0 0 0 20 20
+</span></div></div>
+</div>
+<p>That looks correct. Let’s turn that into a function <code class="docutils literal notranslate"><span class="pre">initial_counts</span></code> which will take the intial counts as its  argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">initial_counts</span> <span class="kd">←</span> <span class="kt">{</span> <span class="nv">bc</span> <span class="kd">←</span> <span class="p">((</span><span class="o">⍴</span><span class="nv">ucpn</span><span class="p">)</span><span class="o">,</span><span class="m">9</span><span class="p">)</span><span class="o">⍴</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">bc</span> <span class="o">×</span> <span class="m">0</span><span class="o">≠</span><span class="nv">encode</span> <span class="nv">ucpn</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">5</span><span class="o">↑</span><span class="nv">initial_counts</span> <span class="m">20</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0  0  0
+0 0 0 0 0 0 0  0 20
+0 0 0 0 0 0 0 20  0
+0 0 0 0 0 0 0 20 20
+0 0 0 0 0 0 0 20 20
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook7</span> <span class="o">-</span><span class="nv">force</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Sat Dec 19 15:05:22 2020
+</span></div></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "dyalog-kernel"
+        },
+        kernelOptions: {
+            kernelName: "dyalog-kernel",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'dyalog-kernel'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Romilly Cocking<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-26986725-2', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
