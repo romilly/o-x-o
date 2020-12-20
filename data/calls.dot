@@ -12,8 +12,17 @@ cd [shape=box]
 ok [shape=box]
 wf [shape=box]
 wp [shape=box]
-next_moves [shape=box]
-next [shape=box]
+moves [shape=box]
+np [shape=box]
+cg [shape=box]
+p [shape=box]
+random_player [shape=box]
+draw [shape=box]
+over_checker [shape=box]
+human_player [shape=box]
+ask [shape=box]
+initial_counts [shape=box]
+initialise [shape=box]
 show -> list;
 decode -> canonical;
 symmetries -> canonical;
@@ -22,15 +31,61 @@ cd -> ok;
 wpi -> wf;
 ild -> wf;
 wf -> wp;
-updated -> next;
-gaps -> next;
-updated -> next;
-updated -> next;
-gaps -> next;
-n -> next;
-gaps -> next;
-updated -> next;
+blanks -> moves;
+bv -> moves;
+show -> moves;
+bv -> moves;
+blanks -> moves;
+blanks -> moves;
+bv -> moves;
+cf -> random_player;
+g -> random_player;
+cg -> random_player;
+cp -> random_player;
+p -> random_player;
+g -> random_player;
+i -> random_player;
+e -> random_player;
+cp -> random_player;
+cp -> random_player;
+i -> random_player;
+e -> random_player;
+np -> random_player;
+cp -> random_player;
+g -> random_player;
+g -> random_player;
+cp -> random_player;
+cf -> random_player;
+g -> random_player;
+cf -> random_player;
+game -> over_checker;
+over -> over_checker;
+p -> over_checker;
+cg -> over_checker;
+board -> human_player;
+moves -> human_player;
+menace -> human_player;
+history -> human_player;
+show -> human_player;
+board -> human_player;
+move -> human_player;
+ask -> human_player;
+which -> human_player;
+move -> human_player;
+board -> human_player;
+moves -> human_player;
+menace -> human_player;
+history -> human_player;
+bc -> initial_counts;
+ucpn -> initial_counts;
+bc -> initial_counts;
+encode -> initial_counts;
+ucpn -> initial_counts;
+ucpn -> initialise;
+initial -> initialise;
+counts -> initialise;
 boards -> encoded;
+e -> i;
 r -> r90;
 i -> r90;
 r -> r180;
@@ -62,19 +117,44 @@ encode -> samples;
 encode -> uc;
 canonical -> uc;
 encode -> uc;
-uc -> ucp;
-ok -> ucp;
-uc -> ucp;
+encode -> ucp;
+ucpn -> ucp;
 ucp -> mn;
 mn -> mnp;
+decode -> ucpn;
+ucp -> ucpn;
 rows -> wpi;
 cols -> wpi;
 diagonals -> wpi;
 rows -> wpi;
 cols -> wpi;
 diagonals -> wpi;
-show -> board2;
-samples -> board2;
-board -> empty;
-samples -> board3;
+samples -> pos4;
+pos -> blanks;
+show -> bv;
+pos -> bv;
+pos -> bv;
+initialise -> config;
+g -> g;
+cp -> g;
+g -> cp;
+cp -> e;
+e -> c;
+np -> cp;
+cp -> cp;
+g -> config;
+random -> config;
+player -> config;
+config -> config;
+wf -> game_over;
+draw -> game_over;
+random -> list config;
+player -> list config;
+over -> list config;
+checker -> list config;
+config -> list config;
+bc -> bc;
+non -> bc;
+zero -> bc;
+ucp -> non_zero;
 }

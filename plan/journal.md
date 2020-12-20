@@ -44,3 +44,12 @@ For now, I will concentrate on
 1. The updating menace player.
 
 That would be enough for me to start training a MENACE version.
+
+
+## Sunday 20 December 2020
+
+I'll do the random player first, just to prove the game_runner design.
+
+Also tweak player to return its type if given an argument of `⍬`.
+
+
