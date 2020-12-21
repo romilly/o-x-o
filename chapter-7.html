@@ -55,6 +55,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Appendix A - Exploring Dyalog APL" href="appendix-a.html" />
+    <link rel="prev" title="Finding the next move" href="chapter-6.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -91,7 +93,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning
@@ -115,6 +117,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-6.html">
    Finding the next move
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Playing the game
   </a>
  </li>
  <li class="toctree-l1">
@@ -231,21 +238,24 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#types-of-player">
+   Types Of Player
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-game-runner-code">
+   The Game Runner Code
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-menace-configuration">
    The MENACE configuration
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tracking-menace-s-beads">
-     Tracking MENACE’s Beads
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#menace-s-learning-rule">
-     MENACE’s Learning Rule
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Playing The Game
+  </a>
  </li>
 </ul>
 
@@ -261,57 +271,39 @@
   <div class="section" id="playing-the-game">
 <h1>Playing the game<a class="headerlink" href="#playing-the-game" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter we’ll explore the code that will run a game of Noughts and Crosses.</p>
-<p>The goal is to create a framework that makes it easy to run MENACE with a variety of different player types.</p>
-<p>Specifically, we’ll implement</p>
+<div class="section" id="types-of-player">
+<h2>Types Of Player<a class="headerlink" href="#types-of-player" title="Permalink to this headline">¶</a></h2>
+<p>The ultimate goal is to create a framework that makes it easy to run MENACE with a variety of different player types.</p>
+<p>Eventually we’ll implement</p>
 <ol class="simple">
-<li><p>a <code class="docutils literal notranslate"><span class="pre">random</span></code> player function which will pick a legal move at random, and</p></li>
-<li><p>a <code class="docutils literal notranslate"><span class="pre">menace</span></code> player that learns by using MENACE’s strategy to chose which move to make.</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">random_player</span></code> player function which will pick a legal move at random, and</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">menace_player</span></code> that learns by using MENACE’s strategy to chose which move to make.</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">human_player</span></code> in which a real person plays one side of the game.</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">perfect_player</span></code> who makes the best possible moves throughout the game.</p></li>
 </ol>
-<p>Later we’ll look at creating a <code class="docutils literal notranslate"><span class="pre">perfect</span></code> player who makes the best possible moves throughout the game.</p>
-<p>I don’t yet know how to capture user input from a program running in an APL jupyter notebook, but it’s easy to do when running a program using Dyalog’s RIDE interface. Appendix B (when written) will describe how to run a version of MENACE that also supports human players.</p>
+<p>In this chapter we will implement the <code class="docutils literal notranslate"><span class="pre">random_player</span></code>.</p>
+<p>I don’t yet know a way to capture user input from a program running in an APL jupyter notebook, but it’s easy to do when running a program using Dyalog’s <a class="reference external" href="https://www.dyalog.com/dyalog/development-environment.htm">RIDE</a> interface. Appendix B (currently under construction) will describe how to run a version of MENACE that also supports a <code class="docutils literal notranslate"><span class="pre">human_player</span></code>.</p>
 <p>Each of these players will be implemented as an APL function which will take the current MENACE configuration as an argument, make a move and return an updated configuration as its result.</p>
+</div>
+<div class="section" id="the-game-runner-code">
+<h2>The Game Runner Code<a class="headerlink" href="#the-game-runner-code" title="Permalink to this headline">¶</a></h2>
 <p>We’ll plug the players into a <code class="docutils literal notranslate"><span class="pre">game_runnner</span></code> which we will implement as a <em>user-defined</em> operator.</p>
 <p>Recall that in APL, a <em>function</em> returns data but an <em>operator</em> returns a function. Our <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will take a pair of player functions as arguments and return a function that will play an entire game.</p>
 <p>That function will take an array that captures the MENACE configuration as an argument and return an updated configuration as its result.</p>
-<p>In this chapter we will assume that all the games are played in a single APL session. In the <em>next</em> chapter we will implement a simple way of retaining that data so that MENACE can learn across multiple sessions.</p>
+<p>In this chapter we will assume that all the games are played in a single session. In a later chapter we will implement a simple way of retaining that data so that MENACE can learn across multiple sessions.</p>
+</div>
 <div class="section" id="the-menace-configuration">
 <h2>The MENACE configuration<a class="headerlink" href="#the-menace-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The MENACE configuration will contain the information needed by the players.</p>
-<p>The original version of MENACE tracked the value of moves by using beads in a matchbox. The beads were adjusted when a game was over.</p>
-<p>A player that applies MENACE’s strategy needs that information so we will need to include it in the MENACE configuration. The function that implements a random player will ignore it.</p>
-<p>MENACE also tracked the moves made during a game by requiring its human agent to leave open each matchbox used, with the selected bead visible. It needed that information for its adjustments, so we will include that too.</p>
-<p>Throughout a game <strong>all</strong> player types need to know the configuration for the current board. If we track the moves actually made during a game, the current board is simply the last of the moves in the current game, so the game history contains it.</p>
+<p>The MENACE configuration will contain the information needed by the players and the <code class="docutils literal notranslate"><span class="pre">game_runner</span></code>.</p>
+<p>Throughout a game <em>all</em> player types need to know the configuration for the current board. If we track the moves actually made during a game, the current board is simply the last of the moves in the current game, so the game history contains it.</p>
 <p>Eventually we may want to examine MENACE’s performance over time. For that reason the configuration will maintain a history of wins, draws and losses. The <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will maintain that information but the player functions will ignore it.</p>
-<p>In summary, then, the MENACE configuration will contain three items:</p>
+<p>The original version of MENACE chose its moves and tracked their value by using beads in a matchbox. The content of the matchbox was adjusted when a game was over.</p>
+<p>A player that applies MENACE’s strategy needs that information so we will eventualy need to include it in the MENACE configuration. It’s not needed by a <code class="docutils literal notranslate"><span class="pre">random_player</span></code> so we will omit it for now.</p>
+<p>In summary, then, we will start with a MENACE configuration that contains two elements:</p>
 <ol class="simple">
-<li><p>An array of notional <em>bead counts</em>. The format of that data is described below.</p></li>
 <li><p>A history of the current game, held as a matrix of position vectors, one row per move.</p></li>
 <li><p>A vector of MENACE’s game results. A win is represented by 1, a draw by 0 and a loss by ¯1.</p></li>
 </ol>
-<div class="section" id="tracking-menace-s-beads">
-<h3>Tracking MENACE’s Beads<a class="headerlink" href="#tracking-menace-s-beads" title="Permalink to this headline">¶</a></h3>
-<p>The original MATCHBOX-based MENACE remembered the consequences of past games using matchboxes and beads.</p>
-<ol class="simple">
-<li><p>It used one matchbox for each board position that MENACE might enounter.</p></li>
-<li><p>Each machbox was labelled. The label showed the position represented by the box, and showed each possible move from that position. Possible moves were shown in different colours.</p></li>
-<li><p>Each matchbox contained beads of colours that matched those on the label. The beads determined the probability that MENACE would make the corresponding move.</p></li>
-</ol>
-<p>In our implementation we will maintain a two element vector, with each element an array.</p>
-<p>The first element will be a vector of decoded (numerical) canonical possible positions.
-The second element will be a matrix of bead counts, with one row per possible position and 9 columns.</p>
-<p>Each column will corespond to one of the cells in the game board, and will contain the number of virtual beads corresponding to that move. Some moves will not be possible from the starting position. We will initialse those bead counts to zero, and they will never get updated, since the correponding moves will never be made.</p>
-<p>The values for possible moves will be initialised to some fixed number when a new MENACE configuration is created, and will then get adjusted at the end of each game by MENACE’s learning rule.</p>
-</div>
-<div class="section" id="menace-s-learning-rule">
-<h3>MENACE’s Learning Rule<a class="headerlink" href="#menace-s-learning-rule" title="Permalink to this headline">¶</a></h3>
-<p>At the end of a game MENACE adjusted the bead counts.</p>
-<ol class="simple">
-<li><p>If MENACE <em>won</em> it added three beads of the same colour matching those picked during the game.</p></li>
-<li><p>If MENACE <em>drew</em> it added one bead of the appropriate colour to each matchbox used.</p></li>
-<li><p>If MENACE <em>lost</em> it removed three beads of the appropriate colour from each matchbox used.</p></li>
-</ol>
-<p>We’ll do the same to our virtual bead counts.</p>
-<p>Let’s start by copying in our earlier work. Then we will look at how to initialise the virtual bead data. MENACE started with 20 beads in each matchbox, but we will make that a changeable parameter called <code class="docutils literal notranslate"><span class="pre">starting_count</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook6</span>
@@ -330,77 +322,314 @@ The second element will be a matrix of bead counts, with one row per possible po
 </div>
 </div>
 </div>
-<p>The bead data is a two-element vector.</p>
-<p>The first is a vector of decoded plausible canonical positions. We saved that in a variable <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>.</p>
-<p>The second is a matrix of bead counts, with one row for each position in <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>, and nine columns corrspnding to the nine squares on the board. Each column shoud contain the initial bean count for those positions that are empty, and zero for each position that has already been filled.</p>
+<p>Now we can easily create the initial configuration.</p>
+<p>The first element contains the current board position. Initially that should be an empty board.
+The second element contains the history of all games played, which should initially be set to be an empty vector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">starting_count</span> <span class="kd">←</span> <span class="m">20</span>
-<span class="nv">bc</span> <span class="kd">←</span> <span class="p">((</span><span class="o">⍴</span><span class="nv">ucpn</span><span class="p">)</span><span class="o">,</span><span class="m">9</span><span class="p">)</span><span class="o">⍴</span> <span class="nv">starting_count</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now we need to set the bead counts to zero for easch position that has been filled.</p>
-<p>We’ll do that in stages. First we’ll convert encode values in <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>, That will give us a matrix <code class="docutils literal notranslate"><span class="pre">ucp</span></code> with one row per position and one column per board position.</p>
-<p>Next we’ll look for the non-zeros in <code class="docutils literal notranslate"><span class="pre">ucp</span></code>, keep the corresponding positions of bead counts unchanged, and set the rest to zero.</p>
+</div>
+<div class="section" id="id1">
+<h2>Playing The Game<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Now we can start work on the <code class="docutils literal notranslate"><span class="pre">game_runner</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will be something we haven’t met before: a <em>user-defined operator</em>.</p>
+<p>Recall that in APL a function returns data but an operator returns a function.</p>
+<p>We’ve encountered two types of APL function: <em>primitive</em> functions like <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">⍴</span></code>, <code class="docutils literal notranslate"><span class="pre">⌽</span></code> which are built into the APL interpreter, and<em>user-defined</em> functions, like <code class="docutils literal notranslate"><span class="pre">initial_counts</span></code> where we named APL code so that we could reuse it wherever it was needed without having to repeat the code.</p>
+<p>We’ve also encoutered a number of primitive operators, like reduction <code class="docutils literal notranslate"><span class="pre">/</span></code> and outer product <code class="docutils literal notranslate"><span class="pre">∘.</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">game_runner</span></code> needs to cope with different types of player, and we will do that by providing player functions as arguments to <code class="docutils literal notranslate"><span class="pre">game_player</span></code>.</p>
+<p>A typical game would look like this:
+<code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">←</span> <span class="pre">menace_player</span> <span class="pre">game_runner</span> <span class="pre">random_player</span> <span class="pre">config</span></code>
+where <code class="docutils literal notranslate"><span class="pre">config</span></code> is the MENACE configuration data we discussed above and <code class="docutils literal notranslate"><span class="pre">menace_player</span></code> and <code class="docutils literal notranslate"><span class="pre">random_player</span></code> are the functions we desicribed at the beginning of this chapter.</p>
+<p>Let’s start by defining a <code class="docutils literal notranslate"><span class="pre">random_player</span></code> as it’s simpler to implement.</p>
+<p>We’ll invoke the function by providing a menace configuration as its argument. That contains the current board configuration, and the <code class="docutils literal notranslate"><span class="pre">random_player</span></code> function should</p>
+<ol class="simple">
+<li><p>pick a legal move at random, and then</p></li>
+<li><p>update the configuration appropriately and return it as the result.</p></li>
+</ol>
+<p>The second step is a little more compicated than it seems, because the <em>player doesn’t know whether it’s playing <code class="docutils literal notranslate"><span class="pre">×</span></code> or <code class="docutils literal notranslate"><span class="pre">○</span></code></em>. Luckily it can find that out from the current board position. If the numbers of ‘<code class="docutils literal notranslate"><span class="pre">×</span></code>’s and <code class="docutils literal notranslate"><span class="pre">○</span></code>’s are the same, it’s <code class="docutils literal notranslate"><span class="pre">×</span></code> to play. If not, it’s <code class="docutils literal notranslate"><span class="pre">○</span></code>’s turn.</p>
+<p>Let’s build the code step by step.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ucp</span> <span class="kd">←</span> <span class="nv">encode</span> <span class="nv">ucpn</span> <span class="c1">⍝ a matric with one board position per row</span>
-<span class="nv">non_zero</span> <span class="kd">←</span> <span class="m">0</span><span class="o">≠</span><span class="nv">ucp</span> <span class="c1">⍝ a matrix with a 1 for each non-empty position and a 0 for every empty one.</span>
-<span class="nv">bc</span> <span class="kd">←</span> <span class="nv">bc</span> <span class="o">×</span> <span class="nv">non_zero</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="m">5</span><span class="o">↑</span><span class="nv">ucp</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">g</span> <span class="kd">←</span> <span class="m">0</span><span class="o">⊃</span><span class="nv">config</span> <span class="c1">⍝ find the game so far</span>
+<span class="o">⊢</span><span class="nv">cp</span> <span class="kd">←</span> <span class="o">,</span><span class="m">¯1</span><span class="o">↑</span><span class="nv">g</span> <span class="c1">⍝ find current position</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┐
-│...│...│...│...│...│
-│...│...│...│...│...│
-│...│..×│.×.│.×○│.○×│
-└───┴───┴───┴───┴───┘
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
 </span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">5</span><span class="o">↑</span><span class="nv">bc</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">e</span> <span class="kd">←</span> <span class="m">0</span><span class="o">=</span><span class="nv">cp</span>   <span class="c1">⍝ boolean vector of empty board positions - a 1 means the position is available</span>
+<span class="o">⊢</span><span class="nv">c</span> <span class="kd">←</span> <span class="o">+</span><span class="na">/</span><span class="nv">e</span> <span class="c1">⍝ how many empty squares are there? (At the start of the game, all of them).</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0  0  0
-0 0 0 0 0 0 0  0 20
-0 0 0 0 0 0 0 20  0
-0 0 0 0 0 0 0 20 20
-0 0 0 0 0 0 0 20 20
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">9
 </span></div></div>
 </div>
-<p>That looks correct. Let’s turn that into a function <code class="docutils literal notranslate"><span class="pre">initial_counts</span></code> which will take the intial counts as its  argument.</p>
+<p>The player neets to pick an empty position at random.</p>
+<p>Surprise, surprise! APL has a primitive function to do that.</p>
+<p><em>Roll</em> is represetned by <code class="docutils literal notranslate"><span class="pre">?</span></code>. It returns a random number in the range specied by its right argument.
+So <code class="docutils literal notranslate"><span class="pre">?5</span></code> will return a number between zero and four (inclusive), assuming that ⎕io is zero.</p>
+<p>We’ll use it to pick a move at random and then update the game.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">initial_counts</span> <span class="kd">←</span> <span class="kt">{</span> <span class="nv">bc</span> <span class="kd">←</span> <span class="p">((</span><span class="o">⍴</span><span class="nv">ucpn</span><span class="p">)</span><span class="o">,</span><span class="m">9</span><span class="p">)</span><span class="o">⍴</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">bc</span> <span class="o">×</span> <span class="m">0</span><span class="o">≠</span><span class="nv">encode</span> <span class="nv">ucpn</span><span class="kt">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">5</span><span class="o">↑</span><span class="nv">initial_counts</span> <span class="m">20</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span> <span class="kd">←</span> <span class="o">⍸</span><span class="nv">e</span> <span class="c1">⍝ find indices of the empty positions - these are the legal moves</span>
+<span class="nv">np</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">1</span><span class="o">+&gt;</span><span class="na">/</span><span class="o">+</span><span class="na">/</span><span class="m">1</span> <span class="m">2</span><span class="na">∘.</span><span class="o">=</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ who is the next player? 1 for ×, 2 for ○</span>
+<span class="nv">cp</span><span class="sr">[</span><span class="nv">i</span><span class="sr">[</span><span class="o">?⍴</span><span class="nv">i</span><span class="sr">]]</span> <span class="kd">←</span> <span class="nv">np</span> <span class="nv">cp</span> <span class="c1">⍝ pick a legal move at random and update the current position</span>
+<span class="nv">cp</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0  0  0
-0 0 0 0 0 0 0  0 20
-0 0 0 0 0 0 0 20  0
-0 0 0 0 0 0 0 20 20
-0 0 0 0 0 0 0 20 20
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 1 0 0 0 0 0
+</span></div></div>
+</div>
+<p>Next, we’ll update the current game by appending the new position to the matrix of moves and put the updated game into the coniguration using <a class="reference external" href="http://help.dyalog.com/18.0/#Language/Primitive%20Functions/Assignment%20Selective.htm?Highlight=selective%20assignment">structured assignment</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">g</span> <span class="kd">←</span> <span class="nv">g</span><span class="o">⍪</span> <span class="nv">cp</span> 
+<span class="p">(</span><span class="m">0</span><span class="o">⊃</span><span class="nv">config</span><span class="p">)</span><span class="kd">←</span><span class="nv">g</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we’ll create functions to access and update the configuration. These hide the internal structure of the configuration, making it easier to change later if we need to.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">cg</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">0</span><span class="o">⊃</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ current game from configuration</span>
+<span class="nv">ucg</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">c</span> <span class="kd">←</span> <span class="bp">⍺</span> <span class="p">⋄</span> <span class="p">(</span><span class="m">0</span><span class="o">⊃</span><span class="nv">c</span><span class="p">)</span><span class="kd">←</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">c</span><span class="kt">}</span> <span class="c1">⍝ insert current game and return updated configuration</span>
+<span class="nv">p</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">,</span><span class="m">¯1</span><span class="o">↑</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ current position from game</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can combine all those steps into the <code class="docutils literal notranslate"><span class="pre">random_player</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">random_player</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">cf</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">g</span> <span class="kd">←</span> <span class="nv">cg</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cp</span> <span class="kd">←</span> <span class="nv">p</span> <span class="nv">g</span> <span class="p">⋄</span> <span class="nv">i</span> <span class="kd">←</span> <span class="o">⍸</span><span class="nv">e</span><span class="kd">←</span><span class="m">0</span><span class="o">=</span><span class="nv">cp</span> <span class="p">⋄</span> <span class="nv">cp</span><span class="sr">[</span><span class="nv">i</span><span class="sr">[</span><span class="o">?+</span><span class="na">/</span><span class="nv">e</span><span class="sr">]]</span> <span class="kd">←</span> <span class="nv">np</span> <span class="nv">cp</span> <span class="p">⋄</span> <span class="nv">g</span> <span class="kd">←</span> <span class="nv">g</span><span class="o">⍪</span><span class="nv">cp</span> <span class="p">⋄</span> <span class="nv">cf</span> <span class="nv">ucg</span> <span class="nv">g</span> <span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s try it out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span> 
+<span class="nv">config</span> <span class="kd">←</span> <span class="nv">random_player</span> <span class="nv">config</span>
+<span class="nv">cg</span> <span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0
+</span></div></div>
+</div>
+<p>If we run <code class="docutils literal notranslate"><span class="pre">random_player</span></code> again it will make a move for <code class="docutils literal notranslate"><span class="pre">×</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">random_player</span> <span class="nv">config</span>
+<span class="nv">cg</span> <span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0
+0 0 1 0 2 0 0 0 0
+</span></div></div>
+</div>
+<p>It would get rather tedious if we had to manually run <code class="docutils literal notranslate"><span class="pre">random_player</span></code> every time we wanted to make another move. APL has a power operator <code class="docutils literal notranslate"><span class="pre">⍣</span></code> which we can use to execute something repeatedly.</p>
+<p>The code below cretates a fresh configuration and then runs the <code class="docutils literal notranslate"><span class="pre">random_player</span></code> 9 times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span>
+<span class="nv">cg</span> <span class="nv">config</span><span class="kd">←</span><span class="p">(</span><span class="nv">random_player</span> <span class="na">⍣</span> <span class="m">9</span><span class="p">)</span> <span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 0
+1 0 0 0 2 0 0 0 0
+1 0 0 0 2 0 1 0 0
+1 0 0 2 2 0 1 0 0
+1 0 1 2 2 0 1 0 0
+1 0 1 2 2 2 1 0 0
+1 0 1 2 2 2 1 1 0
+1 0 1 2 2 2 1 1 2
+1 1 1 2 2 2 1 1 2
+</span></div></div>
+</div>
+<p>What happens if we try to play again?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">random_player</span> <span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DOMAIN ERROR
+random_player[0] random_player←{cf←⍵ ⋄ g←cg ⍵ ⋄ cp←p g ⋄ i←⍸e←0=cp ⋄ cp[i[?+/e]
+      ]←np cp ⋄ g←g⍪cp ⋄ cf ucg g}
+                                                                         ∧
+</pre></div>
+</div>
+</div>
+</div>
+<p>The board is full and our code falls over.</p>
+<p>There’s another problem with our design so far. There’s nothing to stop the game when a player has won.</p>
+<p>Luckily that is not hard to fix.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">try</span></code> user-defined operator to stop invoking the player as soon as the game is over. We saw above that our first attpemt at play failed if we carried on beyond the 9th move.</p>
+<p>TODO: Define the syntax for user defined operators.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span> <span class="nv">draw</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">0</span><span class="o">=+</span><span class="na">/</span><span class="m">0</span><span class="o">=</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ is the game drawn?</span>
+ <span class="nv">gf</span> <span class="kd">←</span><span class="nv">wf</span> <span class="o">∨</span> <span class="nv">draw</span> <span class="c1">⍝ the game is finished if it&#39;s been won or the board is full</span>
+ <span class="nv">try</span><span class="kd">←</span><span class="kt">{</span><span class="nv">gf</span> <span class="nv">p</span> <span class="nv">cg</span> <span class="bp">⍵:⍵</span> <span class="p">⋄</span> <span class="bp">⍺⍺</span> <span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ if the game is over, do nothing; otherwise invoke the player</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s repeat our new code 10 times and see if it copes OK.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span>
+<span class="nv">list</span> <span class="m">0</span><span class="o">⊃</span><span class="nv">config</span><span class="kd">←</span><span class="p">(</span><span class="kt">{</span><span class="nv">random_player</span> <span class="nv">try</span> <span class="bp">⍵</span><span class="kt">}</span> <span class="na">⍣</span> <span class="m">10</span><span class="p">)</span> <span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
+│...│...│...│.×.│.×.│.××│.××│.××│
+│...│...│...│...│.○.│.○.│○○.│○○×│
+│...│..×│.○×│.○×│.○×│.○×│.○×│.○×│
+└───┴───┴───┴───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<p>Great! Even when we run it ten times, the code stops adding moves as soon as the game is over.</p>
+<p>At the moment we can only play games with <code class="docutils literal notranslate"><span class="pre">random_player</span></code>s, but later we will want to use other types of player. We’ll write a <code class="docutils literal notranslate"><span class="pre">play_round</span></code> operator which will take two functions, one the left, one on the right, and create a function that</p>
+<ol class="simple">
+<li><p>takes a configuration as its arguiment</p></li>
+<li><p>asks the function on the left to make a move</p></li>
+<li><p>asks the function on the right to make a move</p></li>
+<li><p>then returns the updated configuration</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">play_round</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">cf</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cf</span> <span class="kd">←</span> <span class="bp">⍺⍺</span> <span class="nv">try</span> <span class="nv">cf</span> <span class="p">⋄</span> <span class="nv">cf</span> <span class="kd">←</span> <span class="bp">⍵⍵</span> <span class="nv">try</span> <span class="nv">cf</span> <span class="p">⋄</span> <span class="nv">cf</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="kt">{</span><span class="nv">random_player</span> <span class="nv">play_round</span> <span class="nv">random_player</span> <span class="bp">⍵</span><span class="kt">}</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────────┬┐
+│0 0 0 0 0 0 0 0 0││
+│0 0 0 0 0 0 0 1 0││
+│0 0 2 0 0 0 0 1 0││
+└─────────────────┴┘
+</span></div></div>
+</div>
+<p>We need a helper function <code class="docutils literal notranslate"><span class="pre">uh</span></code> <em>update history</em> before we can write <code class="docutils literal notranslate"><span class="pre">game_runner</span></code>.</p>
+<p>It will extract the game hstory from a configuration on its left , update it with the result of the last game, and return the updated configuration.</p>
+<p>We’ll start by writing <code class="docutils literal notranslate"><span class="pre">result</span></code> which <code class="docutils literal notranslate"><span class="pre">uh</span></code> will then use to find the result of the last game.
+<code class="docutils literal notranslate"><span class="pre">result</span></code> will check if the game was drawn, and if so it will return a 0.
+If not, it will check the number of empty squares. If the count is even, the <code class="docutils literal notranslate"><span class="pre">x</span></code> played last and must have won, so it will return a 1. If the count is odd, <code class="docutils literal notranslate"><span class="pre">○</span></code> played last and the game was lost, so it will return a ¯1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">result</span> <span class="kd">←</span> <span class="kt">{</span> <span class="nv">draw</span> <span class="nv">p</span> <span class="bp">⍵:</span> <span class="m">0</span> <span class="p">⋄</span> <span class="m">1</span> <span class="m">¯1</span><span class="sr">[</span><span class="m">2</span> <span class="o">|</span> <span class="o">+</span><span class="na">/</span><span class="m">0</span><span class="o">=</span><span class="nv">p</span> <span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
+<span class="nv">uh</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">cf</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">h</span> <span class="kd">←</span> <span class="m">1</span><span class="o">⊃</span><span class="nv">cf</span> <span class="p">⋄</span> <span class="nv">h</span><span class="kd">←</span><span class="nv">h</span><span class="o">,</span> <span class="nv">result</span> <span class="nv">cg</span> <span class="nv">cf</span> <span class="p">⋄</span> <span class="p">(</span><span class="m">1</span><span class="o">⊃</span><span class="nv">cf</span><span class="p">)</span> <span class="kd">←</span> <span class="nv">h</span> <span class="p">⋄</span> <span class="nv">cf</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can develop <code class="docutils literal notranslate"><span class="pre">game_runner</span></code>.</p>
+<p>It will start by setting a new starting postion in the configuration it’s given.</p>
+<p>It will use a different invocation of <code class="docutils literal notranslate"><span class="pre">⍣</span></code>, the power operator. Previously we used a numeric right argument,
+and the power operator then invoked the function that number of times. Now we’ll ise a function as the rigth argument. IThat will be a stop function; the power operator will repeat the function on its left until the function on its right returns a <code class="docutils literal notranslate"><span class="pre">1</span></code>. The function we’ll use is <em>same</em> represented by <code class="docutils literal notranslate"><span class="pre">≡</span></code>. It returns a 1 if its arguments are identical.</p>
+<p><code class="docutils literal notranslate"><span class="pre">game_runner</span></code> will repeatedly play a round until two succesive configurations are the same.That will happen as soon as the game is over.</p>
+<p>Then it will invoke <code class="docutils literal notranslate"><span class="pre">uh</span></code> to update the configuration with the game result and return the updated configuration.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">game_runner</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">cf</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="nv">ucg</span> <span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span> <span class="p">⋄</span> <span class="nv">cf</span> <span class="kd">←</span><span class="p">(</span><span class="bp">⍺⍺</span> <span class="nv">play_round</span> <span class="bp">⍵⍵</span><span class="p">)</span><span class="na">⍣</span><span class="o">≡⊢</span><span class="nv">cf</span> <span class="p">⋄</span> <span class="nv">uh</span> <span class="nv">cf</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span>
+<span class="o">⊢</span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">random_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────────┬─┐
+│0 0 0 0 0 0 0 0 0│0│
+│1 0 0 0 0 0 0 0 0│ │
+│1 0 0 0 0 0 2 0 0│ │
+│1 0 1 0 0 0 2 0 0│ │
+│1 2 1 0 0 0 2 0 0│ │
+│1 2 1 0 1 0 2 0 0│ │
+│1 2 1 0 1 2 2 0 0│ │
+│1 2 1 1 1 2 2 0 0│ │
+│1 2 1 1 1 2 2 2 0│ │
+│1 2 1 1 1 2 2 2 1│ │
+└─────────────────┴─┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">random_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────────┬────┐
+│0 0 0 0 0 0 0 0 0│0 ¯1│
+│1 0 0 0 0 0 0 0 0│    │
+│1 0 0 0 0 0 2 0 0│    │
+│1 0 0 0 0 0 2 0 1│    │
+│1 0 0 0 2 0 2 0 1│    │
+│1 0 0 0 2 0 2 1 1│    │
+│1 0 2 0 2 0 2 1 1│    │
+└─────────────────┴────┘
+</span></div></div>
+</div>
+<p>Let’s play twenty more games and see the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="kt">{</span><span class="nv">random_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">⍣</span><span class="m">20</span><span class="o">⊢</span><span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────────┬──────────────────────────────────────────────────┐
+│0 0 0 0 0 0 0 0 0│0 ¯1 0 1 0 0 1 ¯1 ¯1 ¯1 1 ¯1 0 ¯1 1 0 1 0 1 ¯1 0 0│
+│0 0 1 0 0 0 0 0 0│                                                  │
+│2 0 1 0 0 0 0 0 0│                                                  │
+│2 0 1 1 0 0 0 0 0│                                                  │
+│2 0 1 1 2 0 0 0 0│                                                  │
+│2 1 1 1 2 0 0 0 0│                                                  │
+│2 1 1 1 2 0 2 0 0│                                                  │
+│2 1 1 1 2 0 2 1 0│                                                  │
+│2 1 1 1 2 2 2 1 0│                                                  │
+│2 1 1 1 2 2 2 1 1│                                                  │
+└─────────────────┴──────────────────────────────────────────────────┘
 </span></div></div>
 </div>
 <div class="cell docutils container">
@@ -410,9 +639,8 @@ The second element will be a matrix of bead counts, with one row per possible po
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Sat Dec 19 15:05:22 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Mon Dec 21 09:30:16 2020
 </span></div></div>
-</div>
 </div>
 </div>
 </div>
@@ -445,6 +673,8 @@ The second element will be a matrix of bead counts, with one row per possible po
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="chapter-6.html" title="previous page">Finding the next move</a>
+    <a class='right-next' id="next-link" href="appendix-a.html" title="next page">Appendix A - Exploring Dyalog APL</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

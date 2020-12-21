@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Possible games &#8212; MENACE Revisited</title>
+    <title>Implementing The MENACE Player &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,8 +55,6 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Finding the next move" href="chapter-6.html" />
-    <link rel="prev" title="Exploring the game" href="chapter-4.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -93,7 +91,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning
@@ -109,8 +107,8 @@
    Exploring the game
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-5.html">
    Possible games
   </a>
  </li>
@@ -174,7 +172,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/chapter-5.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/chapter-8.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -194,7 +192,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fchapter-5.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fchapter-8.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -215,7 +213,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-5.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/chapter-8.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -238,8 +236,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#win-lose-draw">
-   Win, lose, draw
+  <a class="reference internal nav-link" href="#tracking-menace-s-beads">
+   Tracking MENACE’s Beads
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menace-s-learning-rule">
+   MENACE’s Learning Rule
   </a>
  </li>
 </ul>
@@ -253,20 +256,52 @@
         
               <div>
                 
-  <div class="section" id="possible-games">
-<h1>Possible games<a class="headerlink" href="#possible-games" title="Permalink to this headline">¶</a></h1>
-<p>In this chapter we will look at how to see if a move has won the game.</p>
-<p>As usual, we will prepare the ground by copying in the work we did in the previous chapter and setting ⎕io to zero.</p>
+  <div class="section" id="implementing-the-menace-player">
+<h1>Implementing The MENACE Player<a class="headerlink" href="#implementing-the-menace-player" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tracking-menace-s-beads">
+<h2>Tracking MENACE’s Beads<a class="headerlink" href="#tracking-menace-s-beads" title="Permalink to this headline">¶</a></h2>
+<p>The original MATCHBOX-based MENACE remembered the consequences of past games using matchboxes and beads.</p>
+<ol class="simple">
+<li><p>It used one matchbox for each board position that MENACE might enounter.</p></li>
+<li><p>Each machbox was labelled. The label showed the position represented by the box, and showed each possible move from that position. Possible moves were shown in different colours.</p></li>
+<li><p>Each matchbox contained beads of colours that matched those on the label. The beads determined the probability that MENACE would make the corresponding move.</p></li>
+</ol>
+<p>In our implementation we will maintain the bead information as a two element vector, with each element an array.</p>
+<p>The first element will be a vector of decoded (numerical) positions.
+The second element will be a matrix of bead counts, with one row per possible position and 9 columns.</p>
+<p>Each column will corespond to one of the cells in the game board, and will contain the number of virtual beads corresponding to that move. Some moves will not be possible from the starting position. We will initialse those bead counts to zero, and they will never get updated, since the correponding moves will never be made.</p>
+<p>TODO: Add illustration of a position (in vector and display form) and its bead counts</p>
+<p>The values for possible moves will be initialised to some fixed number when a new MENACE configuration is created, and will then get adjusted at the end of each game by MENACE’s learning rule.</p>
+<p>The bead data will form a new third element of the MENACE configuration.</p>
+</div>
+<div class="section" id="menace-s-learning-rule">
+<h2>MENACE’s Learning Rule<a class="headerlink" href="#menace-s-learning-rule" title="Permalink to this headline">¶</a></h2>
+<p>At the end of a game MENACE adjusted the bead counts.</p>
+<ol class="simple">
+<li><p>If MENACE <em>won</em> it added three beads of the same colour matching those picked during the game.</p></li>
+<li><p>If MENACE <em>drew</em> it added one bead of the appropriate colour to each matchbox used.</p></li>
+<li><p>If MENACE <em>lost</em> it removed three beads of the appropriate colour from each matchbox used.</p></li>
+</ol>
+<p>We’ll do the same to our virtual bead counts.</p>
+<p>Let’s look at how to initialise the virtual bead data. MENACE started with 20 beads in each matchbox, but we will make that a changeable parameter called starting_count.</p>
+<p>The bead data is a two-element vector.</p>
+<p>The first is a vector of decoded plausible canonical positions. We saved that earlier in a variable <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>.</p>
+<p>The second is a matrix of bead counts, with one row for each position in <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>, and nine columns corrspnding to the nine squares on the board. Each column shoud contain the initial bean count for those positions that are empty, and zero for each position that has already been filled.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook4</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">starting_count</span> <span class="kd">←</span> <span class="m">20</span>
+<span class="nv">bc</span> <span class="kd">←</span> <span class="p">((</span><span class="o">⍴</span><span class="nv">ucpn</span><span class="p">)</span><span class="o">,</span><span class="m">9</span><span class="p">)</span><span class="o">⍴</span> <span class="nv">starting_count</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
-</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook4.dws saved Sat Dec 19 13:52:53 2020
-</span></div></div>
+</div>
+<p>Let’s start by copying in our earlier work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook7</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -275,135 +310,94 @@
 </div>
 </div>
 </div>
-<div class="section" id="win-lose-draw">
-<h2>Win, lose, draw<a class="headerlink" href="#win-lose-draw" title="Permalink to this headline">¶</a></h2>
-<p>How can we find if a position is a winning position?</p>
-<p>We need to see if there’s a row, a column or a diagonal where there are three <code class="docutils literal notranslate"><span class="pre">×</span></code>s or three <code class="docutils literal notranslate"><span class="pre">○</span></code>s.</p>
-<p>We will start by finding a way to pick out the contents of all the positions that could lead to a win.</p>
-<p>If we create a 3 by 3 matrix on the numbers from zero to nine we could list the indices that correspond to a winning line.</p>
+<p>Now we need to set the bead counts to zero for each position that has been filled.</p>
+<p>We’ll do that in stages. First we’ll convert encode values in <code class="docutils literal notranslate"><span class="pre">ucpn</span></code>, That will give us a matrix <code class="docutils literal notranslate"><span class="pre">ucp</span></code> with one row per position and one column per board position.</p>
+<p>Next we’ll look for the non-zeros in <code class="docutils literal notranslate"><span class="pre">ucp</span></code>, keep the corresponding positions of bead counts unchanged, and set the rest to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ucp</span> <span class="kd">←</span> <span class="nv">encode</span> <span class="nv">ucpn</span> <span class="c1">⍝ a matric with one board position per row</span>
+<span class="nv">non_zero</span> <span class="kd">←</span> <span class="m">0</span><span class="o">≠</span><span class="nv">ucp</span> <span class="c1">⍝ a matrix with a 1 for each non-empty position and a 0 for every empty one.</span>
+<span class="nv">bc</span> <span class="kd">←</span> <span class="nv">bc</span> <span class="o">×</span> <span class="nv">non_zero</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="m">5</span><span class="o">↑</span><span class="nv">ucp</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2
-3 4 5
-6 7 8
-</span></div></div>
-</div>
-<p>The candidates seem to be
-the rows: 0 1 2  3 4 5  6 7 8
-the columns: 0 3 6  1 4 7  2 5 8
-the diagonals: 0 4 8  2 4 6</p>
-<p>Actually, we can get APL to check our work. APL has two relevant functions, reverse <code class="docutils literal notranslate"><span class="pre">⌽</span></code> and transpose <code class="docutils literal notranslate"><span class="pre">⍉</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
-<span class="o">⊢</span><span class="nv">wpi</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">rows</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cols</span> <span class="kd">←</span> <span class="o">⍉</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">diagonals</span> <span class="kd">←</span> <span class="m">2</span> <span class="m">3</span><span class="o">⍴↑</span><span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉⌽</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">⋄</span> <span class="o">⊃⍪</span><span class="na">/</span><span class="nv">rows</span> <span class="nv">cols</span> <span class="nv">diagonals</span><span class="kt">}</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2
-3 4 5
-6 7 8
-0 3 6
-1 4 7
-2 5 8
-0 4 8
-2 4 6
-</span></div></div>
-</div>
-<p>Now we can use <code class="docutils literal notranslate"><span class="pre">wpi</span></code> to write a function <code class="docutils literal notranslate"><span class="pre">wf</span></code> which will tell us if a position is a win or not.</p>
-<p>We’ll use <code class="docutils literal notranslate"><span class="pre">ild</span></code> to create the possible locations for three-in-a-row <code class="docutils literal notranslate"><span class="pre">×</span></code>s and <code class="docutils literal notranslate"><span class="pre">○</span></code>s,
-and then use <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2∘.=</span></code> to see where each location contains a <code class="docutils literal notranslate"><span class="pre">×</span></code> or a <code class="docutils literal notranslate"><span class="pre">○</span></code>.
-Finally, we <em>and</em> (<code class="docutils literal notranslate"><span class="pre">∧</span></code>) each element in a row of three,
-<em>or</em> (<code class="docutils literal notranslate"><span class="pre">∨</span></code>) the results, and <em>or</em> them again to find out if there’s a win.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span>wf ← {∨⌿∨/^/1 2∘.=wpi ild ⍵} ⍝ is this a win?
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wf</span> <span class="m">1</span> <span class="m">1</span> <span class="m">1</span> <span class="m">0</span> <span class="m">2</span> <span class="m">2</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┐
+│...│...│...│...│...│
+│...│...│...│...│...│
+│...│..×│.×.│.×○│.○×│
+└───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wf</span> <span class="m">2</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">5</span><span class="o">↑</span><span class="nv">bc</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0  0  0
+0 0 0 0 0 0 0  0 20
+0 0 0 0 0 0 0 20  0
+0 0 0 0 0 0 0 20 20
+0 0 0 0 0 0 0 20 20
 </span></div></div>
+</div>
+<p>That looks correct. Let’s turn that into a function <code class="docutils literal notranslate"><span class="pre">initial_counts</span></code> which will take the intial counts as its  argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">initial_counts</span> <span class="kd">←</span> <span class="kt">{</span> <span class="nv">bc</span> <span class="kd">←</span> <span class="p">((</span><span class="o">⍴</span><span class="nv">ucpn</span><span class="p">)</span><span class="o">,</span><span class="m">9</span><span class="p">)</span><span class="o">⍴</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">bc</span> <span class="o">×</span> <span class="m">0</span><span class="o">≠</span><span class="nv">encode</span> <span class="nv">ucpn</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wf</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">2</span> <span class="m">2</span> <span class="m">0</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">5</span><span class="o">↑</span><span class="nv">initial_counts</span> <span class="m">20</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0  0  0
+0 0 0 0 0 0 0  0 20
+0 0 0 0 0 0 0 20  0
+0 0 0 0 0 0 0 20 20
+0 0 0 0 0 0 0 20 20
 </span></div></div>
 </div>
-<p>Let’s see how many of the unique canonical possible positions are wins.</p>
+<p>Now we can easily create the extended initial configuration.</p>
+<p>The third element contains <code class="docutils literal notranslate"><span class="pre">ucpn</span></code> and the intial counts.</p>
+<p>We’ll write a function called <code class="docutils literal notranslate"><span class="pre">initialise</span></code> which will take the initial bead count as its argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="na">/</span><span class="nv">wf</span> <span class="nv">ucp</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">initialise</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="nv">ucpn</span> <span class="nv">initial_counts</span> <span class="bp">⍵</span><span class="p">)</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span><span class="kt">}</span>
+<span class="nv">config</span> <span class="kd">←</span> <span class="nv">initialise</span> <span class="m">20</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">220
-</span></div></div>
-</div>
-<p>Let’s check them. We’ll create a function <code class="docutils literal notranslate"><span class="pre">wp</span></code> which filters out wins from a matrix of positions,  apply it to ucp,
-and show the first few.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wp</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍵</span><span class="na">⌿⍨</span><span class="nv">wf</span> <span class="bp">⍵</span><span class="kt">}</span>
-<span class="nv">list</span> <span class="m">19</span><span class="o">↑</span><span class="nv">wp</span> <span class="nv">ucp</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-│...│...│...│...│...│...│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│
-│.○○│×××│×××│×××│○.○│○○○│..×│.×.│.××│.×○│.×○│.○×│.○×│×.×│××.│×××│××○│×○×│○.×│
-│×××│.○○│○.○│○○○│×××│×××│○○×│×○○│○○○│×○.│×○○│○.×│○○×│○○○│○○○│○○○│×○○│○○×│.○×│
-└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook5</span> <span class="o">-</span><span class="nv">force</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook5.dws saved Sun Dec 20 14:52:47 2020
-</span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">fns</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook8</span> <span class="o">-</span><span class="nv">force</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">canonical       cd      decode  encode  ild     list    m       ok      r       see     show    wf      wp      
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Sun Dec 20 08:02:46 2020
 </span></div></div>
 </div>
 </div>
@@ -437,8 +431,6 @@ and show the first few.</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="chapter-4.html" title="previous page">Exploring the game</a>
-    <a class='right-next' id="next-link" href="chapter-6.html" title="next page">Finding the next move</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
