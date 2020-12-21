@@ -1,16 +1,17 @@
 import unittest
+from typing import List
 
 from notebooks.notebook import APLCell
 
 
 class MockNotebookCell:
-    def __init__(self, type, source):
-        self.type = type
+    def __init__(self, cell_type, source: List[str]):
+        self.cell_type = type
         self.source = source
 
 
-def apl_cell(source: str):
-    return APLCell(MockNotebookCell('code',source))
+def apl_cell(*lines: str):
+    return APLCell(MockNotebookCell('code',list(lines)))
 
 
 class APLCellTestCase(unittest.TestCase):
@@ -26,6 +27,11 @@ class APLCellTestCase(unittest.TestCase):
     def test_can_find_identifiers(self):
         a_cell = apl_cell("foo bar 'baz' ⍝ bing")
         self.assertEqual(list(a_cell.identifiers()), [['foo','bar']])
+
+    def test_can_find_assignment(self):
+        a_cell = apl_cell("foo ← bar 'baz' ⍝ bing", 'goop')
+        self.assertEqual(list(a_cell.assignments()), [['foo'],[]])
+
 
 
 
