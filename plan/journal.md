@@ -52,4 +52,13 @@ I'll do the random player first, just to prove the game_runner design.
 
 Also tweak player to return its type if given an argument of `⍬`.
 
+## Tuesday 22 December 2020
+
+Lots done yesterday, though I was very tired.
+
+`game_runner` now working with a `random_player`,and I have started chapter 8.
+
+I'm also planning a 5-minute guide to RIDE as this will be needed if anyone wants to run a `human_player`.
+
+
 
