@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reinforcement Learning From The Ground Up &#8212; MENACE Revisited</title>
+    <title>Reinforcement Learning &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,7 +55,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Reinforcement Learning" href="chapter-2.html" />
+    <link rel="next" title="Reinforcement Learning with MENACE" href="chapter-2.html" />
+    <link rel="prev" title="Reinforcement Learning From The Ground Up" href="an-introduction.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -86,46 +87,61 @@
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="an-introduction.html">
    Reinforcement Learning From The Ground Up
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="chapter-2.html">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Reinforcement Learning
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-3.html">
+  <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning with MENACE
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-4.html">
+  <a class="reference internal" href="chapter-3.html">
    Exploring the game
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-5.html">
+  <a class="reference internal" href="chapter-4.html">
    Possible games
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-6.html">
+  <a class="reference internal" href="chapter-5.html">
    Finding the next move
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-7.html">
+  <a class="reference internal" href="chapter-6.html">
    Playing the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-7.html">
+   Implementing A Simplified MENACE Player
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-a.html">
    Appendix A - Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-b.html">
+   Ten minutes to RIDE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-c.html">
+   Running MENACE In RIDE
   </a>
  </li>
  <li class="toctree-l1">
@@ -237,36 +253,9 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#once-upon-a-time">
-   Once Upon A Time
+  <a class="reference internal nav-link" href="#exploring-menace-in-apl">
+   Exploring MENACE in APL
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reinforcement-learning">
-   Reinforcement Learning
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#samuel-s-checkers-player">
-     Samuel’s Checkers Player
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#donald-michie-s-menace">
-     Donald Michie’s MENACE
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#recent-progress-in-rl">
-     Recent Progress In RL
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#michie-s-menace-revisited">
-     Michie’s MENACE Revisited
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -279,97 +268,348 @@
         
               <div>
                 
-  <div class="section" id="reinforcement-learning-from-the-ground-up">
-<h1>Reinforcement Learning From The Ground Up<a class="headerlink" href="#reinforcement-learning-from-the-ground-up" title="Permalink to this headline">¶</a></h1>
-<p>This book implements Donald Michie’s
-<a class="reference external" href="https://en.wikipedia.org/wiki/Matchbox_Educable_Noughts_and_Crosses_Engine">MENACE</a> using <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
-<p>The implementation builds an APL <a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>
-(Domain-specific language) that implements <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a>
-in the game Noughts and Crosses (Tic-tac-toe).</p>
-<p>I plan to add a Python implementation later so that the two can be compared.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> is a programming language developed by
-<a class="reference external" href="https://en.wikipedia.org/wiki/Kenneth_E._Iverson">Kenneth E. Iverson</a>.
-APL is unmatched for expressing complex operations on arrays.</p>
-<p>This short book is a <em>work in progress</em>. It is currently about 80% complete.</p>
-<p>I hope that the book has enough explanation and code examples for you to be able to follow the flow.
-It introduces language elements as they are needed. It isn’t a systematic introduction to the language,
-but you will learn a lot of useful APL constructs from it.</p>
-<p>If you would like to learn more APL or want to experiment with the code in the
-notebooks, you can find out do that in <a class="reference internal" href="appendix-a.html"><span class="doc">Appendix A</span></a>.</p>
-<div class="section" id="once-upon-a-time">
-<h2>Once Upon A Time<a class="headerlink" href="#once-upon-a-time" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes smart people jump to dumb conclusions.</p>
-<p>Back in 1965 I attended my first programming course at the University of London Institute of Computer Science.</p>
-<p>Our trainer was great. He was an academic lecturer with a wealth of programming experience, and we all learned a lot.
-But he wasn’t right about everything he told us.</p>
-<p>On the last day he ran an <em>Ask Me Anything</em> session.</p>
-<p>One of the students asked him if a computer program could ever beat consistently humans at chess.
-He answered immediately with a firm <em>No</em>.</p>
-<p>He explained:
-“The program could only play by the programmer’s rules, so it could never be a better player than the programmer.”</p>
-<p>He had no conception of a program that could learn from its mistakes and improve its strategy.</p>
+  <div class="section" id="reinforcement-learning">
+<h1>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="exploring-menace-in-apl">
+<h2>Exploring MENACE in APL<a class="headerlink" href="#exploring-menace-in-apl" title="Permalink to this headline">¶</a></h2>
+<p>Michie’s MENACE used matchboxes to remember what had happened in previous games.
+Michie used one matchbox for each possible board configuration, and the player picked
+a coloured bead at random to decide what move MENACE would make.</p>
+<p>How many relevant board configurations are there?</p>
+<p>This isn’t a trivial question, since many board configurations could never be reached in play.</p>
+<p>There’s an obvious upper limit, though. We can count all the board configurations without considering whether they could be reached.</p>
+<p>Each square of the board can be empty, contain a nought or contain a cross.
+There are three possibilities for each of the nine cells, so there are three to the power 9 in total.</p>
+<p>Here’s how we calculate that in APL.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Exponentiation is represented by <code class="docutils literal notranslate"><span class="pre">*</span></code> in APL.
+APL uses <code class="docutils literal notranslate"><span class="pre">×</span></code> for multiplication.</p>
 </div>
-<div class="section" id="reinforcement-learning">
-<h2>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h2>
-<p>He can’t have known that several researchers had already published details of programs that did exactly that.
-They implemented <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a> strategies.
-One of the first, and most famous, was Samuels’ checkers player.</p>
-<div class="section" id="samuel-s-checkers-player">
-<h3>Samuel’s Checkers Player<a class="headerlink" href="#samuel-s-checkers-player" title="Permalink to this headline">¶</a></h3>
-<p>In 1959 <a class="reference external" href="https://en.wikipedia.org/wiki/Arthur_Samuel">A H Samuel</a> wrote about a program
-that played <a class="reference external" href="https://en.wikipedia.org/wiki/Draughts">Draughts</a> (known as Checkers in the USA).</p>
-<p>The program learned to improve its game. Draughts or Checkers is not as complex as chess, but it is not a trivial game.
-Samuel’s implementation played the game surprisingly well. This was a significant milestone in the development of AI.</p>
-<p>Another early program played a simpler game.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
+</pre></div>
 </div>
-<div class="section" id="donald-michie-s-menace">
-<h3>Donald Michie’s MENACE<a class="headerlink" href="#donald-michie-s-menace" title="Permalink to this headline">¶</a></h3>
-<p>Most of us have played <a class="reference external" href="https://en.wikipedia.org/wiki/Tic-tac-toe"><em>Tic-tac-toe</em></a>, or <em>Noughts and Crosses</em> as it’s known in the UK.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Donald_Michie">Donald Michie</a> (a pioneer in AI) realised that Noughts and Crosses is a
-good candidate if you’re looking a way to start exploring game-playing AI.</p>
-<p>In 1960 Michie created <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">MENACE</a>,
-the <em>Matchbox Educable Noughts And Crosses Engine</em>.</p>
-<p>MENACE was a mechanical computer based on matchboxes filled with coloured beads.
-MENACE’s moves were determined by picking a bead at random from the appropriate matchbox.
-When the game was over the beads were adjusted depending on the outcome of the game.</p>
-<p>This simple design was enough for it to become a decent player when it had played enough games against a human opponent.</p>
-<p>MENACE was also implemented in software on a Pegasus computer.</p>
-<p>I first read about MENACE in the Penguin Science Survey 1962 vol 2.
-You can see a picture of the original matchbox MENACE below.</p>
-<p><img alt="MENACE" src="_images/menace-1961.jpg" /></p>
-<p>RL (Reinforcement Learning) has been actively studied by researchers since the early implementations.</p>
 </div>
-<div class="section" id="recent-progress-in-rl">
-<h3>Recent Progress In RL<a class="headerlink" href="#recent-progress-in-rl" title="Permalink to this headline">¶</a></h3>
-<p>Recent RL successes include Deep Mind’s AlphaGo and AlphaZero.</p>
-<p>We’ve also seen the publication of a long-awaited second edition of
-Sutton and Barto’s seminal
-<a class="reference external" href="https://www.amazon.co.uk/Reinforcement-Learning-Introduction-Richard-Sutton/dp/0262039249/">book</a> on RL.</p>
-<p>The book includes a description of Michie’s MENACE.</p>
-<p>Many people when they first encounter MENACE think of its learning as a form of evolution.</p>
-<p>My long-time friend and mentor, Tom Westerdale, has formalised the relationship between temporal difference methods and
-Evolutionary Adaptive Systems.</p>
-<p>There’s a lot of interest in RL at present and Michie’s MENACE is a great way to get familiar with the basics.</p>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">19683
+</span></div></div>
 </div>
-<div class="section" id="michie-s-menace-revisited">
-<h3>Michie’s MENACE Revisited<a class="headerlink" href="#michie-s-menace-revisited" title="Permalink to this headline">¶</a></h3>
-<p>Several people have replicated MENACE over the years.</p>
-<p>Michie and D. Martin created an <a class="reference external" href="https://www.gwern.net/docs/rl/1963-michie.pdf">extended simulation</a>
-on a Ferranti Pegasus 2.</p>
-<p>Matthew Scroggs built a mechanical replica which was used by Hannah Fry and Matt Parker in the
-<a class="reference external" href="https://www.mscroggs.co.uk/blog/71">2019 Royal Society Christmas Lecture</a> to demonstrate how machine learning works.
-Scroggs also wrote a <a class="reference external" href="https://github.com/mscroggs/MENACE">JavaScript implementation</a>.</p>
-<p>Scroggs intoduced MENACE to Oliver Child, and Child, while still at school,
-created his own <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">replica</a>.</p>
-<p>I, too, am keen to replicate MENACE.</p>
-<p>This book is based on a series of Jupyter Notebooks that will build up a simple implementation
-of MENACE in <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>
-(which stands for <em>A Programming Language</em>) is very well suited to the task.</p>
-<p>APL was designed as a language for exposition, and it implements the algorithms that we’ll need simply and concisely.</p>
-<p>The notebooks will explore the game and its implementation.</p>
-<div class="toctree-wrapper compound">
+<p>It’s interesting to know how many positions there are, but we’ll need to eliminate the ones that are impossible
+or redundant.</p>
+<p>We need some way of representing a board position.</p>
+<p>We can show each board position as a 3 by 3 matrix of characters: a <code class="docutils literal notranslate"><span class="pre">×</span></code> for a cross, a <code class="docutils literal notranslate"><span class="pre">○</span></code> for a nought,
+and  a <code class="docutils literal notranslate"><span class="pre">.</span></code> for an unfilled square. That means that an empty board does not just look like white space.</p>
+<p>Suppose the first player placed an ‘x’ in the centre.
+We could create that board like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;....×....&#39;</span>
+</pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+.×.
+...
+</span></div></div>
+</div>
+<p>In APL we create character literals by enclosing their characters in single quotation marks.
+The result is a character <em>vector</em> (a list of characters).</p>
+<p>We can create a matrix by asking APL to reshape the vector.
+<code class="docutils literal notranslate"><span class="pre">⍴</span></code> stands for <em>reshape</em>; it reshapes the array on its right using the shape on its left.</p>
+<p>That way of displaying a board position is great for humans, but there are better ways to represent a board
+in an APL program. The way we’ll do it is to represent a board as a numeric vector.
+The vector will have a zero for an unfilled position, a 1 for an <code class="docutils literal notranslate"><span class="pre">×</span></code> and a 2 for a <code class="docutils literal notranslate"><span class="pre">○</span></code>.</p>
+<p>The board we saw above would be represented by the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.</p>
+<p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of
+characters.</p>
+<p>As you may know, the mathematical world is divided about how to index things.
+Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>APL supports both approaches. You tell APL which you want to use by setting the <em>index origin</em> to 0 or 1.</p>
+<p>In APL, the index origin is a system variable called <code class="docutils literal notranslate"><span class="pre">⎕io</span></code>. The line below sets it to 0.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, in APL, <code class="docutils literal notranslate"><span class="pre">←</span></code> is used for assignment. (The <code class="docutils literal notranslate"><span class="pre">=</span></code> symbol is only used to test for equality.)</p>
+<p>Here’s the code to convert the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code> to a human-friendly board position.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+.×.
+...
+</span></div></div>
+</div>
+<p>We’re going to use that expression whenever we want to  turn a board vector into a human-friendly diagram.</p>
+<p>We can use APL’s <em>direct definition</em> to create a function which we can use repeatedly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
+<span class="nv">show</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+.×.
+...
+</span></div></div>
+</div>
+<p>How can we generate all the 19683 board positions?</p>
+<p>The first step is to generate all the numbers from 0 to 19682.</p>
+<p>In APL we can do that using <code class="docutils literal notranslate"><span class="pre">⍳</span></code>. IN the lines below, we’ll store the list of numbers in a variable called <code class="docutils literal notranslate"><span class="pre">boards</span></code> and then display the first 6 numbers just to check that APL did what we wanted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">boards</span> <span class="kd">←</span> <span class="o">⍳</span><span class="m">19683</span>
+<span class="nv">boards</span><span class="sr">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5
+</span></div></div>
+</div>
+<p>That looks good.</p>
+<p>We picked the first six elements of <code class="docutils literal notranslate"><span class="pre">boards</span></code> using indexing, but there’s an easier way. We can use APL’s <em>take</em> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">6</span><span class="o">↑</span><span class="nv">boards</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5
+</span></div></div>
+</div>
+<p>How can we convert those numbers to board positions?</p>
+<p>We can use a <em>primitive</em> (built-in) APL function called encode <code class="docutils literal notranslate"><span class="pre">⊤</span></code> which converts an integer to a representation in any number base we chose. We’ll convert each number to its <em>ternary</em> (base 3) representation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encoded</span> <span class="kd">←</span> <span class="p">(</span><span class="m">9</span><span class="o">⍴</span><span class="m">3</span><span class="p">)</span><span class="o">⊤</span><span class="nv">boards</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What’s the result? We won’t display it, since it contains a large array, but we can find out its shape.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">encoded</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">9 19683
+</span></div></div>
+</div>
+<p>Earlier we used <code class="docutils literal notranslate"><span class="pre">⍴</span></code> with a shape on the left, and an array on the right to reshape a vector into a matrix.
+Here we used <code class="docutils literal notranslate"><span class="pre">⍴</span></code> with just an array on the right. Used that way, <code class="docutils literal notranslate"><span class="pre">⍴</span></code> returns the shape of the array.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">↑</span></code> to take 9 rows and 6 columns from the encoded matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">9</span> <span class="m">6</span><span class="o">↑</span><span class="nv">encoded</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 1 1 1
+0 1 2 0 1 2
+</span></div></div>
+</div>
+<p>Each column is a board position. It feels more natural to have the board positions as rows,
+and APL has a handy transpose function <code class="docutils literal notranslate"><span class="pre">⍉</span></code> which will do the job.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍉</span><span class="m">9</span> <span class="m">6</span><span class="o">↑</span><span class="nv">encoded</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 2
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 1 1
+0 0 0 0 0 0 0 1 2
+</span></div></div>
+</div>
+<p>We’re going to do a lot of encoding, so it makes sense to create an <code class="docutils literal notranslate"><span class="pre">encode</span></code> function we can use repeatedly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encode</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⍉</span><span class="p">(</span><span class="m">9</span><span class="o">⍴</span><span class="m">3</span><span class="p">)</span><span class="o">⊤</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ integer(s) to board vector/matrix</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets’ try that out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 2
+0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 1 1
+0 0 0 0 0 0 0 1 2
+</span></div></div>
+</div>
+<p>Later on we will want to go in the opposite direction from a vector or vectors to the numbers that correspond to each one.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">decode</span></code> does that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">decode</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span><span class="o">⊥⍉</span><span class="bp">⍵</span><span class="kt">}</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">decode</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5
+</span></div></div>
+</div>
+<p>What do these boards look like? Let’s try to use the show function we wrote earlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+...
+...
+</span></div></div>
+</div>
+<p>Oops! That just shows the first board position, which is rather boring, and not what we wanted.
+The current definition of <code class="docutils literal notranslate"><span class="pre">show</span></code> uses <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴</span></code> to generate its result,
+so we only ever get 9 characters arranged as a 3 by 3 matrix. We need to modify <code class="docutils literal notranslate"><span class="pre">show</span></code> so that it displays each board.</p>
+<p>We’ll use APL’s <code class="docutils literal notranslate"><span class="pre">rank</span></code> operator <code class="docutils literal notranslate"><span class="pre">⍤</span></code> which we can use to control how the code is applied to the function’s argument.</p>
+<p>In this case we want <code class="docutils literal notranslate"><span class="pre">show</span></code> to apply to each vector along the last dimension of the argument we provide.</p>
+<p><code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴⍤</span> <span class="pre">1</span></code> allows us to do that.
+The <code class="docutils literal notranslate"><span class="pre">⊢</span></code> just serves to separate the <code class="docutils literal notranslate"><span class="pre">1</span></code> used with rank from the code that picks the characters to use as an argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="na">⍤</span> <span class="m">1</span> <span class="o">⊢</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
+<span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+...
+...
+
+...
+...
+..×
+
+...
+...
+..○
+
+...
+...
+.×.
+
+...
+...
+.××
+
+...
+...
+.×○
+</span></div></div>
+</div>
+<p>Let’s look at the shape of show’s result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">6 3 3
+</span></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">show</span></code> now converts each vector on its right to a matrix.
+If we apply <code class="docutils literal notranslate"><span class="pre">show</span></code> to a matrix with one board per row it returns a 3d array with one plane for each board configuration.</p>
+<p>If there aren’t too many boards it can be easier to see the positions going <em>across</em> the page rather than down it.</p>
+<p>There’s an easy way to do that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┐
+│...│...│...│...│...│...│
+│...│...│...│...│...│...│
+│...│..×│..○│.×.│.××│.×○│
+└───┴───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span></code> converts the cube of characters returned by <code class="docutils literal notranslate"><span class="pre">show</span></code> into a vector (list) of matrices.</p>
+<p>We’ve now created the tools we need to work on the next stage of our implementation of MENACE.</p>
+<p>In the next notebook we will look at the relationship between symmetries (rotations and reflections) of board configurations.</p>
+<p>We will want to use <code class="docutils literal notranslate"><span class="pre">encode</span></code>, <code class="docutils literal notranslate"><span class="pre">decode</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> so we will save our work ready to reuse in the next notebook.</p>
+<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook2.dws</span></code>.</p>
+<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option because the notebook software silently loads a workspace with a different name.</p>
+<p>APL will not change that name unless we tell it to.</p>
+<p>In the discussion that follows, we’ll use the expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span> <span class="pre">show</span></code> a lot, so let’s make it a function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="bp">⍵</span><span class="kt">}</span>
+<span class="nv">list</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┐
+│...│...│...│...│...│...│
+│...│...│...│...│...│...│
+│...│..×│..○│.×.│.××│.×○│
+└───┴───┴───┴───┴───┴───┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook2</span> <span class="o">-</span><span class="nv">force</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook2.dws saved Sat Dec 12 17:45:10 2020
+</span></div></div>
 </div>
 </div>
 </div>
@@ -402,7 +642,8 @@ of MENACE in <a class="reference external" href="https://www.dyalog.com/">Dyalog
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="chapter-2.html" title="next page">Reinforcement Learning</a>
+    <a class='left-prev' id="prev-link" href="an-introduction.html" title="previous page">Reinforcement Learning From The Ground Up</a>
+    <a class='right-next' id="next-link" href="chapter-2.html" title="next page">Reinforcement Learning with MENACE</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Running MENACE In RIDE &#8212; MENACE Revisited</title>
+    <title>Appendix B - Ten minutes to RIDE &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,6 +55,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Appendix C - TBD :)" href="appendix-c.html" />
+    <link rel="prev" title="Appendix A - Exploring Dyalog APL" href="appendix-a.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -86,45 +88,60 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-1.html">
+  <a class="reference internal" href="an-introduction.html">
    Reinforcement Learning From The Ground Up
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-2.html">
+  <a class="reference internal" href="chapter-1.html">
    Reinforcement Learning
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-3.html">
+  <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning with MENACE
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-4.html">
+  <a class="reference internal" href="chapter-3.html">
    Exploring the game
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-5.html">
+  <a class="reference internal" href="chapter-4.html">
    Possible games
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-6.html">
+  <a class="reference internal" href="chapter-5.html">
    Finding the next move
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-7.html">
+  <a class="reference internal" href="chapter-6.html">
    Playing the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-7.html">
+   Implementing A Simplified MENACE Player
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-a.html">
    Appendix A - Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Appendix B - Ten minutes to RIDE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-c.html">
+   Appendix C - TBD :)
   </a>
  </li>
  <li class="toctree-l1">
@@ -213,6 +230,25 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#three-ways-to-work">
+   Three ways to work
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#starting-ride">
+   Starting RIDE
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -220,9 +256,47 @@
         
               <div>
                 
-  <div class="section" id="running-menace-in-ride">
-<h1>Running MENACE In RIDE<a class="headerlink" href="#running-menace-in-ride" title="Permalink to this headline">¶</a></h1>
-<p>To be written Real Soon Now.</p>
+  <div class="section" id="appendix-b-ten-minutes-to-ride">
+<h1>Appendix B - Ten minutes to RIDE<a class="headerlink" href="#appendix-b-ten-minutes-to-ride" title="Permalink to this headline">¶</a></h1>
+<p>This is a short introductory guide to Dyalog APL’s <strong>RIDE</strong> interface.</p>
+<p><strong>RIDE</strong> stands for Remote Integrated Development Environment.</p>
+<p>When you code using Dyalog APL, you’ll use two key software components.</p>
+<ol class="simple">
+<li><p><em>The APL interpreter</em> which executes APL code.</p></li>
+<li><p><em>A developer interface</em> which allows you to write code, invoke the interpreter and debug code when necessary.</p></li>
+</ol>
+<p>Most new users develop using RIDE. Other interfaces are available, including an
+<a class="reference external" href="https://github.com/Dyalog/dyalog-jupyter-kernel">open source kernel</a>
+for <a class="reference external" href="https://jupyter.org/">jupyter notebooks</a>, but RIDE is recommended
+and is part of the default installation of Dyalog APL.</p>
+<p>Dyalog’s installation depends on the target environment.
+<span class="xref myst">Windows</span> users, <span class="xref myst">maxOS X</span> users, <span class="xref myst">Linux users</span> with Intel/AMD hardware and <span class="xref myst">Raspberry Pi</span>
+users will find information specific to their environment on the Dyalog website.</p>
+<p>TODO: add links.</p>
+<p>This short guide will help you get started with RIDE and APL after you have installed the appropriate software.</p>
+<p>RIDE works the same way in all the environments listed above.</p>
+<div class="section" id="three-ways-to-work">
+<h2>Three ways to work<a class="headerlink" href="#three-ways-to-work" title="Permalink to this headline">¶</a></h2>
+<p>There are three common ways of using RIDE to connect you to the APL interpreter, They are determined by
+the location of the GUI (Graphic User Interface) you interact with, and the location of the computer on
+which APL is installed.</p>
+<p>Here are the configurations:</p>
+<ol class="simple">
+<li><p><em>Local GUI, local Interpreter</em>. This is the configuration you use if you’re using RIDE on the computer
+on which you installed APL.</p></li>
+<li><p><em>Local GUI, remote interpreter</em>. This allows a laptop user (for example) to interact with a server, or to interact
+with a Raspberry Pi that has no monitor, keyboard or mouse installed. RIDE needs to be installed on both computers,
+and the computers must be connected by a TCP network.</p></li>
+<li><p><em>Local access to a remote Desktop</em>, remote GUI, remote interpreter. This is essentially the same as 1. above.
+You’ll be accessing the other computer using a protocol like <em>VNC</em> or <em>RDP</em> but this won’t affect RIDE’s operation.
+You’ll need to configure RIDE for <strong>local</strong> use.</p></li>
+</ol>
+</div>
+<div class="section" id="starting-ride">
+<h2>Starting RIDE<a class="headerlink" href="#starting-ride" title="Permalink to this headline">¶</a></h2>
+<p>In each case you will start RIDE by clicking on the icon which was added during installation.</p>
+<p><img alt="Starting RIDE" src="_images/ride-01.png" /></p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -253,6 +327,8 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="appendix-a.html" title="previous page">Appendix A - Exploring Dyalog APL</a>
+    <a class='right-next' id="next-link" href="appendix-c.html" title="next page">Appendix C - TBD :)</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

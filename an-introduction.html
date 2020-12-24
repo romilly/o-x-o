@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>&lt;no title&gt; &#8212; MENACE Revisited</title>
+    <title>Reinforcement Learning From The Ground Up &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,6 +55,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reinforcement Learning" href="chapter-1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -85,8 +86,8 @@
 </form>
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="an-introduction.html">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="#">
    Reinforcement Learning From The Ground Up
   </a>
  </li>
@@ -134,12 +135,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-b.html">
-   Ten minutes to RIDE
+   Appendix B - Ten minutes to RIDE
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-c.html">
-   Running MENACE In RIDE
+   Appendix C - TBD :)
   </a>
  </li>
  <li class="toctree-l1">
@@ -187,7 +188,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/spike.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/an-introduction.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -207,7 +208,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fspike.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/romilly/o-x-o/issues/new?title=Issue%20on%20page%20%2Fan-introduction.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -228,7 +229,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/spike.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/romilly/o-x-o/master?urlpath=tree/an-introduction.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -249,7 +250,39 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            <ul class="simple nav section-nav flex-column">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#once-upon-a-time">
+   Once Upon A Time
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reinforcement-learning">
+   Reinforcement Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#samuel-s-checkers-player">
+     Samuel’s Checkers Player
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#donald-michie-s-menace">
+     Donald Michie’s MENACE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recent-progress-in-rl">
+     Recent Progress In RL
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#michie-s-menace-revisited">
+     Michie’s MENACE Revisited
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
         </nav>
@@ -261,57 +294,100 @@
         
               <div>
                 
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span>⎕io ← 0
-
-show ← {3 3⍴⍤1 ⊢&#39;.×○&#39;[⍵]} ⍝ display position
-list ← {⊂⍤2 show ⍵} ⍝ spread boards across the page
-ild ← {(⊂⍺) ⌷[¯1+⍴⍴⍵]⍵} ⍝ index last dimension
-np ← {1+&gt;/+/1 2∘.=⍵} ⍝ next player
-cg ← {0⊃⍵} ⍝ current game from config
-p ← {,¯1↑⍵} ⍝ current position from game
-random_player ← {cf ← ⍵ ⋄ g ← cg ⍵ ⋄ cp ← p g ⋄ i ← ⍸e←0=cp ⋄ cp[i[?+/e]] ← np cp ⋄ g ← g⍪ cp ⋄ cf[0]←⊂g ⋄ cf }
-wpi ← {rows ← ⍵ ⋄ cols ← ⍉⍵ ⋄ diagonals ← 2 3⍴↑(0 0⍉⍵) (0 0⍉⌽⍵) ⋄ ⊃⍪/rows cols diagonals} 3 3⍴⍳9 ⍝ winning indices
-wf ← {∨⌿∨/^/1 2∘.=wpi ild ⍵} ⍝ is this a win?
-draw ← {0=+/0=⍵} ⍝ is the game drawn?
-game_over←wf ∨ draw ⍝ the game is over if it&#39;s been won or drawn
-over_checker←{game_over p cg ⍵:⍵ ⋄ ⍺⍺ ⍵} ⍝ if the game is over, do nothing; otherwise invoke the player
-play_round ← {cf ← ⍵ ⋄ cf ← ⍺⍺ over_checker cf ⋄cf ← ⍵⍵ over_checker cf ⋄ cf}
-game_runner ← {cf ← ⍵ ⋄ (0cf ← 1 9⍴0 ⋄ cf ←(⍺⍺ play_round ⍵⍵)⍣≡cf ⋄ cf}
-
-config ← random_player game_runner random_player⊢(1 9⍴0) ⍬
-list cg config
-</pre></div>
+  <div class="section" id="reinforcement-learning-from-the-ground-up">
+<h1>Reinforcement Learning From The Ground Up<a class="headerlink" href="#reinforcement-learning-from-the-ground-up" title="Permalink to this headline">¶</a></h1>
+<p>This book implements Donald Michie’s
+<a class="reference external" href="https://en.wikipedia.org/wiki/Matchbox_Educable_Noughts_and_Crosses_Engine">MENACE</a> using <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
+<p>The implementation builds an APL <a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>
+(Domain-specific language) that implements <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a>
+in the game Noughts and Crosses (Tic-tac-toe).</p>
+<p>I plan to add a Python implementation later so that the two can be compared.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a> is a programming language developed by
+<a class="reference external" href="https://en.wikipedia.org/wiki/Kenneth_E._Iverson">Kenneth E. Iverson</a>.
+APL was designed to provide a consistent way of describing mathematical algorithms.
+APL is unmatched for expressing complex operations on arrays.</p>
+<p>This short book is a <em>work in progress</em>. It is currently about 80% complete.</p>
+<p>I hope that the book has enough explanation and code examples for you to be able to follow the flow.
+It introduces language elements as they are needed. It isn’t a systematic introduction to the language,
+but you will learn a lot of useful APL constructs from it.</p>
+<p>If you would like to learn more APL or want to experiment with the code in the
+notebooks, you can find out do that in the Appendices.</p>
+<div class="section" id="once-upon-a-time">
+<h2>Once Upon A Time<a class="headerlink" href="#once-upon-a-time" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes smart people jump to dumb conclusions.</p>
+<p>Back in 1965 I attended my first programming course at the University of London Institute of Computer Science.</p>
+<p>Our trainer was great. He was an academic lecturer with a wealth of programming experience, and we all learned a lot.
+But he wasn’t right about everything he told us.</p>
+<p>On the last day he ran an <em>Ask Me Anything</em> session.</p>
+<p>One of the students asked him if a computer program could ever beat consistently humans at chess.
+He answered immediately with a firm <em>No</em>.</p>
+<p>He explained:
+“The program could only play by the programmer’s rules, so it could never be a better player than the programmer.”</p>
+<p>He had no conception of a program that could learn from its mistakes and improve its strategy.</p>
+</div>
+<div class="section" id="reinforcement-learning">
+<h2>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h2>
+<p>He can’t have known that several researchers had already published details of programs that did exactly that.
+They implemented <a class="reference external" href="https://en.wikipedia.org/wiki/Reinforcement_learning">Reinforcement Learning</a> strategies.
+One of the first, and most famous, was Samuels’ checkers player.</p>
+<div class="section" id="samuel-s-checkers-player">
+<h3>Samuel’s Checkers Player<a class="headerlink" href="#samuel-s-checkers-player" title="Permalink to this headline">¶</a></h3>
+<p>In 1959 <a class="reference external" href="https://en.wikipedia.org/wiki/Arthur_Samuel">A H Samuel</a> wrote about a program
+that played <a class="reference external" href="https://en.wikipedia.org/wiki/Draughts">Draughts</a> (known as Checkers in the USA).</p>
+<p>The program learned to improve its game. Draughts or Checkers is not as complex as chess, but it is not a trivial game.
+Samuel’s implementation played the game surprisingly well. This was a significant milestone in the development of AI.</p>
+<p>Another early program played a simpler game.</p>
+</div>
+<div class="section" id="donald-michie-s-menace">
+<h3>Donald Michie’s MENACE<a class="headerlink" href="#donald-michie-s-menace" title="Permalink to this headline">¶</a></h3>
+<p>Most of us have played <a class="reference external" href="https://en.wikipedia.org/wiki/Tic-tac-toe"><em>Tic-tac-toe</em></a>, or <em>Noughts and Crosses</em> as it’s known in the UK.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Donald_Michie">Donald Michie</a> (a pioneer in AI) realised that Noughts and Crosses is a
+good candidate if you’re looking a way to start exploring game-playing AI.</p>
+<p>In 1960 Michie created <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">MENACE</a>,
+the <em>Matchbox Educable Noughts And Crosses Engine</em>.</p>
+<p>MENACE was a mechanical computer based on matchboxes filled with coloured beads.
+MENACE’s moves were determined by picking a bead at random from the appropriate matchbox.
+When the game was over the beads were adjusted depending on the outcome of the game.</p>
+<p>This simple design was enough for it to become a decent player when it had played enough games against a human opponent.</p>
+<p>MENACE was also implemented in software on a Pegasus computer.</p>
+<p>I first read about MENACE in the Penguin Science Survey 1962 vol 2.
+You can see a picture of the original matchbox MENACE below.</p>
+<p><img alt="MENACE" src="_images/menace-1961.jpg" /></p>
+<p>RL (Reinforcement Learning) has been actively studied by researchers since the early implementations.</p>
+</div>
+<div class="section" id="recent-progress-in-rl">
+<h3>Recent Progress In RL<a class="headerlink" href="#recent-progress-in-rl" title="Permalink to this headline">¶</a></h3>
+<p>Recent RL successes include Deep Mind’s AlphaGo and AlphaZero.</p>
+<p>We’ve also seen the publication of a long-awaited second edition of
+Sutton and Barto’s seminal
+<a class="reference external" href="https://www.amazon.co.uk/Reinforcement-Learning-Introduction-Richard-Sutton/dp/0262039249/">book</a> on RL.</p>
+<p>The book includes a description of Michie’s MENACE.</p>
+<p>Many people when they first encounter MENACE think of its learning as a form of evolution.</p>
+<p>My long-time friend and mentor, Tom Westerdale, has formalised the relationship between temporal difference methods and
+Evolutionary Adaptive Systems.</p>
+<p>There’s a lot of interest in RL at present and Michie’s MENACE is a great way to get familiar with the basics.</p>
+</div>
+<div class="section" id="michie-s-menace-revisited">
+<h3>Michie’s MENACE Revisited<a class="headerlink" href="#michie-s-menace-revisited" title="Permalink to this headline">¶</a></h3>
+<p>Several people have replicated MENACE over the years.</p>
+<p>Michie and D. Martin created an <a class="reference external" href="https://www.gwern.net/docs/rl/1963-michie.pdf">extended simulation</a>
+on a Ferranti Pegasus 2.</p>
+<p>Matthew Scroggs built a mechanical replica which was used by Hannah Fry and Matt Parker in the
+<a class="reference external" href="https://www.mscroggs.co.uk/blog/71">2019 Royal Society Christmas Lecture</a> to demonstrate how machine learning works.
+Scroggs also wrote a <a class="reference external" href="https://github.com/mscroggs/MENACE">JavaScript implementation</a>.</p>
+<p>Scroggs intoduced MENACE to Oliver Child, and Child, while still at school,
+created his own <a class="reference external" href="http://chalkdustmagazine.com/features/menace-machine-educable-noughts-crosses-engine/">replica</a>.</p>
+<p>I, too, am keen to replicate MENACE.</p>
+<p>This book is based on a series of Jupyter Notebooks that will build up a simple implementation
+of MENACE in <a class="reference external" href="https://www.dyalog.com/">Dyalog APL</a>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>
+(which stands for <em>A Programming Language</em>) is very well suited to the task.</p>
+<p>APL was designed as a language for exposition, and it implements the algorithms that we’ll need simply and concisely.</p>
+<p>The notebooks will explore the game and its implementation.</p>
+<div class="toctree-wrapper compound">
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-│...│×..│×..│×.×│×○×│×○×│×○×│×○×│×○×│×○×│
-│...│...│...│...│...│.×.│.×○│××○│××○│××○│
-│...│...│○..│○..│○..│○..│○..│○..│○○.│○○×│
-└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">wsid</span> <span class="nv">spike</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">was 
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">spike.dws saved Sun Dec 20 15:26:39 2020
-</span></div></div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -342,6 +418,7 @@ list cg config
     
     <div class='prev-next-bottom'>
         
+    <a class='right-next' id="next-link" href="chapter-1.html" title="next page">Reinforcement Learning</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

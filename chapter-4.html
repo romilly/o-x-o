@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exploring the game &#8212; MENACE Revisited</title>
+    <title>Possible games &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,8 +55,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Possible games" href="chapter-5.html" />
-    <link rel="prev" title="Reinforcement Learning with MENACE" href="chapter-3.html" />
+    <link rel="next" title="Finding the next move" href="chapter-5.html" />
+    <link rel="prev" title="Exploring the game" href="chapter-3.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -88,45 +88,60 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-1.html">
+  <a class="reference internal" href="an-introduction.html">
    Reinforcement Learning From The Ground Up
   </a>
  </li>
 </ul>
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-2.html">
+  <a class="reference internal" href="chapter-1.html">
    Reinforcement Learning
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-3.html">
+  <a class="reference internal" href="chapter-2.html">
    Reinforcement Learning with MENACE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-3.html">
+   Exploring the game
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Exploring the game
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="chapter-5.html">
    Possible games
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-6.html">
+  <a class="reference internal" href="chapter-5.html">
    Finding the next move
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-7.html">
+  <a class="reference internal" href="chapter-6.html">
    Playing the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-7.html">
+   Implementing A Simplified MENACE Player
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-a.html">
    Appendix A - Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-b.html">
+   Ten minutes to RIDE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-c.html">
+   Running MENACE In RIDE
   </a>
  </li>
  <li class="toctree-l1">
@@ -238,21 +253,9 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-symmetries">
-   Using symmetries
+  <a class="reference internal nav-link" href="#win-lose-draw">
+   Win, lose, draw
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#canonical-representations">
-   Canonical representations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#defining-a-position-s-canonical-representation">
-     Defining a position’s canonical representation
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -265,43 +268,21 @@
         
               <div>
                 
-  <div class="section" id="exploring-the-game">
-<h1>Exploring the game<a class="headerlink" href="#exploring-the-game" title="Permalink to this headline">¶</a></h1>
-<p>In this notebook we’ll explore the game in more depth.</p>
-<p>First, we’ll load in the work we did on symmetries in the previous notebook.</p>
+  <div class="section" id="possible-games">
+<h1>Possible games<a class="headerlink" href="#possible-games" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we will look at how to see if a move has won the game.</p>
+<p>As usual, we will prepare the ground by copying in the work we did in the previous chapter and setting ⎕io to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook3</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook4</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">done
-</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook3.dws saved Sat Dec 12 17:46:18 2020
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook4.dws saved Sat Dec 19 13:52:53 2020
 </span></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">fns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">decode  encode  list    m       r       show    
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">)vars</span></code> is another useful system command. It shows us the names of the variables that <code class="docutils literal notranslate"><span class="pre">)copy</span></code> brought in for us.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">vars</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">board1  boards  encoded hereDir i       mi      mr180   mr270   mr90    r180    r270    r90     start   symmetries      
-</span></div></div>
-</div>
-<p>As we saw earlier, <code class="docutils literal notranslate"><span class="pre">⎕io</span></code> is <em>not</em> copied, so we’ll need to set it to zero.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
@@ -309,425 +290,62 @@
 </div>
 </div>
 </div>
-<div class="section" id="using-symmetries">
-<h2>Using symmetries<a class="headerlink" href="#using-symmetries" title="Permalink to this headline">¶</a></h2>
-<p>Let’s start by looking at how we can use our work on symmetries to reduce the number of board positions we need to consider when playing.</p>
-<p>For any given board position there are up to seven other positions that are equivalent to it.</p>
-<p>Why did I say <em>up to</em>?</p>
-<p>Some board configurations are symmetric, so some transformations will leave them unchanged.</p>
-<p>Here’s an extreme example. Imagine that <code class="docutils literal notranslate"><span class="pre">x</span></code> has played in the centre of the board.
-The board is the same whether you rotate it, reflect it, combine rotations and reflections or leave it unchanged.</p>
+<div class="section" id="win-lose-draw">
+<h2>Win, lose, draw<a class="headerlink" href="#win-lose-draw" title="Permalink to this headline">¶</a></h2>
+<p>How can we find if a position is a winning position?</p>
+<p>We need to see if there’s a row, a column or a diagonal where there are three <code class="docutils literal notranslate"><span class="pre">×</span></code>s or three <code class="docutils literal notranslate"><span class="pre">○</span></code>s.</p>
+<p>We will start by finding a way to pick out the contents of all the positions that could lead to a win.</p>
+<p>If we create a 3 by 3 matrix on the numbers from zero to nine we could list the indices that correspond to a winning line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span> <span class="o">⊢</span> <span class="nv">symmetric</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;....×....&#39;</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
-.×.
-...
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2
+3 4 5
+6 7 8
 </span></div></div>
 </div>
-<p>To examine the symmetries using APL we need to convert the board to its vector representation.</p>
-<p>Let’s create a function to do that.</p>
+<p>The candidates seem to be
+the rows: 0 1 2  3 4 5  6 7 8
+the columns: 0 3 6  1 4 7  2 5 8
+the diagonals: 0 4 8  2 4 6</p>
+<p>Actually, we can get APL to check our work. APL has two relevant functions, reverse <code class="docutils literal notranslate"><span class="pre">⌽</span></code> and transpose <code class="docutils literal notranslate"><span class="pre">⍉</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">see</span><span class="kd">←</span><span class="kt">{{</span><span class="o">,</span><span class="s1">&#39;.×○&#39;</span><span class="o">⍳</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">⍤</span><span class="m">2</span><span class="o">⊣</span><span class="bp">⍵</span><span class="kt">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>It’s a little more complicated than you might expect because it can handle arrays of boards as well as individual boards.</p>
-<p>Let’s try it out.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span> <span class="nv">sym</span> <span class="kd">←</span> <span class="nv">see</span> <span class="nv">symmetric</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
+<span class="o">⊢</span><span class="nv">wpi</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">rows</span> <span class="kd">←</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cols</span> <span class="kd">←</span> <span class="o">⍉</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">diagonals</span> <span class="kd">←</span> <span class="m">2</span> <span class="m">3</span><span class="o">⍴↑</span><span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">(</span><span class="m">0</span> <span class="m">0</span><span class="o">⍉⌽</span><span class="bp">⍵</span><span class="p">)</span> <span class="p">⋄</span> <span class="o">⊃⍪</span><span class="na">/</span><span class="nv">rows</span> <span class="nv">cols</span> <span class="nv">diagonals</span><span class="kt">}</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 1 0 0 0 0
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2
+3 4 5
+6 7 8
+0 3 6
+1 4 7
+2 5 8
+0 4 8
+2 4 6
 </span></div></div>
 </div>
-<p>You can think of <code class="docutils literal notranslate"><span class="pre">see</span></code> as an inverse to <code class="docutils literal notranslate"><span class="pre">show</span></code>.</p>
-<p>Let’s check the symmetric transformations on the board.</p>
+<p>Now we can use <code class="docutils literal notranslate"><span class="pre">wpi</span></code> to write a function <code class="docutils literal notranslate"><span class="pre">wf</span></code> which will tell us if a position is a win or not.</p>
+<p>We’ll use <code class="docutils literal notranslate"><span class="pre">ild</span></code> to create the possible locations for three-in-a-row <code class="docutils literal notranslate"><span class="pre">×</span></code>s and <code class="docutils literal notranslate"><span class="pre">○</span></code>s,
+and then use <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2∘.=</span></code> to see where each location contains a <code class="docutils literal notranslate"><span class="pre">×</span></code> or a <code class="docutils literal notranslate"><span class="pre">○</span></code>.
+Finally, we <em>and</em> (<code class="docutils literal notranslate"><span class="pre">∧</span></code>) each element in a row of three,
+<em>or</em> (<code class="docutils literal notranslate"><span class="pre">∨</span></code>) the results, and <em>or</em> them again to find out if there’s a win.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">sym</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 0 0 0 0
-</span></div></div>
-</div>
-<p>They are all identical (as they should be).</p>
-<p>How can we get rid of the redundant copies?</p>
-<p>APL has a primitive function <em>Unique</em> represented as <code class="docutils literal notranslate"><span class="pre">∪</span></code> which does just that.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">∪</span><span class="nv">sym</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span> <span class="c1">⍝ the unique version</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 1 0 0 0 0
-</span></div></div>
-</div>
-<p>Let’s look at a position with less symmetry.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span> <span class="nv">asymmetric</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;.×.×○×...&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">.×.
-×○×
-...
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="nv">less</span> <span class="kd">←</span> <span class="nv">see</span> <span class="nv">asymmetric</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 0 1 2 1 0 0 0
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">less</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 0 1 2 1 0 0 0
-0 1 0 0 2 1 0 1 0
-0 0 0 1 2 1 0 1 0
-0 1 0 1 2 0 0 1 0
-0 1 0 1 2 1 0 0 0
-0 1 0 1 2 0 0 1 0
-0 0 0 1 2 1 0 1 0
-0 1 0 0 2 1 0 1 0
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">∪</span><span class="nv">less</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 0 1 2 1 0 0 0
-0 1 0 0 2 1 0 1 0
-0 0 0 1 2 1 0 1 0
-0 1 0 1 2 0 0 1 0
-</span></div></div>
-</div>
-<p>Now there are four distinct transformations.</p>
-<p>Let’s see what they are.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="o">∪</span><span class="nv">less</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┐
-│.×.│.×.│...│.×.│
-│×○×│.○×│×○×│×○.│
-│...│.×.│.×.│.×.│
-└───┴───┴───┴───┘
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">board1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">××.
-.○○
-.×.
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="o">∪</span><span class="nv">board1</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
-│××.│..×│.×.│.○.│.××│×..│.×.│.○.│
-│.○○│×○×│○○.│×○×│○○.│×○×│.○○│×○×│
-│.×.│.○.│.××│×..│.×.│.○.│××.│..×│
-└───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">board1</span></code> is asymmetric and so it has eight distinct symmetries.</p>
-</div>
-<div class="section" id="canonical-representations">
-<h2>Canonical representations<a class="headerlink" href="#canonical-representations" title="Permalink to this headline">¶</a></h2>
-<p>In order to apply Michie’s first simplification we need a way of converting every board position to <em>just one</em> of its symmetries.</p>
-<p>We’ll use the idea of a <em>canonical representation</em>. I’ve borrowed that term from Mathematics, but the mathematical details don’t matter to us.
-You’ll see how we create and use canonical representations in below.</p>
-<div class="section" id="defining-a-position-s-canonical-representation">
-<h3>Defining a position’s canonical representation<a class="headerlink" href="#defining-a-position-s-canonical-representation" title="Permalink to this headline">¶</a></h3>
-<p>As we’ve seen, every board position is a member of a set of one to eight boards which can be regarded as the same as far as the game is concerned.</p>
-<p>The functions <code class="docutils literal notranslate"><span class="pre">encode</span></code> and <code class="docutils literal notranslate"><span class="pre">decode</span></code> allow us to switch between the vector representation of the position and a number in the range zero to 19682.</p>
-<p>The symmetries of a given position form a set of up to eight vectors, and each vector can be converted to its unique number using <code class="docutils literal notranslate"><span class="pre">decode</span></code>.</p>
-<p>We’ll take the smallest of those numbers and use that as the canonical representation of the position.</p>
-<p>Let’s do that for the boards we just considered: <code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">less</span></code> and <code class="docutils literal notranslate"><span class="pre">board1</span></code>.
-We are going to perform the same operation on each, so we can save time by defining a function to do it.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span> <span class="o">⌊</span><span class="na">⌿</span> <span class="nv">decode</span> <span class="bp">⍵</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span><span class="kt">}</span>
-<span class="nv">show</span> <span class="nv">encode</span> <span class="nv">canonical</span> <span class="nv">sym</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
-.×.
-...
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">encode</span> <span class="nv">canonical</span> <span class="nv">less</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
-×○×
-.×.
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">encode</span> <span class="nv">canonical</span> <span class="nv">board1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">..×
-×○×
-.○.
-</span></div></div>
-</div>
-<p>Can we find out the canonical representations of all positions?</p>
-<p>Let’s try</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">all</span> <span class="kd">←</span> <span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RANK ERROR
-canonical[0] canonical←{⌊⌿decode ⍵[symmetries]}
-                                  ∧
-</pre></div>
-</div>
-</div>
-</div>
-<p>What’s gone wrong?</p>
-<p>We’ve used a simple version of indexing in the definition of canonical.
-The <code class="docutils literal notranslate"><span class="pre">[]</span></code> form of indexing corresponds to the notation that is used in a lot of programming languages,
-but the format is slightly different for vectors and matrices.
-The syntax above works for vectors, but we’re using it with a matrix.</p>
-<p>Luckily APL has another form of indexing based on the <code class="docutils literal notranslate"><span class="pre">Index</span></code> function represented as <code class="docutils literal notranslate"><span class="pre">⌷</span></code>.
-<code class="docutils literal notranslate"><span class="pre">Index</span></code> can solve the problem we hit above.</p>
-<p>You can see how <code class="docutils literal notranslate"><span class="pre">Index</span></code> works in the example below.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">⊂</span><span class="m">0</span> <span class="m">3</span> <span class="m">2</span><span class="p">)</span><span class="o">⌷</span><span class="m">7</span> <span class="m">8</span> <span class="m">9</span> <span class="m">10</span> <span class="m">20</span> <span class="c1">⍝ the same as 7 8 9 10 20[0 3 2]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">7 10 9
-</span></div></div>
-</div>
-<p>Below you’ll see a function called <code class="docutils literal notranslate"><span class="pre">ild</span></code>, which is short for <em>index last dimension</em>.</p>
-<p>Here’s the definition for <code class="docutils literal notranslate"><span class="pre">ild</span></code>, along with an updated definition of canonical.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ild</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="o">⊂</span><span class="bp">⍺</span><span class="p">)</span> <span class="o">⌷</span><span class="sr">[</span><span class="m">¯1</span><span class="o">+⍴⍴</span><span class="bp">⍵</span><span class="sr">]</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ index last dimension</span>
-<span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⌊</span><span class="na">⌿</span><span class="nv">decode</span> <span class="nv">symmetries</span> <span class="nv">ild</span> <span class="bp">⍵</span><span class="kt">}</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span>wf ← {∨⌿∨/^/1 2∘.=wpi ild ⍵} ⍝ is this a win?
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span> <span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">19683
-</span></div></div>
-</div>
-<p>How many of these are distinct? We’d expect quite a few repetitions.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴∪</span><span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">2862
-</span></div></div>
-</div>
-<p>That’s a big simplification, but we can further reduce the number of board positions by elimination some of the positions that can’t crop up in  play.</p>
-<p>One example: in any valid board position, there will be one fewer <code class="docutils literal notranslate"><span class="pre">○</span></code>’s than <code class="docutils literal notranslate"><span class="pre">×</span></code>’s after the first player has moved, and the number of <code class="docutils literal notranslate"><span class="pre">×</span></code> and <code class="docutils literal notranslate"><span class="pre">○</span></code> chaarcters will be the same after the second player has moved.</p>
-<p>If we count the number of ones and twos in the vector represenation, for any valid board position the number of ones will be the same or one greater than the number of twos.</p>
-<p>There’s a neat way to check than in APL. Below you’ll see the approach working on a small set of position vectors.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span> <span class="nv">samples</span> <span class="kd">←</span> <span class="nv">encode</span> <span class="m">0</span> <span class="m">1</span> <span class="m">9</span> <span class="m">10</span> <span class="m">11</span> <span class="m">18</span> <span class="m">20</span> <span class="m">19682</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 1 0 0
-0 0 0 0 0 0 1 0 1
-0 0 0 0 0 0 1 0 2
-0 0 0 0 0 0 2 0 0
-0 0 0 0 0 0 2 0 2
-2 2 2 2 2 2 2 2 2
-</span></div></div>
-</div>
-<p>Of these, let’s decide which are valid by counting the <code class="docutils literal notranslate"><span class="pre">1</span></code>’s and <code class="docutils literal notranslate"><span class="pre">2</span></code>’s by eye:</p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code> is valid</p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span></code> is valid</p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span></code> is valid</p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">1</span></code> is <strong>invalid</strong> because <code class="docutils literal notranslate"><span class="pre">×</span></code> has played twice but <code class="docutils literal notranslate"><span class="pre">○</span></code> has not played at all</p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">2</span></code> is valid</p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">2</span> <span class="pre">0</span> <span class="pre">0</span></code> is <strong>invalid</strong>, because <code class="docutils literal notranslate"><span class="pre">○</span></code> has played before <code class="docutils literal notranslate"><span class="pre">×</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">2</span> <span class="pre">0</span> <span class="pre">2</span></code> is <strong>invalid</strong> because <code class="docutils literal notranslate"><span class="pre">○</span></code> has played twice but <code class="docutils literal notranslate"><span class="pre">×</span></code> has not played at all</p>
-<p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span> <span class="pre">2</span></code> is <strong>invalid</strong>, because <code class="docutils literal notranslate"><span class="pre">○</span></code> has binged and covered the whole board!</p>
-<p>How can we implement these rules in APL?</p>
-<p>Let’s start by consindering the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">2</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">v</span> <span class="kd">←</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">2</span>
-<span class="m">1</span> <span class="m">2</span> <span class="na">∘.</span><span class="o">=</span> <span class="nv">v</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 1 0 0
-0 0 0 0 0 0 0 0 1
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">∘.=</span></code> is an <em>equals outer product</em>. It produces an array which shows where each value in the argument on its left is equal to each value in the argument on its right.</p>
-<p>In this case, one argument is a 2-element vector and the other is a 9 element vector so the result is a 2 by 9 matric of zeros and ones.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="na">/</span><span class="m">1</span> <span class="m">2</span> <span class="na">∘.</span><span class="o">=</span> <span class="nv">v</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1 1
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">+/</span></code> is a <em>plus reduction</em>. It sums the values along the first dimension of n array.</p>
-<p>In this case it totals the number of 0s and the number of 1s in the original vector.</p>
-<p>We can find the difference between the counts of 1s and 2s by applying <code class="docutils literal notranslate"><span class="pre">-/</span></code>. That’s a <em>minus reduction</em>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="na">/</span><span class="o">+</span><span class="na">/</span><span class="m">1</span> <span class="m">2</span> <span class="na">∘.</span><span class="o">=</span> <span class="nv">v</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0
-</span></div></div>
-</div>
-<p>That tells us that the number of <code class="docutils literal notranslate"><span class="pre">×</span></code>s and <code class="docutils literal notranslate"><span class="pre">○</span></code>s is the same.</p>
-<p>Let’s put that code in a function I’ve named <em>cd</em> (short for count difference) and try another vector.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">cd</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">-</span><span class="na">/</span><span class="o">+</span><span class="na">/</span><span class="m">1</span> <span class="m">2</span> <span class="na">∘.</span><span class="o">=</span><span class="bp">⍵</span><span class="kt">}</span> 
-<span class="nv">cd</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">2
-</span></div></div>
-</div>
-<p>This tells us that there are two more <code class="docutils literal notranslate"><span class="pre">×</span></code>s than <code class="docutils literal notranslate"><span class="pre">○</span></code>s, which means that the position cannto occur in play.</p>
-<p>For the position to be possible the difference must be 0 or 1.</p>
-<p>APL has a primitive function <em>membership</em>, represented by <code class="docutils literal notranslate"><span class="pre">∊</span></code>, which returns a 0 for each element on its left that is’nt in the vector on its right.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">1</span> <span class="m">2</span> <span class="m">0</span> <span class="m">5</span> <span class="m">1</span> <span class="m">2</span> <span class="o">∊</span> <span class="m">0</span> <span class="m">1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1 0 1 0 1 0
-</span></div></div>
-</div>
-<p>We can check the result of <code class="docutils literal notranslate"><span class="pre">cd</span></code> using <code class="docutils literal notranslate"><span class="pre">∊</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">cd</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">1</span><span class="p">)</span> <span class="o">∊</span> <span class="m">0</span> <span class="m">1</span> <span class="c1">⍝ not a possible position</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0
-</span></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">cd</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span><span class="p">)</span> <span class="o">∊</span> <span class="m">0</span> <span class="m">1</span> <span class="c1">⍝ a possible position</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1
-</span></div></div>
-</div>
-<p>Those brackets are distracting! The code would be easier to read if tthe arguments to <code class="docutils literal notranslate"><span class="pre">∊</span></code> were reversed.</p>
-<p>APL has an operator <em>switch</em> <code class="docutils literal notranslate"><span class="pre">⍨</span></code> to do that.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">0</span> <span class="m">1</span> <span class="o">∊</span><span class="na">⍨</span> <span class="nv">cd</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1
-</span></div></div>
-</div>
-<p>In APL a <em>function</em> returns data as its result. An <em>operator</em> corresponds to what other languages call a <em>higher order function</em>. It takes functions and/or data and returns a <em>function</em> as its result.</p>
-<p>Let’s create a new function that will determine if a given position is ok (in other words, possible).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ok</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">0</span> <span class="m">1</span> <span class="o">∊</span><span class="na">⍨</span> <span class="nv">cd</span> <span class="bp">⍵</span><span class="kt">}</span>
-<span class="nv">ok</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wf</span> <span class="m">1</span> <span class="m">1</span> <span class="m">1</span> <span class="m">0</span> <span class="m">2</span> <span class="m">2</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -737,7 +355,17 @@ The syntax above works for vectors, but we’re using it with a matrix.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ok</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">1</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wf</span> <span class="m">2</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">1
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wf</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">2</span> <span class="m">2</span> <span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -745,144 +373,42 @@ The syntax above works for vectors, but we’re using it with a matrix.</p>
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0
 </span></div></div>
 </div>
-<p>What happens if we apply it to a matrix?</p>
+<p>Let’s see how many of the unique canonical possible positions are wins.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ok</span> <span class="nv">samples</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="na">/</span><span class="nv">wf</span> <span class="nv">ucp</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">220
 </span></div></div>
 </div>
-<p>That’s not right. The problem is that cd works on a vector but not a matrix. One small change will fix that.</p>
-<p>We need to make sure that the minus reduction will always be applied to the <em>first</em> dimension of its argument.</p>
-<p>Here’s the updated version of<code class="docutils literal notranslate"><span class="pre">cd</span></code></p>
+<p>Let’s check them. We’ll create a function <code class="docutils literal notranslate"><span class="pre">wp</span></code> which filters out wins from a matrix of positions,  apply it to ucp,
+and show the first few.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">cd</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">-</span><span class="na">⌿</span><span class="o">+</span><span class="na">/</span><span class="m">1</span> <span class="m">2</span> <span class="na">∘.</span><span class="o">=</span><span class="bp">⍵</span><span class="kt">}</span>
-<span class="nv">ok</span> <span class="nv">samples</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">1 1 1 0 1 0 0 0
-</span></div></div>
-</div>
-<p>Let’s check that the updated code has picked the possible configurations.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="nv">samples</span><span class="na">⌿⍨</span><span class="nv">ok</span> <span class="nv">samples</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┐
-│...│...│...│...│
-│...│...│...│...│
-│...│..×│×..│×.○│
-└───┴───┴───┴───┘
-</span></div></div>
-</div>
-<p>Let’s explore the whole set of canonical positions.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">uc</span> <span class="kd">←</span> <span class="nv">encode</span> <span class="o">∪</span> <span class="nv">canonical</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">2862 9
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">uc</span></code> is the matrix of unique canonical positions.</p>
-<p>Let’s see which ones look possible.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">ucp</span> <span class="kd">←</span> <span class="nv">uc</span><span class="na">⌿⍨</span><span class="nv">ok</span> <span class="nv">uc</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">850 9
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">ucp</span></code> contains a matrix of the unique coanonical possible positions.</p>
-<p>There are only 850, which is manageable.</p>
-<p>Here are the first 19. They just fit across the page without wrapping.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="m">19</span><span class="o">↑</span><span class="nv">ucp</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">wp</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍵</span><span class="na">⌿⍨</span><span class="nv">wf</span> <span class="bp">⍵</span><span class="kt">}</span>
+<span class="nv">list</span> <span class="m">19</span><span class="o">↑</span><span class="nv">wp</span> <span class="nv">ucp</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│
-│...│...│...│...│...│...│...│...│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│
-│...│..×│.×.│.×○│.○×│×.○│××○│×○×│.×○│.○.│.○×│×.○│×○.│×○○│○..│○.×│○×.│○×○│○○×│
+│...│...│...│...│...│...│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│..×│
+│.○○│×××│×××│×××│○.○│○○○│..×│.×.│.××│.×○│.×○│.○×│.○×│×.×│××.│×××│××○│×○×│○.×│
+│×××│.○○│○.○│○○○│×××│×××│○○×│×○○│○○○│×○.│×○○│○.×│○○×│○○○│○○○│○○○│×○○│○○×│.○×│
 └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
-<p>It would be interesting to see a few ordered by move mumber.</p>
-<p>It’s easy to find the move number for each row in <code class="docutils literal notranslate"><span class="pre">ucp</span></code>.
-It’s just the total of non-zero values in that row.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">mn</span> <span class="kd">←</span> <span class="o">+</span><span class="na">/</span><span class="nv">ucp</span><span class="o">≠</span><span class="m">0</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook5</span> <span class="o">-</span><span class="nv">force</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">850
-</span></div></div>
-</div>
-<p>APL has a pair of sorting functions called <em>upgrade</em> <code class="docutils literal notranslate"><span class="pre">⍋</span></code>and <em>downgrade</em> <code class="docutils literal notranslate"><span class="pre">⍒</span></code>.</p>
-<p>They return <em>permutation vectors</em> that will sort their arguments into ascending or descending order.</p>
-<p>TODO: include some discussion of this article: https://devblogs.microsoft.com/oldnewthing/20170102-00/?p=95095</p>
-<p>We can use upgrade on <code class="docutils literal notranslate"><span class="pre">mn</span></code> to reorder <code class="docutils literal notranslate"><span class="pre">ucp</span></code> and then display the first few plausible game positions.
-We’ll also show which move number they ocurr at.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">mnp</span> <span class="kd">←</span> <span class="o">⍋</span><span class="nv">mn</span>
-<span class="o">↑</span><span class="p">(</span><span class="nv">list</span>  <span class="m">19</span><span class="o">↑</span><span class="nv">ucp</span><span class="sr">[</span><span class="nv">mnp</span><span class="sr">;]</span><span class="p">)</span> <span class="p">(</span><span class="m">19</span><span class="o">↑</span><span class="nv">mn</span><span class="sr">[</span><span class="nv">mnp</span><span class="sr">]</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-│...│...│...│...│...│...│...│...│...│...│...│...│...│...│...│..×│...│...│...│
-│...│...│...│.×.│...│...│...│..×│..×│..○│.×.│.×.│.○.│.○.│×.○│...│...│...│..×│
-│...│..×│.×.│...│.×○│.○×│×.○│.○.│○..│×..│..○│.○.│..×│.×.│...│○..│××○│×○×│.×○│
-├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
-│0  │1  │1  │1  │2  │2  │2  │2  │2  │2  │2  │2  │2  │2  │2  │2  │3  │3  │3  │
-└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
-</span></div></div>
-</div>
-<p>As you can see there are only three types of first move to which there are a total of twelve repsonses.</p>
-<p>Later in the game there will be positions in <code class="docutils literal notranslate"><span class="pre">ucp</span></code> that cannot happen in a real game. These are positions that could only happen <em>after</em> a player has won the game.</p>
-<p>We’ll ignore that for now, as we have greatly reduced the number of positions we need to consider.</p>
-<p>What we <em>will</em> do is to save the decoded (integer) values for each plausible position, as these will be useful later. We’ll display the first few values</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span><span class="m">19</span><span class="o">↑</span><span class="nv">ucpn</span> <span class="kd">←</span> <span class="nv">decode</span> <span class="nv">ucp</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 3 5 7 11 14 16 32 33 34 38 42 44 45 46 48 50 52
-</span></div></div>
-</div>
-<p>Let’s save the workspace.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook4</span> <span class="o">-</span><span class="nv">force</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook4.dws saved Sun Dec 20 14:53:21 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook5.dws saved Sun Dec 20 14:52:47 2020
 </span></div></div>
 </div>
 <div class="cell docutils container">
@@ -892,9 +418,8 @@ We’ll also show which move number they ocurr at.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">canonical       cd      decode  encode  ild     list    m       ok      r       see     show    
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">canonical       cd      decode  encode  ild     list    m       ok      r       see     show    wf      wp      
 </span></div></div>
-</div>
 </div>
 </div>
 </div>
@@ -927,8 +452,8 @@ We’ll also show which move number they ocurr at.</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="chapter-3.html" title="previous page">Reinforcement Learning with MENACE</a>
-    <a class='right-next' id="next-link" href="chapter-5.html" title="next page">Possible games</a>
+    <a class='left-prev' id="prev-link" href="chapter-3.html" title="previous page">Exploring the game</a>
+    <a class='right-next' id="next-link" href="chapter-5.html" title="next page">Finding the next move</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

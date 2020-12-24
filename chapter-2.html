@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reinforcement Learning &#8212; MENACE Revisited</title>
+    <title>Reinforcement Learning with MENACE &#8212; MENACE Revisited</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,8 +55,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Reinforcement Learning with MENACE" href="chapter-3.html" />
-    <link rel="prev" title="Reinforcement Learning From The Ground Up" href="chapter-1.html" />
+    <link rel="next" title="Exploring the game" href="chapter-3.html" />
+    <link rel="prev" title="Reinforcement Learning" href="chapter-1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -88,45 +88,60 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-1.html">
+  <a class="reference internal" href="an-introduction.html">
    Reinforcement Learning From The Ground Up
   </a>
  </li>
 </ul>
 <ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-1.html">
    Reinforcement Learning
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="chapter-3.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Reinforcement Learning with MENACE
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-4.html">
+  <a class="reference internal" href="chapter-3.html">
    Exploring the game
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-5.html">
+  <a class="reference internal" href="chapter-4.html">
    Possible games
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-6.html">
+  <a class="reference internal" href="chapter-5.html">
    Finding the next move
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="chapter-7.html">
+  <a class="reference internal" href="chapter-6.html">
    Playing the game
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter-7.html">
+   Implementing A Simplified MENACE Player
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-a.html">
    Appendix A - Exploring Dyalog APL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-b.html">
+   Ten minutes to RIDE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix-c.html">
+   Running MENACE In RIDE
   </a>
  </li>
  <li class="toctree-l1">
@@ -238,8 +253,40 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exploring-menace-in-apl">
-   Exploring MENACE in APL
+  <a class="reference internal nav-link" href="#dealing-with-symmetries">
+   Dealing with symmetries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Dealing with symmetries
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-reflection-symmetry">
+     The reflection symmetry
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rotation-symmetries">
+     Rotation symmetries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eight-symmetries">
+     Eight symmetries
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-a-reflection">
+   Applying a reflection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-about-rotations">
+   How about rotations?
   </a>
  </li>
 </ul>
@@ -253,71 +300,43 @@
         
               <div>
                 
-  <div class="section" id="reinforcement-learning">
-<h1>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="exploring-menace-in-apl">
-<h2>Exploring MENACE in APL<a class="headerlink" href="#exploring-menace-in-apl" title="Permalink to this headline">¶</a></h2>
-<p>Michie’s MENACE used matchboxes to remember what had happened in previous games.
-Michie used one matchbox for each possible board configuration, and the player picked
-a coloured bead at random to decide what move MENACE would make.</p>
-<p>How many relevant board configurations are there?</p>
-<p>This isn’t a trivial question, since many board configurations could never be reached in play.</p>
-<p>There’s an obvious upper limit, though. We can count all the board configurations without considering whether they could be reached.</p>
-<p>Each square of the board can be empty, contain a nought or contain a cross.
-There are three possibilities for each of the nine cells, so there are three to the power 9 in total.</p>
-<p>Here’s how we calculate that in APL.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Exponentiation is represented by <code class="docutils literal notranslate"><span class="pre">*</span></code> in APL.
-APL uses <code class="docutils literal notranslate"><span class="pre">×</span></code> for multiplication.</p>
-</div>
+  <div class="section" id="reinforcement-learning-with-menace">
+<h1>Reinforcement Learning with MENACE<a class="headerlink" href="#reinforcement-learning-with-menace" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dealing-with-symmetries">
+<h2>Dealing with symmetries<a class="headerlink" href="#dealing-with-symmetries" title="Permalink to this headline">¶</a></h2>
+<p>Michie made three simplifications to simplify the construction and to reduce the number of matchboxes that MENACE needed.</p>
+<ol class="simple">
+<li><p>Rotations and reflections of a configuration were treated as the same.</p></li>
+<li><p>Layouts were removed if the opponent had won.</p></li>
+<li><p>In the initial version, MENACE always played first.</p></li>
+</ol>
+<p>In this notebook we’ll explore rotations and reflections of the O-X-O board.</p>
+<p>First, we’ll load in the work we did in the previous notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span><span class="o">*</span><span class="m">9</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook2</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">done
-</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">19683
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook2.dws saved Sat Dec 12 17:45:10 2020
 </span></div></div>
 </div>
-<p>It’s interesting to know how many positions there are, but we’ll need to eliminate the ones that are impossible
-or redundant.</p>
-<p>We need some way of representing a board position.</p>
-<p>We can show each board position as a 3 by 3 matrix of characters: a <code class="docutils literal notranslate"><span class="pre">×</span></code> for a cross, a <code class="docutils literal notranslate"><span class="pre">○</span></code> for a nought,
-and  a <code class="docutils literal notranslate"><span class="pre">.</span></code> for an unfilled square. That means that an empty board does not just look like white space.</p>
-<p>Suppose the first player placed an ‘x’ in the centre.
-We could create that board like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">)copy</span> <span class="pre">notebook2</span></code> brings in the functions and variables we saved earlier, so we can use them in this notebook.</p>
+<p>We can see what functions are defined by using <code class="docutils literal notranslate"><span class="pre">)fns</span></code>. That’s another APL system command.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;....×....&#39;</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">fns</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
-.×.
-...
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">decode  encode  list    show    
 </span></div></div>
 </div>
-<p>In APL we create character literals by enclosing their characters in single quotation marks.
-The result is a character <em>vector</em> (a list of characters).</p>
-<p>We can create a matrix by asking APL to reshape the vector.
-<code class="docutils literal notranslate"><span class="pre">⍴</span></code> stands for <em>reshape</em>; it reshapes the array on its right using the shape on its left.</p>
-<p>That way of displaying a board position is great for humans, but there are better ways to represent a board
-in an APL program. The way we’ll do it is to represent a board as a numeric vector.
-The vector will have a zero for an unfilled position, a 1 for an <code class="docutils literal notranslate"><span class="pre">×</span></code> and a 2 for a <code class="docutils literal notranslate"><span class="pre">○</span></code>.</p>
-<p>The board we saw above would be represented by the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code>.</p>
-<p>How can we convert that to something we can visualise? We’ll need to use the vector as an index to an array of
-characters.</p>
-<p>As you may know, the mathematical world is divided about how to index things.
-Pure mathematicians tend to count from 0, but applied mathematicians often count from 1.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>APL supports both approaches. You tell APL which you want to use by setting the <em>index origin</em> to 0 or 1.</p>
-<p>In APL, the index origin is a system variable called <code class="docutils literal notranslate"><span class="pre">⎕io</span></code>. The line below sets it to 0.</p>
-</div>
+<p>We’ve one more thing to do before we start. <code class="docutils literal notranslate"><span class="pre">)Copy</span></code> does <em>not</em> copy <code class="docutils literal notranslate"><span class="pre">⎕io</span></code> (the <em>index origin</em> we start counting from).
+We need to set that to zero again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕io</span> <span class="kd">←</span> <span class="m">0</span>
@@ -325,275 +344,208 @@ Pure mathematicians tend to count from 0, but applied mathematicians often count
 </div>
 </div>
 </div>
-<p>As you can see, in APL, <code class="docutils literal notranslate"><span class="pre">←</span></code> is used for assignment. (The <code class="docutils literal notranslate"><span class="pre">=</span></code> symbol is only used to test for equality.)</p>
-<p>Here’s the code to convert the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code> to a human-friendly board position.</p>
+<p>Now we’ll see how Michie reduced the number of board positions he had to consider.</p>
+</div>
+<div class="section" id="id1">
+<h2>Dealing with symmetries<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>What are symmetries?</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Symmetry">Symmetries (in the mathematical sense)</a> are transformations that help us how to
+identify board positions that look different but which we can regard as the same.</p>
+<p>Here’s an example - a board and its reflection.</p>
+<p><img alt="Reflected configurations" src="_images/reflection.png" /></p>
+<div class="section" id="the-reflection-symmetry">
+<h3>The reflection symmetry<a class="headerlink" href="#the-reflection-symmetry" title="Permalink to this headline">¶</a></h3>
+<p>We can imagine a pair of games in which each game is a mirror version of the other.</p>
+<p>At each stage in the game the possible moves will be the same when reflected in the mirror.</p>
+<p>If a player wins in one game the mirror player will win in the mirror game.</p>
+<p>Studying the mirror game tells us nothing new. We only need to consider the un-reflected game.</p>
+</div>
+<div class="section" id="rotation-symmetries">
+<h3>Rotation symmetries<a class="headerlink" href="#rotation-symmetries" title="Permalink to this headline">¶</a></h3>
+<p>Reflection is not the only way to create a symmetry.
+We can say the same things about two games in which the board has been turned upside down</p>
+<ul class="simple">
+<li><p>in other words, rotated through 180 degrees.</p></li>
+</ul>
+<p>Here’s a pair of boards which have been rotated like that.</p>
+<p><img alt="Rotated boards" src="_images/r90.png" /></p>
+</div>
+<div class="section" id="eight-symmetries">
+<h3>Eight symmetries<a class="headerlink" href="#eight-symmetries" title="Permalink to this headline">¶</a></h3>
+<p>There are eight possible symmetries based on rotation and reflection.</p>
+<p>We can leave the board un-rotated or turn it though 90, 180 0r 270 degrees.
+We can leave those four as they are, and we can also reflect each in a mirror.</p>
+<p>How can we apply one of these transformations to a given board configuration?</p>
+<p>Let’s start by looking at a reflection.</p>
+<p>If we paint a number from zero to eight on each square of the board it would look like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span><span class="sr">]</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊢</span> <span class="nv">start</span> <span class="kd">←</span> <span class="m">3</span> <span class="m">3</span><span class="o">⍴⍳</span><span class="m">9</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2
+3 4 5
+6 7 8
+</span></div></div>
+</div>
+<p>APL has a primitive function  reverse <code class="docutils literal notranslate"><span class="pre">⌽</span></code> that reverses its argument. Let’s apply it</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⌽</span><span class="nv">start</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">2 1 0
+5 4 3
+8 7 6
+</span></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="applying-a-reflection">
+<h2>Applying a reflection<a class="headerlink" href="#applying-a-reflection" title="Permalink to this headline">¶</a></h2>
+<p>We can reflect a board configuration by permuting the numbers in it.
+Since we are representing out boards as vectors, we can just use indexing to apply the permutation.</p>
+<p>Here’s an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">board1</span> <span class="kd">←</span> <span class="m">1</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">2</span> <span class="m">2</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">××.
+.○○
 .×.
-...
 </span></div></div>
 </div>
-<p>We’re going to use that expression whenever we want to  turn a board vector into a human-friendly diagram.</p>
-<p>We can use APL’s <em>direct definition</em> to create a function which we can use repeatedly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
-<span class="nv">show</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> 
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">board1</span><span class="sr">[</span><span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="m">5</span> <span class="m">4</span> <span class="m">3</span> <span class="m">8</span> <span class="m">7</span> <span class="m">6</span><span class="sr">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">.××
+○○.
 .×.
-...
 </span></div></div>
 </div>
-<p>How can we generate all the 19683 board positions?</p>
-<p>The first step is to generate all the numbers from 0 to 19682.</p>
-<p>In APL we can do that using <code class="docutils literal notranslate"><span class="pre">⍳</span></code>. IN the lines below, we’ll store the list of numbers in a variable called <code class="docutils literal notranslate"><span class="pre">boards</span></code> and then display the first 6 numbers just to check that APL did what we wanted.</p>
+<p>I got the index numbers by turning the matrix <code class="docutils literal notranslate"><span class="pre">⌽start</span></code> into a vector.
+In APL you can do that using the function <em>ravel</em> which is represented by <code class="docutils literal notranslate"><span class="pre">,</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">boards</span> <span class="kd">←</span> <span class="o">⍳</span><span class="m">19683</span>
-<span class="nv">boards</span><span class="sr">[</span><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span><span class="sr">]</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">,⌽</span><span class="nv">start</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">2 1 0 5 4 3 8 7 6
 </span></div></div>
 </div>
-<p>That looks good.</p>
-<p>We picked the first six elements of <code class="docutils literal notranslate"><span class="pre">boards</span></code> using indexing, but there’s an easier way. We can use APL’s <em>take</em> function.</p>
+</div>
+<div class="section" id="how-about-rotations">
+<h2>How about rotations?<a class="headerlink" href="#how-about-rotations" title="Permalink to this headline">¶</a></h2>
+<p>Here’s our numbered board next to the board rotated by 90 degrees.</p>
+<p><img alt="Rotated board" src="_images/rotated-board.png" /></p>
+<p>If we ravel the matrix on the right we can see the permutation vector that represents that rotation is <code class="docutils literal notranslate"><span class="pre">6</span> <span class="pre">3</span> <span class="pre">0</span> <span class="pre">7</span> <span class="pre">4</span> <span class="pre">1</span> <span class="pre">8</span> <span class="pre">5</span> <span class="pre">2</span></code>.</p>
+<p>We can define a couple of functions that will reflect a board or rotate it by 90 degrees.</p>
+<p>In these and many later code fragments we will use <em>lamp</em> <code class="docutils literal notranslate"><span class="pre">⍝</span></code>.
+That’s the APL comment symbol. APL will ignore everything on the rest of the line after a <code class="docutils literal notranslate"><span class="pre">⍝</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">6</span><span class="o">↑</span><span class="nv">boards</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">m</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍵</span><span class="sr">[</span><span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="m">5</span> <span class="m">4</span> <span class="m">3</span> <span class="m">8</span> <span class="m">7</span> <span class="m">6</span><span class="sr">]</span><span class="kt">}</span> <span class="c1">⍝ mirror reflection</span>
+<span class="nv">r</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍵</span><span class="sr">[</span><span class="m">6</span> <span class="m">3</span> <span class="m">0</span> <span class="m">7</span> <span class="m">4</span> <span class="m">1</span> <span class="m">8</span> <span class="m">5</span> <span class="m">2</span><span class="sr">]</span><span class="kt">}</span> <span class="c1">⍝ rotation</span>
+<span class="nv">show</span> <span class="na">¨</span> <span class="nv">board1</span> <span class="p">(</span><span class="nv">m</span> <span class="nv">board1</span><span class="p">)</span> <span class="p">(</span><span class="nv">r</span> <span class="nv">board1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┐
+│××.│.××│..×│
+│.○○│○○.│×○×│
+│.×.│.×.│.○.│
+└───┴───┴───┘
 </span></div></div>
 </div>
-<p>How can we convert those numbers to board positions?</p>
-<p>We can use a <em>primitive</em> (built-in) APL function called encode <code class="docutils literal notranslate"><span class="pre">⊤</span></code> which converts an integer to a representation in any number base we chose. We’ll convert each number to its <em>ternary</em> (base 3) representation.</p>
+<p>Let’s generate the permutations for all eight symmetries.</p>
+<p>First we’ll create the rotations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encoded</span> <span class="kd">←</span> <span class="p">(</span><span class="m">9</span><span class="o">⍴</span><span class="m">3</span><span class="p">)</span><span class="o">⊤</span><span class="nv">boards</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span> <span class="kd">←</span> <span class="o">⍳</span><span class="m">9</span>
+<span class="nv">r90</span> <span class="kd">←</span> <span class="nv">r</span> <span class="nv">i</span> <span class="c1">⍝ one rotation by 90 degrees</span>
+<span class="nv">r180</span> <span class="kd">←</span> <span class="nv">r</span> <span class="nv">r90</span> <span class="c1">⍝ two consecutive rotations - 180 degrees</span>
+<span class="nv">r270</span> <span class="kd">←</span> <span class="nv">r</span> <span class="nv">r180</span> <span class="c1">⍝ three - 270 degrees</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>What’s the result? We won’t display it, since it contains a large array, but we can find out its shape.</p>
+<p>Now for the reflected versions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">encoded</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">mi</span> <span class="kd">←</span> <span class="nv">m</span> <span class="o">⍳</span><span class="m">9</span>
+<span class="nv">mr90</span> <span class="kd">←</span> <span class="nv">m</span> <span class="nv">r90</span>
+<span class="nv">mr180</span> <span class="kd">←</span> <span class="nv">m</span> <span class="nv">r180</span>
+<span class="nv">mr270</span> <span class="kd">←</span> <span class="nv">m</span> <span class="nv">r270</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can combine them and show the result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="nv">symmetries</span> <span class="kd">←</span> <span class="o">↑</span> <span class="nv">i</span> <span class="nv">r90</span> <span class="nv">r180</span> <span class="nv">r270</span> <span class="nv">mi</span> <span class="nv">mr90</span> <span class="nv">mr180</span> <span class="nv">mr270</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">9 19683
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5 6 7 8
+6 3 0 7 4 1 8 5 2
+8 7 6 5 4 3 2 1 0
+2 5 8 1 4 7 0 3 6
+2 1 0 5 4 3 8 7 6
+0 3 6 1 4 7 2 5 8
+6 7 8 3 4 5 0 1 2
+8 5 2 7 4 1 6 3 0
 </span></div></div>
 </div>
-<p>Earlier we used <code class="docutils literal notranslate"><span class="pre">⍴</span></code> with a shape on the left and an array on the right to reshape a vector into a matrix.
-Here we used <code class="docutils literal notranslate"><span class="pre">⍴</span></code> with just an array on the right. Used that way, <code class="docutils literal notranslate"><span class="pre">⍴</span></code> returns the shape of the array.</p>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">↑</span></code> to take 9 rows and 6 columns from the encoded matrix.</p>
+<p>Now we can generate and display all the symmetries of a given position.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">9</span> <span class="m">6</span><span class="o">↑</span><span class="nv">encoded</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="nv">board1</span><span class="sr">[</span><span class="nv">symmetries</span><span class="sr">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 1 1 1
-0 1 2 0 1 2
-</span></div></div>
-</div>
-<p>Each column is a board position. It feels more natural to have the board positions as rows,
-and APL has a handy transpose function <code class="docutils literal notranslate"><span class="pre">⍉</span></code> which will do the job.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍉</span><span class="m">9</span> <span class="m">6</span><span class="o">↑</span><span class="nv">encoded</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 2
-0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 1 1
-0 0 0 0 0 0 0 1 2
-</span></div></div>
-</div>
-<p>We’re going to do a lot of encoding, so it makes sense to create an <code class="docutils literal notranslate"><span class="pre">encode</span></code> function we can use repeatedly.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encode</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⍉</span><span class="p">(</span><span class="m">9</span><span class="o">⍴</span><span class="m">3</span><span class="p">)</span><span class="o">⊤</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ integer(s) to board vector/matrix</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Lets’ try that out.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 2
-0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 1 1
-0 0 0 0 0 0 0 1 2
-</span></div></div>
-</div>
-<p>Later on we will want to go in the opposite direction from a vector or vectors to the numbers that correspond to each one.</p>
-<p>The function <code class="docutils literal notranslate"><span class="pre">decode</span></code> does that.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">decode</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span><span class="o">⊥⍉</span><span class="bp">⍵</span><span class="kt">}</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">decode</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 1 2 3 4 5
-</span></div></div>
-</div>
-<p>What do these boards look like? Let’s try to use the show function we wrote earlier.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
-...
-...
-</span></div></div>
-</div>
-<p>Oops! That just shows the first board position, which is rather boring, and not what we wanted.
-The current definition of <code class="docutils literal notranslate"><span class="pre">show</span></code> uses <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴</span></code> to generate its result,
-so we only ever get 9 characters arranged as a 3 by 3 matrix. We need to modify <code class="docutils literal notranslate"><span class="pre">show</span></code> so that it displays each board.</p>
-<p>We’ll use APL’s <code class="docutils literal notranslate"><span class="pre">rank</span></code> operator <code class="docutils literal notranslate"><span class="pre">⍤</span></code> which we can use to control how the code is applied to the function’s argument.</p>
-<p>In this case we want <code class="docutils literal notranslate"><span class="pre">show</span></code> to apply to each vector along the last dimension of the argument we provide.</p>
-<p><code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴⍤</span> <span class="pre">1</span></code> allows us to do that.
-The <code class="docutils literal notranslate"><span class="pre">⊢</span></code> just serves to separate the <code class="docutils literal notranslate"><span class="pre">1</span></code> used with rank from the code that picks the characters to use as an argument.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="na">⍤</span> <span class="m">1</span> <span class="o">⊢</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
-<span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">...
-...
-...
-
-...
-...
-..×
-
-...
-...
-..○
-
-...
-...
-.×.
-
-...
-...
-.××
-
-...
-...
-.×○
-</span></div></div>
-</div>
-<p>Let’s look at the shape of show’s result.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍴</span><span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">6 3 3
-</span></div></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">show</span></code> now converts each vector on its right to a matrix.
-If we apply <code class="docutils literal notranslate"><span class="pre">show</span></code> to a matrix with one board per row it returns a 3d array with one plane for each board configuration.</p>
-<p>If there aren’t too many boards it can be easier to see the positions going <em>across</em> the page rather than down it.</p>
-<p>There’s an easy way to do that.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┐
-│...│...│...│...│...│...│
-│...│...│...│...│...│...│
-│...│..×│..○│.×.│.××│.×○│
-└───┴───┴───┴───┴───┴───┘
-</span></div></div>
-</div>
-<p>The expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span></code> converts the cube of characters returned by <code class="docutils literal notranslate"><span class="pre">show</span></code> into a vector (list) of matrices.</p>
-<p>We’ve now created the tools we need to work on the next stage of our implementation of MENACE.</p>
-<p>In the next notebook we will look at the relationship between symmetries (rotations and reflections) of board configurations.</p>
-<p>We will want to use <code class="docutils literal notranslate"><span class="pre">encode</span></code>, <code class="docutils literal notranslate"><span class="pre">decode</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> so we will save our work ready to reuse in the next notebook.</p>
-<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook2.dws</span></code>.</p>
-<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option because the notebook software silently loads a workspace with a different name.</p>
-<p>APL will not change that name unless we tell it to.</p>
-<p>In the discussion that follows, we’ll use the expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span> <span class="pre">show</span></code> a lot, so let’s make it a function.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">list</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="bp">⍵</span><span class="kt">}</span>
-<span class="nv">list</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┐
-│...│...│...│...│...│...│
-│...│...│...│...│...│...│
-│...│..×│..○│.×.│.××│.×○│
-└───┴───┴───┴───┴───┴───┘
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
+│××.│..×│.×.│.○.│.××│×..│.×.│.○.│
+│.○○│×○×│○○.│×○×│○○.│×○×│.○○│×○×│
+│.×.│.○.│.××│×..│.×.│.○.│××.│..×│
+└───┴───┴───┴───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook2</span> <span class="o">-</span><span class="nv">force</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook3</span> <span class="o">-</span><span class="nv">force</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook2.dws saved Sat Dec 12 17:45:10 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Sun Dec 20 14:53:50 2020
+</span></div></div>
+</div>
+<p>Next we’ll start looking at the implementation of the game.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">fns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">decode  encode  list    m       r       show    
 </span></div></div>
 </div>
 </div>
@@ -627,8 +579,8 @@ If we apply <code class="docutils literal notranslate"><span class="pre">show</s
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="chapter-1.html" title="previous page">Reinforcement Learning From The Ground Up</a>
-    <a class='right-next' id="next-link" href="chapter-3.html" title="next page">Reinforcement Learning with MENACE</a>
+    <a class='left-prev' id="prev-link" href="chapter-1.html" title="previous page">Reinforcement Learning</a>
+    <a class='right-next' id="next-link" href="chapter-3.html" title="next page">Exploring the game</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
