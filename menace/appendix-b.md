@@ -1,4 +1,4 @@
-# Ten minutes to RIDE
+# Appendix B - Ten minutes to RIDE
 
 This is a short introductory guide to Dyalog APL's **RIDE** interface.
 
@@ -45,7 +45,7 @@ Here are the configurations:
 
 In each case you will start RIDE by clicking on the icon which was added during installation.
 
-![Starting RIDE](im)
+![Starting RIDE](images/ride-01.png)
 
 
 
