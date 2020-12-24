@@ -18,7 +18,7 @@ Dyalog's installation depends on the target environment.
 [Windows]() users, [maxOS X]() users, [Linux users]() with Intel/AMD hardware and [Raspberry Pi]()
 users will find information specific to their environment on the Dyalog website.
 
-The links above are current as of December 2020 but are subject to change.
+TODO: add links.
 
 This short guide will help you get started with RIDE and APL after you have installed the appropriate software.
 
