@@ -1,4 +1,5 @@
 # In _toc.yml
+- file: an-introduction
 - file: chapter-1
 - file: chapter-2
 - file: chapter-3
@@ -7,4 +8,6 @@
 - file: chapter-6
 - file: chapter-7
 - file: appendix-a
+- file: appendix-b
+- file: appendix-c
 - file: about-the-author

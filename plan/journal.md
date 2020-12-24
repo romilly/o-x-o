@@ -58,7 +58,19 @@ Lots done yesterday, though I was very tired.
 
 `game_runner` now working with a `random_player`,and I have started chapter 8.
 
-I'm also planning a 5-minute guide to RIDE as this will be needed if anyone wants to run a `human_player`.
+I've started a ten-minute guide to RIDE as this will be needed if anyone wants to run a `human_player`.
 
+## Thursday 24 December 2020
 
+Good progress yesterday. Ch 7 now uses Namespaces, as suggested by Morten.
+
+Today I will work on Ch 8, change it to use Namespaces, and actually update the bead counts.
+
+Hopefully I will then see some learning :)
+
+For now, I will
+1. plot using LibreOffice, and
+1. keep a trained config in a special ws.
+   
+Later I will plot using SharpPlot and use shared files to keep trained config(s).
 
