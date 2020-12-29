@@ -74,3 +74,21 @@ For now, I will
    
 Later I will plot using SharpPlot and use shared files to keep trained config(s).
 
+
+## Saturday 26 December 2020
+
+Just discovered ]dinput, ]plot and the ability to define ∇fns in the dyalog notebooks thanks to APL Orchard help.
+
+Yay!
+
+
+## Sunday 27 December 2020
+
+Got a very helpful reply from RP this morning. Will look at user input in the new year.
+
+Today focus on
+1. Appendix B
+1. `menace_player`and
+1. `]plot`.
+
+
