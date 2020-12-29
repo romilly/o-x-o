@@ -71,8 +71,8 @@ There are several ways in which you can enter those APL characters that are not 
 
 
 1. You can click on a character from the toolbar ad the top of the RIDE window. The character will be copied into your RIDE session window.
-1. You can use a prefix key followed by another key based on the layout of an APL keyboard (see below). In RIDE, the default prefix key is the backtick `\`` but this is configurable.
-1. You can use the prefix key and then start typing the *name* of the character you want to enter. For example, if you type ``\`r` the character `⍴` will appear in the session window.
+1. You can use a prefix key followed by another key based on the layout of an APL keyboard (see below). In RIDE, the default prefix key is the backtick \` but this is configurable.
+1. You can use the prefix key and then start typing the *name* of the character you want to enter. For example, if you type \`r the character `⍴` will appear in the session window.
 1. You can use the *Super* key (`Crtl` on Windows, `Cmd` on macOS X, `Windows` on linux) as a shift key.
 
 ### The traditional APL keyboard
