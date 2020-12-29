@@ -236,13 +236,55 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#three-ways-to-work">
-   Three ways to work
+  <a class="reference internal nav-link" href="#the-way-we-ll-work">
+   The way we’ll work
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#starting-ride">
-   Starting RIDE
+  <a class="reference internal nav-link" href="#starting-apl-and-ride">
+   Starting APL (and RIDE)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#entering-apl-characters">
+     Entering APL characters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-traditional-apl-keyboard">
+     The traditional APL keyboard
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#making-good-use-of-the-session-window">
+     Making good use of the session window
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-functions">
+     Defining functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#listing-functions">
+     Listing functions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#editing-functions">
+   Editing functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-ride-editor">
+   The RIDE Editor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-information">
+   More information
   </a>
  </li>
 </ul>
@@ -275,27 +317,102 @@ users will find information specific to their environment on the Dyalog website.
 <p>TODO: add links.</p>
 <p>This short guide will help you get started with RIDE and APL after you have installed the appropriate software.</p>
 <p>RIDE works the same way in all the environments listed above.</p>
-<div class="section" id="three-ways-to-work">
-<h2>Three ways to work<a class="headerlink" href="#three-ways-to-work" title="Permalink to this headline">¶</a></h2>
-<p>There are three common ways of using RIDE to connect you to the APL interpreter, They are determined by
-the location of the GUI (Graphic User Interface) you interact with, and the location of the computer on
-which APL is installed.</p>
-<p>Here are the configurations:</p>
+<div class="section" id="the-way-we-ll-work">
+<h2>The way we’ll work<a class="headerlink" href="#the-way-we-ll-work" title="Permalink to this headline">¶</a></h2>
+<p>You can use several ways to RIDE to the APL interpreter.</p>
+<p>We’ll focus on the simplest, where RIDE and APL are running on the same computer.
+The illustrations below were made using a Raspberry Pi, but the process will be the same for any supported environment.</p>
+</div>
+<div class="section" id="starting-apl-and-ride">
+<h2>Starting APL (and RIDE)<a class="headerlink" href="#starting-apl-and-ride" title="Permalink to this headline">¶</a></h2>
+<p>Click on the <code class="docutils literal notranslate"><span class="pre">Dyalog</span> <span class="pre">APL</span></code> icon. The location will depend on your Operating System.</p>
 <ol class="simple">
-<li><p><em>Local GUI, local Interpreter</em>. This is the configuration you use if you’re using RIDE on the computer
-on which you installed APL.</p></li>
-<li><p><em>Local GUI, remote interpreter</em>. This allows a laptop user (for example) to interact with a server, or to interact
-with a Raspberry Pi that has no monitor, keyboard or mouse installed. RIDE needs to be installed on both computers,
-and the computers must be connected by a TCP network.</p></li>
-<li><p><em>Local access to a remote Desktop</em>, remote GUI, remote interpreter. This is essentially the same as 1. above.
-You’ll be accessing the other computer using a protocol like <em>VNC</em> or <em>RDP</em> but this won’t affect RIDE’s operation.
-You’ll need to configure RIDE for <strong>local</strong> use.</p></li>
+<li><p><strong>Windows</strong>: You should see the icon on yur desktop. If not, use the search box.</p></li>
+<li><p><strong>maxOS X</strong>: Use the <em>launchpad</em> app in the usual way.</p></li>
+<li><p><strong>Linux</strong>  : <em>(including Raspberry Pi)</em> Find the icon under the <em>programming</em> sub-menu</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not click on the Dyalog APL (TTY) or Ride 4.3 icons!
+They have their uses but they won’t do what you want right now.</p>
+</div>
+<p><img alt="Starting APL - 1" src="_images/dyalog-pi-01.png" /></p>
+<p>Once RIDE has started you’ll see a short flash screen, followed by this:</p>
+<p><img alt="Starting APL - 2" src="_images/dyalog-pi-02.png" /></p>
+<p>Now you are <em>away to the races</em>. That’s slang for <em>you’re good to go</em> :)</p>
+<p>Type <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></code> and press Enter.</p>
+<p><img alt="Starting APL - 3" src="_images/dyalog-pi-04.png" /></p>
+<p>RIDE’s <em>session window</em> is an APL <em>REPL</em> - a <a class="reference external" href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">Read-Eval-Print-Loop</a>.</p>
+<p>It’s also an editor, and it has a very useful workspace explorer. We’ll see how to use those shortly.</p>
+<p>First, let’s look at how to enter those beautiful characters that give APL so much of its expressive power. (You can see them all at the top of the RIDE window).</p>
+<p><img alt="Toolbar" src="_images/apl-toolbar.png" /></p>
+<div class="section" id="entering-apl-characters">
+<h3>Entering APL characters<a class="headerlink" href="#entering-apl-characters" title="Permalink to this headline">¶</a></h3>
+<p>There are several ways in which you can enter those APL characters that are not on a standard keyboard.</p>
+<ol class="simple">
+<li><p>You can click on a character from the toolbar ad the top of the RIDE window. The character will be copied into your RIDE session window.</p></li>
+<li><p>You can use a prefix key followed by another key based on the layout of an APL keyboard (see below). In RIDE, the default prefix key is the backtick ``` but this is configurable.</p></li>
+<li><p>You can use the prefix key and then start typing the <em>name</em> of the character you want to enter. For example, if you type ```r<code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">character</span></code>⍴` will appear in the session window.</p></li>
+<li><p>You can use the <em>Super</em> key (<code class="docutils literal notranslate"><span class="pre">Crtl</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">Cmd</span></code> on macOS X, <code class="docutils literal notranslate"><span class="pre">Windows</span></code> on linux) as a shift key.</p></li>
 </ol>
 </div>
-<div class="section" id="starting-ride">
-<h2>Starting RIDE<a class="headerlink" href="#starting-ride" title="Permalink to this headline">¶</a></h2>
-<p>In each case you will start RIDE by clicking on the icon which was added during installation.</p>
-<p><img alt="Starting RIDE" src="_images/ride-01.png" /></p>
+<div class="section" id="the-traditional-apl-keyboard">
+<h3>The traditional APL keyboard<a class="headerlink" href="#the-traditional-apl-keyboard" title="Permalink to this headline">¶</a></h3>
+<p>Here’s the traditional keyboard layout.</p>
+<p><img alt="APL keyboard" src="_images/apl-keyboard.jpg" /></p>
+<p>If you get hooked on APL (and it <em>is</em> addictive for some) you can buy a keyboard from Dyalog with the APL symbols on it. Here’s a US version; a UK version is also available.</p>
+<p><img alt="Dyalog keyboard - US version" src="_images/us_rc.jpg" /></p>
+</div>
+<div class="section" id="making-good-use-of-the-session-window">
+<h3>Making good use of the session window<a class="headerlink" href="#making-good-use-of-the-session-window" title="Permalink to this headline">¶</a></h3>
+<p>Earlier you entered <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">2</span></code> in the session window.</p>
+<p>If you move the cursor back to that line,  change it to <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">+</span> <span class="pre">3</span></code> and press enter, you’ll see a screen like this:</p>
+<p><img alt="Editing a session line" src="_images/session-edit.png" /></p>
+<p>The original line has been restored, and your new line has been shown below it, followed by its result. That’s a really useful feature which lets you experiment with different versions of your code.</p>
+<p>As you can see above, the session window has another useful feature. When it’s your turn to type, APL moves the cursor six spaces to the right, so you can easily see what you typed and what APL responded.</p>
+</div>
+<div class="section" id="defining-functions">
+<h3>Defining functions<a class="headerlink" href="#defining-functions" title="Permalink to this headline">¶</a></h3>
+<p>The code in this book was defined using dfns (<em>direct definition</em> functions). As you have seen,
+these are defined using braces (<code class="docutils literal notranslate"><span class="pre">{</span></code> and <code class="docutils literal notranslate"><span class="pre">}</span></code>).
+Direct definition is not the only way to create functions and operators in APL,
+but it’s concise and promotes a pure <a class="reference external" href="https://en.wikipedia.org/wiki/Functional_programming">functional programming</a> style.</p>
+<p>It’s easy to define dfns in the RIDE.</p>
+<p>In the RIDE session window, type <code class="docutils literal notranslate"><span class="pre">positive</span> <span class="pre">←</span> <span class="pre">{⍵/⍨⍵&gt;0}</span></code> and press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p>
+<p>Then enter <code class="docutils literal notranslate"><span class="pre">positive</span> <span class="pre">¯3</span> <span class="pre">+</span> <span class="pre">⍳5</span></code>.</p>
+<p>The function returns the vector <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2</span></code>.</p>
+</div>
+<div class="section" id="listing-functions">
+<h3>Listing functions<a class="headerlink" href="#listing-functions" title="Permalink to this headline">¶</a></h3>
+<p>You can enter the system command <code class="docutils literal notranslate"><span class="pre">)fns</span></code> to list all the functions that you’ve defined.</p>
+<p>Try it now. You should see a single name <code class="docutils literal notranslate"><span class="pre">positive</span></code>.</p>
+</div>
+</div>
+<div class="section" id="editing-functions">
+<h2>Editing functions<a class="headerlink" href="#editing-functions" title="Permalink to this headline">¶</a></h2>
+<p>You’ve seen how to define a single-line dfn, but you’ll often want to define a function with more than one line.</p>
+<p>There are several good reasons to do so.</p>
+<ol class="simple">
+<li><p>You may want to add a comment line to the start of your dfn so that readers (yourself included!) know what the function is supposed to do.</p></li>
+<li><p>Sometimes dfns need to work their way towards their result in several stages. You <em>can</em> use <em>diamond</em> ‘⋄’ to separate multiple statements on a single line, but it’s often more readable to split the dfn into multiple lines. That’s particularly true if you are using <em>guards</em> to implement conditional statements.</p></li>
+<li><p>You can use RIDE’s <em>Tracer</em> to debug multi-line dfns. You’ll find details of the Tracer in section 6.3 of the <a class="reference external" href="http://docs.dyalog.com/17.0/RIDE%20User%20Guide.pdf">RIDE user Guide</a>.</p></li>
+</ol>
+<p>You can create or edit a single or multi-line dfn using RIDE’s <em>Edit</em> window.</p>
+</div>
+<div class="section" id="the-ride-editor">
+<h2>The RIDE Editor<a class="headerlink" href="#the-ride-editor" title="Permalink to this headline">¶</a></h2>
+<p>There are several ways to invoke the RIDE editor. It’s a text editor that makes it easy to see and edit dfns. You can use it to edit other things as well.</p>
+<p>One simple way to edit something is to use the )ED system command.</p>
+<p>Enter ‘)ED positive’ in RIDE’s session window.</p>
+<p>You should see this:</p>
+<p><img alt="Editor Window" src="_images/ed.png" /></p>
+<p>Now you can click in the edit window, make changes to the function, and click on the ‘x’ or type <code class="docutils literal notranslate"><span class="pre">Escape</span></code> to close the window.</p>
+</div>
+<div class="section" id="more-information">
+<h2>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
+<p>There’s lots more you can do with RIDE.</p>
+<p>There’s a <a class="reference external" href="https://docs.dyalog.com/18.0/RIDE%20User%20Guide.pdf">user manual</a>, and
+there are a number of videos on the Dyalog Website.</p>
 </div>
 </div>
 

@@ -136,12 +136,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-b.html">
-   Ten minutes to RIDE
+   Appendix B - Ten minutes to RIDE
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-c.html">
-   Running MENACE In RIDE
+   Appendix C - TBD :)
   </a>
  </li>
  <li class="toctree-l1">
@@ -451,7 +451,13 @@ So <code class="docutils literal notranslate"><span class="pre">?5</span></code>
 <p>We can combine all those steps into the <code class="docutils literal notranslate"><span class="pre">random_player</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">random_player</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">g</span> <span class="kd">←</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span> <span class="p">⋄</span> <span class="nv">cp</span> <span class="kd">←</span> <span class="nv">p</span> <span class="nv">g</span> <span class="p">⋄</span> <span class="nv">i</span> <span class="kd">←</span> <span class="o">⍸</span><span class="nv">e</span><span class="kd">←</span><span class="m">0</span><span class="o">=</span><span class="nv">cp</span> <span class="p">⋄</span> <span class="nv">cp</span><span class="sr">[</span><span class="nv">i</span><span class="sr">[</span><span class="o">?+</span><span class="na">/</span><span class="nv">e</span><span class="sr">]]</span> <span class="kd">←</span> <span class="nv">np</span> <span class="nv">cp</span> <span class="p">⋄</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span> <span class="kd">←</span> <span class="nv">g</span><span class="o">⍪</span><span class="nv">cp</span> <span class="p">⋄</span> <span class="bp">⍵</span> <span class="kt">}</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">random_player</span> <span class="kd">←</span> <span class="kt">{</span> <span class="c1">⍝ make a legal but random move</span>
+<span class="nv">g</span> <span class="kd">←</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span> <span class="p">⋄</span> <span class="nv">cp</span> <span class="kd">←</span> <span class="nv">p</span> <span class="nv">g</span>
+<span class="nv">i</span> <span class="kd">←</span> <span class="o">⍸</span><span class="nv">e</span><span class="kd">←</span><span class="m">0</span><span class="o">=</span><span class="nv">cp</span>
+<span class="nv">cp</span><span class="sr">[</span><span class="nv">i</span><span class="sr">[</span><span class="o">?+</span><span class="na">/</span><span class="nv">e</span><span class="sr">]]</span> <span class="kd">←</span> <span class="nv">np</span> <span class="nv">cp</span>
+<span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span> <span class="kd">←</span> <span class="nv">g</span><span class="o">⍪</span><span class="nv">cp</span>
+<span class="bp">⍵</span> <span class="kt">}</span>
 </pre></div>
 </div>
 </div>
@@ -468,7 +474,7 @@ So <code class="docutils literal notranslate"><span class="pre">?5</span></code>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 1 0 0 0 0
+0 0 1 0 0 0 0 0 0
 </span></div></div>
 </div>
 <p>If we run <code class="docutils literal notranslate"><span class="pre">random_player</span></code> again it will make a move for <code class="docutils literal notranslate"><span class="pre">×</span></code>.</p>
@@ -481,8 +487,8 @@ So <code class="docutils literal notranslate"><span class="pre">?5</span></code>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 1 0 0 0 0
-0 0 0 0 1 2 0 0 0
+0 0 1 0 0 0 0 0 0
+0 0 1 0 2 0 0 0 0
 </span></div></div>
 </div>
 <p>It would get rather tedious if we had to manually run <code class="docutils literal notranslate"><span class="pre">random_player</span></code> every time we wanted to make another move. APL has a power operator <code class="docutils literal notranslate"><span class="pre">⍣</span></code> which we can use to execute something repeatedly.</p>
@@ -498,15 +504,15 @@ So <code class="docutils literal notranslate"><span class="pre">?5</span></code>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 1 0 0
-0 0 2 0 0 0 1 0 0
-0 1 2 0 0 0 1 0 0
-0 1 2 0 2 0 1 0 0
-0 1 2 0 2 0 1 1 0
-0 1 2 0 2 2 1 1 0
-0 1 2 0 2 2 1 1 1
-2 1 2 0 2 2 1 1 1
-2 1 2 1 2 2 1 1 1
+1 0 0 0 0 0 0 0 0
+1 0 0 0 2 0 0 0 0
+1 0 0 0 2 0 1 0 0
+1 0 0 2 2 0 1 0 0
+1 0 1 2 2 0 1 0 0
+1 0 1 2 2 2 1 0 0
+1 0 1 2 2 2 1 1 0
+1 0 1 2 2 2 1 1 2
+1 1 1 2 2 2 1 1 2
 </span></div></div>
 </div>
 <p>What happens if we try to play again?</p>
@@ -518,9 +524,8 @@ So <code class="docutils literal notranslate"><span class="pre">?5</span></code>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DOMAIN ERROR
-random_player[0] random_player←{g←⍵.game ⋄ cp←p g ⋄ i←⍸e←0=cp ⋄ cp[i[?+/e]]←np
-      cp ⋄ ⍵.game←g⍪cp ⋄ ⍵}
-                                                                    ∧
+random_player[3] cp[i[?+/e]]←np cp
+                     ∧
 </pre></div>
 </div>
 </div>
@@ -550,11 +555,11 @@ random_player[0] random_player←{g←⍵.game ⋄ cp←p g ⋄ i←⍸e←0=cp 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-│...│...│.○.│.○.│.○○│×○○│×○○│×○○│×○○│×○○│
-│...│...│...│...│...│...│...│.×.│○×.│○××│
-│...│×..│×..│××.│××.│××.│××○│××○│××○│××○│
-└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───┬───┬───┬───┬───┬───┬───┬───┐
+│...│...│...│.×.│.×.│.××│.××│.××│
+│...│...│...│...│.○.│.○.│○○.│○○×│
+│...│..×│.○×│.○×│.○×│.○×│.○×│.○×│
+└───┴───┴───┴───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
 <p>Great! Even when we run it ten times, the code stops adding moves as soon as the game is over.</p>
@@ -595,7 +600,7 @@ random_player[0] random_player←{g←⍵.game ⋄ cp←p g ⋄ i←⍸e←0=cp 
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 1 0
-0 0 0 2 0 0 0 1 0
+0 0 2 0 0 0 0 1 0
 </span></div></div>
 </div>
 <p>We need to update the history before we can write <code class="docutils literal notranslate"><span class="pre">game_runner</span></code>.</p>
@@ -634,15 +639,15 @@ and the power operator invoked the function that number of times. Now we’ll us
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 1 0 0
-0 0 2 0 0 0 1 0 0
-0 1 2 0 0 0 1 0 0
-0 1 2 2 0 0 1 0 0
-0 1 2 2 0 1 1 0 0
-0 1 2 2 0 1 1 2 0
-0 1 2 2 1 1 1 2 0
-2 1 2 2 1 1 1 2 0
-2 1 2 2 1 1 1 2 1
+1 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 2 0 0
+1 0 1 0 0 0 2 0 0
+1 2 1 0 0 0 2 0 0
+1 2 1 0 1 0 2 0 0
+1 2 1 0 1 2 2 0 0
+1 2 1 1 1 2 2 0 0
+1 2 1 1 1 2 2 2 0
+1 2 1 1 1 2 2 2 1
 </span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0
 </span></div></div>
 </div>
@@ -656,14 +661,12 @@ and the power operator invoked the function that number of times. Now we’ll us
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
-0 0 1 0 0 0 0 0 0
-0 0 1 0 0 0 0 2 0
-0 1 1 0 0 0 0 2 0
-0 1 1 2 0 0 0 2 0
-0 1 1 2 1 0 0 2 0
-0 1 1 2 1 0 2 2 0
-0 1 1 2 1 1 2 2 0
-0 1 1 2 1 1 2 2 2
+1 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 2 0 0
+1 0 0 0 0 0 2 0 1
+1 0 0 0 2 0 2 0 1
+1 0 0 0 2 0 2 1 1
+1 0 2 0 2 0 2 1 1
 </span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 ¯1
 </span></div></div>
 </div>
@@ -676,7 +679,7 @@ and the power operator invoked the function that number of times. Now we’ll us
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 ¯1 0 ¯1 1 0 ¯1 1 1 0 ¯1 ¯1 0 0 ¯1 1 1 ¯1 ¯1 ¯1 0 1
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 ¯1 0 1 0 0 1 ¯1 ¯1 ¯1 1 ¯1 0 ¯1 1 0 1 0 1 ¯1 0 0
 </span></div></div>
 </div>
 <div class="cell docutils container">
@@ -686,7 +689,7 @@ and the power operator invoked the function that number of times. Now we’ll us
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Wed Dec 23 11:09:34 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Sat Dec 26 15:50:18 2020
 </span></div></div>
 </div>
 </div>
