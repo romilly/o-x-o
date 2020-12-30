@@ -36,7 +36,7 @@ The illustrations below were made using a Raspberry Pi, but the process will be 
 
 Click on the `Dyalog APL` icon. The location will depend on your Operating System.
 
-1. **Windows**: You should see the icon on yur desktop. If not, use the search box. 
+1. **Windows**: You should see the icon on your desktop. If not, use the search box. 
 1. **maxOS X**: Use the *launchpad* app in the usual way.
 1. **Linux**  : *(including Raspberry Pi)* Find the icon under the *programming* sub-menu
 
