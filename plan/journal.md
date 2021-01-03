@@ -91,4 +91,13 @@ Today focus on
 1. `menace_player`and
 1. `]plot`.
 
+## Thursday 31 December 2020
+
+I've done a lot but not been very diligent in keeping the journal up-to-date.
+
+I discovered yesterday that TryAPL now supports notebooks
+
+`https://tryapl.org/?notebook=url_of_next_in_series`
+
+` ?clear=no`
 

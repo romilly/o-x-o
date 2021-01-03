@@ -1,0 +1,12 @@
+chapter-1.ipynb:    "We'll use APL's `rank` operator `⍤` which we can use to control how the code is applied to the function's argument.\n",
+chapter-1.ipynb:    "`3 3⍴⍤ 1` allows us to do that.\n",
+chapter-1.ipynb:    "show ← {3 3⍴⍤ 1 ⊢'.×○'[⍵]}\n",
+chapter-1.ipynb:    "⊂⍤2 show encode ⍳6"
+chapter-1.ipynb:    "The expression `⊂⍤2` converts the cube of characters returned by `show` into a vector (list) of matrices."
+chapter-1.ipynb:    "In the discussion that follows, we'll use the expression `⊂⍤2 show` a lot, so let's make it a function."
+chapter-1.ipynb:    "list ← {⊂⍤2 show ⍵}\n",
+chapter-3.ipynb:    "see←{{,'.×○'⍳⍵}⍤2⊣⍵}"
+chapter-3.ipynb:    "⊂⍤2 show ∪less[symmetries]"
+chapter-3.ipynb:    "⊂⍤2 show ∪board1[symmetries]"
+spike.ipynb:    "show ← {3 3⍴⍤1 ⊢'.×○'[⍵]} ⍝ display position\n",
+spike.ipynb:    "list ← {⊂⍤2 show ⍵} ⍝ spread boards across the page\n",

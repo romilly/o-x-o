@@ -140,6 +140,7 @@
 <node TEXT="explain we&apos;re creating a DSL" ID="ID_479042855" CREATED="1608014651428" MODIFIED="1609223002867">
 <icon BUILTIN="button_ok"/>
 </node>
+<node TEXT="better separation between landing page and ch 1" ID="ID_758939695" CREATED="1609658827118" MODIFIED="1609658840884"/>
 <node TEXT="explain rules for APL display." ID="ID_1066259595" CREATED="1608376783761" MODIFIED="1608376803092"/>
 <node TEXT="hyperlinks to Dyalog docs for each primitiive used" ID="ID_831005654" CREATED="1608014731227" MODIFIED="1608014761566"/>
 <node TEXT="add links to other books of mine" ID="ID_56796681" CREATED="1608016424612" MODIFIED="1608454699552"/>
