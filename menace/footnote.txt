@@ -1,0 +1,1 @@
+chapter-1.ipynb:    "The [*rank* operator](https://aplwiki.com/wiki/Rank_(operator)) applies the function on its left to cells of its arguments as specified by the numbers on its right. Rank is one of the most useful APL operators, and Dyalog have published some great videos about its use.\n",

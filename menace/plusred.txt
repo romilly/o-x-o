@@ -19,11 +19,8 @@ chapter-6.ipynb:    " draw ← {0=+/0=⍵} ⍝ is the game drawn?\n",
 chapter-6.ipynb:    "empty_count ← { +/0=cpos ⍵ }\n",
 chapter-7.ipynb:    "ok←{0 1∊⍨-⌿+/1 2∘.=⍵}      ⍝ do positions have counts of × and ○ that could occur in play?\n",
 chapter-7.ipynb:    "pick ← {(0,+\\⍵)⍸?+/⍵}"
-chapter-7.ipynb:    "The code below creates a 100,000 element vector in which each element is the enclosed character vector `pick beads`. It then uses *execute each* `⍎¨` to execute each of those statements. It uses *outer product equals* `∘.=` to create a table with a 1 for each occurence of the nine possible values, and adds up each row using *plus reduction* `+/`. That givuse a count of hom many times each possible value was chosen.\n",
+chapter-7.ipynb:    "The code below creates a 100,000 element vector in which each element is the enclosed character vector `pick beads`. It then uses *execute each* `⍎¨` to execute each of those statements. It uses *outer product equals* `∘.=` to create a table with a 1 for each occurrence of the nine possible values, and adds up each row using *plus reduction* `+/`. That gives a count of hom many times each possible value was chosen.\n",
 chapter-7.ipynb:    "counts ← +/(⍳9)∘.= picks\n",
 chapter-7.ipynb:    "counts÷+/counts"
 chapter-7.ipynb:    "adjustment ← { draw ⍵: 1 ⋄ ¯3 3[2|+/0≠⍵] }\n",
 chapter-7.ipynb:    "who ← {'○×'[2|+/0≠⍵]}\n",
-spike.ipynb:    "np ← {1+>/+/1 2∘.=⍵} ⍝ next player\n",
-spike.ipynb:    "random_player ← {cf ← ⍵ ⋄ g ← cg ⍵ ⋄ cp ← p g ⋄ i ← ⍸e←0=cp ⋄ cp[i[?+/e]] ← np cp ⋄ g ← g⍪ cp ⋄ cf[0]←⊂g ⋄ cf }\n",
-spike.ipynb:    "draw ← {0=+/0=⍵} ⍝ is the game drawn?\n",

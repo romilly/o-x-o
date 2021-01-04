@@ -101,3 +101,15 @@ I discovered yesterday that TryAPL now supports notebooks
 
 ` ?clear=no`
 
+
+## Monday 04 January 2021
+
+Mega progress.
+
+Today:
+1. Finish the restructuring of the material about operators.
+1. Get the simple_menace_player working
+1. Plot the learning
+
+
+
