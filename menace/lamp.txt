@@ -1,0 +1,51 @@
+chapter-1.ipynb:    "We'll also add comments to our code by using APL's comment symbol, the *lamp* `⍝`.\n",
+chapter-1.ipynb:    "increment ← {1 + ⍵} ⍝ adds one to each element of its argument\n",
+chapter-1.ipynb:    "add ← {⍺ + ⍵} ⍝ adds its left and right arguments\n",
+chapter-1.ipynb:    "encode ← {⍉(9⍴3)⊤⍵} ⍝ integer(s) to board vector/matrix"
+chapter-2.ipynb:    "In these and many later code fragments we will use *lamp* `⍝`.\n",
+chapter-2.ipynb:    "That's the APL comment symbol. APL will ignore everything on the rest of the line after a `⍝`"
+chapter-2.ipynb:    "m ← {⍵[2 1 0 5 4 3 8 7 6]} ⍝ mirror reflection\n",
+chapter-2.ipynb:    "r ← {⍵[6 3 0 7 4 1 8 5 2]} ⍝ rotation\n",
+chapter-2.ipynb:    "r90 ← r i ⍝ one rotation by 90 degrees\n",
+chapter-2.ipynb:    "r180 ← r r90 ⍝ two consecutive rotations - 180 degrees\n",
+chapter-2.ipynb:    "r270 ← r r180 ⍝ three - 270 degrees"
+chapter-3.ipynb:    "∪sym[symmetries] ⍝ the unique version"
+chapter-3.ipynb:    "(⊂0 3 2)⌷7 8 9 10 20 ⍝ the same as 7 8 9 10 20[0 3 2]"
+chapter-3.ipynb:    "ild ← {(⊂⍺) ⌷[¯1+⍴⍴⍵]⍵} ⍝ index last dimension\n",
+chapter-3.ipynb:    "(cd 0 0 0 0 0 0 1 0 1) ∊ 0 1 ⍝ not a possible position"
+chapter-3.ipynb:    "(cd 0 0 0 0 0 0 1 2 1) ∊ 0 1 ⍝ a possible position"
+chapter-3.ipynb:    "ok←{0 1∊⍨-⌿+/1 2∘.=⍵}      ⍝ do positions have counts of × and ○ that could occur in play?\n",
+chapter-4.ipynb:    "wf ← {∨⌿∨/^/1 2∘.=wpi ild ⍵} ⍝ is this a win?"
+chapter-6.ipynb:    "g ← config.game ⍝ find the game so far\n",
+chapter-6.ipynb:    "⊢cp ← ,¯1↑g ⍝ find current position"
+chapter-6.ipynb:    "e ← 0=cp   ⍝ boolean vector of empty board positions - a 1 means the position is available\n",
+chapter-6.ipynb:    "⊢c ← +/e ⍝ how many empty squares are there? (At the start of the game, all of them)."
+chapter-6.ipynb:    "i ← ⍸e ⍝ find indices of the empty positions - these are the legal moves\n",
+chapter-6.ipynb:    "np ← {1+>/+/1 2∘.=⍵} ⍝ who is the next player? 1 for ×, 2 for ○\n",
+chapter-6.ipynb:    "cp[i[?⍴i]] ← np cp ⍝ pick a legal move at random and update the current position\n",
+chapter-6.ipynb:    "cpos ← {,¯1↑⍵} ⍝ current position from game"
+chapter-6.ipynb:    "random_player ← { ⍝ make a legal but random move\n",
+chapter-6.ipynb:    "⍵.game ⍪← cp ⍝ is that OK?\n",
+chapter-6.ipynb:    " draw ← {0=+/0=⍵} ⍝ is the game drawn?\n",
+chapter-6.ipynb:    " gf ←wf ∨ draw ⍝ the game is finished if it's been won or the board is full\n",
+chapter-6.ipynb:    " try←{gf cpos ⍵.game:⍵ ⋄ ⍺⍺ ⍵} ⍝ if the game is over, do nothing; otherwise invoke the player"
+chapter-6.ipynb:    "game_runner ← { ⍝ play a game given two players and an initial configuration\n",
+chapter-7.ipynb:    "all ← encode numbers← ⍳3*9 ⍝ all possible positions\n",
+chapter-7.ipynb:    "ok←{0 1∊⍨-⌿+/1 2∘.=⍵}      ⍝ do positions have counts of × and ○ that could occur in play?\n",
+chapter-7.ipynb:    "good ← (ok all)/numbers    ⍝ find numbers of all positions that are ok\n",
+chapter-7.ipynb:    "⍴good                      ⍝ how many positions are ok?"
+chapter-7.ipynb:    "gbp ← encode good ⍝ a matrix with one board position per row\n",
+chapter-7.ipynb:    "zero ← 0=gbp ⍝ a matrix with a 1 for each non-empty position and a 0 for every empty one.\n",
+chapter-7.ipynb:    "init ← { ⍝ create an initial configuration (TODO: update descritption above\n",
+chapter-7.ipynb:    "pick beads ⍝ NB: the result may change each time this is run!"
+chapter-7.ipynb:    "menace_player ← { ⍝ make a move using menace's rules and save it for later bead update\n",
+chapter-7.ipynb:    "counts ← ⍵.beads[⍵.good⍳decode cp;] ⍝ find the bead counts corresponding to the current position\n",
+chapter-7.ipynb:    "cp[pick counts] ← move ← np cp ⍝ pick a move and update cp\n",
+chapter-7.ipynb:    "⍵.menace_moves,← ⊂(decode cp) move ⍝ add position and move to the menace-based moves for this game\n",
+chapter-7.ipynb:    "game_runner ← { ⍝ play a game given two players and an initial configuration\n",
+chapter-7.ipynb:    "update_counts_in ← { ⍝ update the bead counts for moves made by a `menace_player`\n",
+chapter-7.ipynb:    "⍝ find ajustment based on whether × won, drew or lost\n",
+chapter-7.ipynb:    "⍝ find all menace moves by '×'\n",
+chapter-7.ipynb:    "⍝ update them\n",
+chapter-7.ipynb:    "⍝ do the same for ○\n",
+plotting.ipynb:    "sp.DrawLineGraph ⊂ ↓+\\¯0.5+?5 1e2⍴0  ⍝ single argument must be enclosed "
