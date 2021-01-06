@@ -291,7 +291,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">Rebuilding user command cache... done
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
 </span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook2.dws saved Wed Dec 30 11:40:36 2020
 </span></div></div>
 </div>
@@ -582,7 +582,7 @@ The syntax above works for vectors, but we’re using it with a matrix.</p>
 <p>Here’s the definition for <code class="docutils literal notranslate"><span class="pre">ild</span></code>, along with an updated definition of canonical.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ild</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="o">⊂</span><span class="bp">⍺</span><span class="p">)</span> <span class="o">⌷</span><span class="sr">[</span><span class="m">¯1</span><span class="o">+⍴⍴</span><span class="bp">⍵</span><span class="sr">]</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ index last dimension</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">ild</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="o">⊂</span><span class="bp">⍺</span><span class="p">)</span><span class="o">⌷</span><span class="na">⍤</span><span class="m">1</span><span class="o">⊢</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ index last dimension</span>
 <span class="nv">canonical</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⌊</span><span class="na">⌿</span><span class="nv">decode</span> <span class="nv">symmetries</span> <span class="nv">ild</span> <span class="bp">⍵</span><span class="kt">}</span>
 </pre></div>
 </div>
@@ -902,7 +902,7 @@ We’ll also show which move number they ocurr at.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Wed Dec 30 11:41:14 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook3.dws saved Wed Jan  6 09:19:18 2021
 </span></div></div>
 </div>
 <div class="cell docutils container">
