@@ -56,7 +56,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Appendix A - Exploring Dyalog APL" href="appendix-a.html" />
-    <link rel="prev" title="Playing the game" href="chapter-6.html" />
+    <link rel="prev" title="Starting To Play" href="chapter-6.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -121,7 +121,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-6.html">
-   Playing the game
+   Starting To Play
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -136,12 +136,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-b.html">
-   Ten minutes to RIDE
+   Appendix B - Ten minutes to RIDE
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-c.html">
-   Running MENACE In RIDE
+   Appendix C - TBD :)
   </a>
  </li>
  <li class="toctree-l1">
@@ -308,13 +308,13 @@ The second element will be a matrix of bead counts, with one row per possible po
 <p>Let’s start by copying in our earlier work.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook7</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">copy</span> <span class="nv">notebook6</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">done
-</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook7.dws saved Wed Dec 23 07:22:04 2020
+</span></div><div class="output text_html"><span style="white-space:pre; font-family: monospace">./notebook6.dws saved Tue Jan  5 08:29:54 2021
 </span></div></div>
 </div>
 <div class="cell docutils container">
@@ -423,8 +423,29 @@ The second element will be a matrix of bead counts, with one row per possible po
 <p>We’ll write a function called <code class="docutils literal notranslate"><span class="pre">initialise</span></code> which will create the initial configuration.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">initialise</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span> <span class="p">((</span><span class="bp">⍺</span><span class="p">)</span> <span class="p">(</span><span class="bp">⍺</span> <span class="nv">initial_counts</span> <span class="bp">⍵</span><span class="p">))</span><span class="kt">}</span>
-<span class="nv">config</span> <span class="kd">←</span> <span class="nv">good</span> <span class="nv">initialise</span> <span class="m">20</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">initialise</span> <span class="kd">←</span> <span class="kt">{</span><span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> <span class="no">⍬</span> <span class="p">((</span><span class="bp">⍺</span><span class="p">)</span> <span class="p">(</span><span class="bp">⍺</span> <span class="nv">initial_counts</span> <span class="bp">⍵</span><span class="p">))</span> <span class="no">⍬</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">init</span> <span class="kd">←</span> <span class="kt">{</span> <span class="c1">⍝ create an initial configuration (TODO: update descritption above</span>
+<span class="nv">config</span> <span class="kd">←</span> <span class="nf">⎕ns</span> <span class="s1">&#39;&#39;</span>
+<span class="nv">config</span><span class="na">.</span><span class="nv">game</span> <span class="kd">←</span> <span class="p">(</span><span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span><span class="p">)</span> 
+<span class="nv">config</span><span class="na">.</span><span class="nv">results</span> <span class="kd">←</span> <span class="no">⍬</span> 
+<span class="nv">config</span><span class="na">.</span><span class="nv">good</span> <span class="kd">←</span> <span class="bp">⍺</span>
+<span class="nv">config</span><span class="na">.</span><span class="nv">beads</span> <span class="kd">←</span> <span class="bp">⍺</span> <span class="nv">initial_counts</span> <span class="bp">⍵</span> 
+<span class="nv">config</span><span class="na">.</span><span class="nv">menace_moves</span> <span class="kd">←</span> <span class="no">⍬</span>
+<span class="nv">config</span> <span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">good</span> <span class="nv">init</span> <span class="m">20</span>
 </pre></div>
 </div>
 </div>
@@ -457,7 +478,7 @@ The second element will be a matrix of bead counts, with one row per possible po
 </span></div></div>
 </div>
 <p>Let’s do a more thorough analysis.</p>
-<p>The code below creates a 100,000 element vector in which each element is the enclosed character vector <code class="docutils literal notranslate"><span class="pre">pick</span> <span class="pre">beads</span></code>. It then uses <em>execute each</em> <code class="docutils literal notranslate"><span class="pre">⍎¨</span></code> to execute each of those statements. It uses <em>outer product equals</em> <code class="docutils literal notranslate"><span class="pre">∘.=</span></code> to create a table with a 1 for each occurence of the nine possible values, and adds up each row using <em>plus reduction</em> <code class="docutils literal notranslate"><span class="pre">+/</span></code>. That givuse a count of hom many times each possible value was chosen.</p>
+<p>The code below creates a 100,000 element vector in which each element is the enclosed character vector <code class="docutils literal notranslate"><span class="pre">pick</span> <span class="pre">beads</span></code>. It then uses <em>execute each</em> <code class="docutils literal notranslate"><span class="pre">⍎¨</span></code> to execute each of those statements. It uses <em>outer product equals</em> <code class="docutils literal notranslate"><span class="pre">∘.=</span></code> to create a table with a 1 for each occurrence of the nine possible values, and adds up each row using <em>plus reduction</em> <code class="docutils literal notranslate"><span class="pre">+/</span></code>. That gives a count of hom many times each possible value was chosen.</p>
 <p>Then it divides that by the total which is the number of trials. That gives us a vector of probabilites.</p>
 <p>For the given value of <code class="docutils literal notranslate"><span class="pre">beads</span></code> we would expect those to be 0.2 0 01. 0 0.3 0 0 0 0.4 and the results we get are close to the theoretical values.</p>
 <div class="cell docutils container">
@@ -474,50 +495,156 @@ The second element will be a matrix of bead counts, with one row per possible po
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">cfp</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">good</span> <span class="nv">counts</span> <span class="kd">←</span> <span class="m">2</span><span class="o">⊃</span><span class="bp">⍺</span> <span class="p">⋄</span> <span class="nv">counts</span><span class="sr">[</span><span class="nv">good</span><span class="o">⍳</span><span class="nv">decode</span> <span class="bp">⍵</span><span class="sr">;]</span> <span class="kt">}</span>
-<span class="nv">menace_player</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">g</span> <span class="kd">←</span> <span class="nv">cg</span> <span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">cp</span> <span class="kd">←</span> <span class="nv">p</span> <span class="nv">g</span> <span class="p">⋄</span> <span class="nv">cp</span><span class="sr">[</span><span class="nv">pick</span> <span class="bp">⍵</span> <span class="nv">cfp</span> <span class="nv">cp</span><span class="sr">]</span> <span class="kd">←</span> <span class="nv">np</span> <span class="nv">cp</span> <span class="p">⋄</span> <span class="nv">g</span> <span class="kd">←</span> <span class="nv">g</span><span class="o">⍪</span><span class="nv">cp</span> <span class="p">⋄</span> <span class="bp">⍵</span> <span class="nv">ucg</span> <span class="nv">g</span> <span class="kt">}</span>
-<span class="nv">config</span> <span class="kd">←</span> <span class="nv">menace_player</span> <span class="nv">config</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">menace_player</span> <span class="kd">←</span> <span class="kt">{</span> <span class="c1">⍝ make a move using menace&#39;s rules and save it for later bead update</span>
+<span class="nv">cp</span> <span class="kd">←</span> <span class="nv">cpos</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span>
+<span class="nv">counts</span> <span class="kd">←</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">beads</span><span class="sr">[</span><span class="bp">⍵</span><span class="na">.</span><span class="nv">good</span><span class="o">⍳</span><span class="nv">decode</span> <span class="nv">cp</span><span class="sr">;]</span> <span class="c1">⍝ find the bead counts corresponding to the current position</span>
+<span class="nv">cp</span><span class="sr">[</span><span class="nv">pick</span> <span class="nv">counts</span><span class="sr">]</span> <span class="kd">←</span> <span class="nv">move</span> <span class="kd">←</span> <span class="nv">np</span> <span class="nv">cp</span> <span class="c1">⍝ pick a move and update cp</span>
+<span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span> <span class="o">⍪</span><span class="kd">←</span> <span class="nv">cp</span>
+<span class="bp">⍵</span><span class="na">.</span><span class="nv">menace_moves</span><span class="o">,</span><span class="kd">←</span> <span class="o">⊂</span><span class="p">(</span><span class="nv">decode</span> <span class="nv">cp</span><span class="p">)</span> <span class="nv">move</span> <span class="c1">⍝ add position and move to the menace-based moves for this game</span>
+<span class="bp">⍵</span>
+<span class="kt">}</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">2</span><span class="o">↑</span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">menace_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="nv">config</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">menace_player</span> <span class="nv">config</span>
+<span class="nv">config</span><span class="na">.</span><span class="nv">game</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────────┬─┐
-│0 0 0 0 0 0 0 0 0│0│
-│0 0 0 0 1 0 0 0 0│ │
-│0 2 0 0 1 0 0 0 0│ │
-│0 2 0 0 1 1 0 0 0│ │
-│0 2 0 0 1 1 0 0 2│ │
-│1 2 0 0 1 1 0 0 2│ │
-│1 2 2 0 1 1 0 0 2│ │
-│1 2 2 0 1 1 1 0 2│ │
-│1 2 2 2 1 1 1 0 2│ │
-│1 2 2 2 1 1 1 1 2│ │
-└─────────────────┴─┘
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 0 0 0 0 0 0 0 0
+0 0 0 0 1 0 0 0 0
+</span></div></div>
+</div>
+<p>We’ll need to modify <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> slightly. It needs to clear the menace_moves at the start of a game and to update the bead_counts at the end of a game.</p>
+<p>The we’ll change the definition of <code class="docutils literal notranslate"><span class="pre">game_runner</span></code> and then create a new function <code class="docutils literal notranslate"><span class="pre">update_counts_in</span></code> for it to use. <code class="docutils literal notranslate"><span class="pre">update_counts_in</span></code> will take a configuration and return the updated comfiguration as its result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">game_runner</span> <span class="kd">←</span> <span class="kt">{</span> <span class="c1">⍝ play a game given two players and an initial configuration</span>
+<span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span> <span class="kd">←</span> <span class="m">1</span> <span class="m">9</span><span class="o">⍴</span><span class="m">0</span>
+<span class="bp">⍵</span><span class="na">.</span><span class="nv">menace_moves</span> <span class="kd">←</span> <span class="no">⍬</span>
+<span class="nv">tmp</span> <span class="kd">←</span> <span class="p">(</span><span class="bp">⍺⍺</span> <span class="nv">play_round</span> <span class="bp">⍵⍵</span><span class="p">)</span><span class="na">⍣</span><span class="m">9</span><span class="o">⊢</span><span class="bp">⍵</span>
+<span class="bp">⍵</span><span class="na">.</span><span class="nv">results</span> <span class="o">,</span><span class="kd">←</span> <span class="nv">result</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span>
+<span class="nv">update_counts_in</span> <span class="bp">⍵</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>TODO: remove when working!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span><span class="na">.</span><span class="nv">menace_moves</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌────┐
+│81 1│
+└────┘
 </span></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">1</span><span class="o">⊃</span><span class="nv">config</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">menace_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">⍣</span><span class="m">100</span><span class="o">⊢</span><span class="nv">config</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">adjustment</span> <span class="kd">←</span> <span class="kt">{</span> <span class="nv">draw</span> <span class="bp">⍵:</span> <span class="m">1</span> <span class="p">⋄</span> <span class="m">¯3</span> <span class="m">3</span><span class="sr">[</span><span class="m">2</span><span class="o">|+</span><span class="na">/</span><span class="m">0</span><span class="o">≠</span><span class="bp">⍵</span><span class="sr">]</span> <span class="kt">}</span>
+<span class="nv">c</span> <span class="kd">←</span> <span class="nf">⎕ns</span> <span class="s1">&#39;&#39;</span>
+<span class="nv">adjustment</span> <span class="m">1</span> <span class="m">1</span> <span class="m">0</span> <span class="m">2</span> <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 ¯1 0 0 1 ¯1 0 ¯1 1 1 0 0 1 0 1 ¯1 0 1 1 0 0 ¯1 ¯1 ¯1 0 ¯1 1 1 0 ¯1 ¯1 0 0 ¯1 
-
-      0 ¯1 0 1 ¯1 1 1 0 ¯1 1 1 0 ¯1 ¯1 1 ¯1 ¯1 ¯1 0 1 ¯1 1 0 1 ¯1 1 1 0 ¯1 ¯1 ¯
-
-      1 1 1 ¯1 ¯1 ¯1 ¯1 1 0 1 ¯1 1 ¯1 0 1 0 ¯1 1 1 1 1 1 ¯1 0 ¯1 ¯1 0 ¯1 0 0 ¯1
-
-       ¯1 1 1 0 0 1
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">¯3
 </span></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">adjustment</span> <span class="m">1</span> <span class="m">1</span> <span class="m">1</span> <span class="m">2</span> <span class="m">2</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">3
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">adjustment</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span> <span class="m">2</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">1
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">who</span> <span class="kd">←</span> <span class="kt">{</span><span class="s1">&#39;○×&#39;</span><span class="sr">[</span><span class="m">2</span><span class="o">|</span><span class="nv">empty</span> <span class="nv">w</span><span class="sr">]</span><span class="kt">}</span> <span class="c1">⍝ who is the current player?</span>
+<span class="nv">find_moves_for</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍺</span><span class="na">⌿</span><span class="bp">⍵</span><span class="o">=</span><span class="nv">who</span> <span class="bp">⍺</span><span class="kt">}</span> <span class="c1">⍝ what moves were made by a player?</span>
+<span class="nv">winner_at_end</span> <span class="kd">←</span> <span class="kt">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">update_counts_in</span> <span class="kd">←</span> <span class="kt">{</span> <span class="c1">⍝ update the bead counts for moves made by a `menace_player`</span>
+<span class="c1">⍝ find ajustment based on whether × won, drew or lost</span>
+<span class="nv">a</span> <span class="kd">←</span> <span class="s1">&#39;×&#39;</span> <span class="nv">ajustment</span> <span class="nv">cpos</span> <span class="bp">⍵</span><span class="na">.</span><span class="nv">game</span>
+<span class="c1">⍝ find all menace moves by &#39;×&#39;</span>
+
+<span class="c1">⍝ update them</span>
+<span class="c1">⍝ do the same for ○</span>
+<span class="bp">⍵</span> 
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="nv">menace_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VALUE ERROR: Undefined name: ajustment
+update_counts_in[2] a←&#39;×&#39;ajustment cpos ⍵.game
+                         ∧
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span> <span class="kd">←</span> <span class="kt">{</span><span class="nv">menace_player</span> <span class="nv">game_runner</span> <span class="nv">random_player</span><span class="o">⊢</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">⍣</span><span class="m">100</span><span class="o">⊢</span><span class="nv">config</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span><span class="na">.</span><span class="nv">menace_moves</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VALUE ERROR: Undefined name: p
+update_counts_in[2] a←&#39;×&#39;ajustment p ⍵.game
+                                   ∧
+</pre></div>
+</div>
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌────┬──────┬──────┬───────┬───────┬───────┬───────┬───────┬───────┐
+│27 1│1485 2│1486 1│14608 2│16795 1│16957 2│17200 1│17206 2│17215 1│
+└────┴──────┴──────┴───────┴───────┴───────┴───────┴───────┴───────┘
+</span></div></div>
+</div>
+<p>TODO: move/update the text below.</p>
 <p>That’s encouraging, but it points out our remaining problem: the current code uses bead counts but it does not update them so it is not learning.</p>
 <p>Fixing that needs a bit of thought.</p>
 <p>We can’t just change <code class="docutils literal notranslate"><span class="pre">menace_player</span></code>. If <code class="docutils literal notranslate"><span class="pre">menace_player</span></code> is the first player, and the second player wins, the <code class="docutils literal notranslate"><span class="pre">meance_player</span></code> will not be invoked after the win, so it can’t update the bead counts.</p>
@@ -526,12 +653,12 @@ To fix that we need to make two changes - one to <code class="docutils literal n
 <p><code class="docutils literal notranslate"><span class="pre">game_runner</span></code> knows when a game is over, and can find the result from <code class="docutils literal notranslate"><span class="pre">config</span></code>. It needs to update bead counts for every move made by a</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook8</span> <span class="o">-</span><span class="nv">force</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook7</span> <span class="o">-</span><span class="nv">force</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook8.dws saved Wed Dec 23 07:24:08 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook7.dws saved Tue Jan  5 08:33:19 2021
 </span></div></div>
 </div>
 </div>
@@ -565,7 +692,7 @@ To fix that we need to make two changes - one to <code class="docutils literal n
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="chapter-6.html" title="previous page">Playing the game</a>
+    <a class='left-prev' id="prev-link" href="chapter-6.html" title="previous page">Starting To Play</a>
     <a class='right-next' id="next-link" href="appendix-a.html" title="next page">Appendix A - Exploring Dyalog APL</a>
 
     </div>

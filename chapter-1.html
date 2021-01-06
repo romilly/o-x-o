@@ -121,7 +121,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter-6.html">
-   Playing the game
+   Starting To Play
   </a>
  </li>
  <li class="toctree-l1">
@@ -136,12 +136,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-b.html">
-   Ten minutes to RIDE
+   Appendix B - Ten minutes to RIDE
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix-c.html">
-   Running MENACE In RIDE
+   Appendix C - TBD :)
   </a>
  </li>
  <li class="toctree-l1">
@@ -257,6 +257,28 @@
    Exploring MENACE in APL
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions-and-operators">
+   Functions And Operators
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-rank-operator">
+     The Rank Operator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-another-useful-function">
+     Defining another useful function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary">
+     Summary
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
         </nav>
@@ -340,7 +362,7 @@ Pure mathematicians tend to count from 0, but applied mathematicians often count
 </div>
 </div>
 </div>
-<p>As you can see, in APL, <code class="docutils literal notranslate"><span class="pre">←</span></code> is used for assignment. (The <code class="docutils literal notranslate"><span class="pre">=</span></code> symbol is only used to test for equality.)</p>
+<p>As you can see, in APL, <code class="docutils literal notranslate"><span class="pre">←</span></code> is used for assignment. The <code class="docutils literal notranslate"><span class="pre">=</span></code> symbol is used to test for equality.</p>
 <p>Here’s the code to convert the vector <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code> to a human-friendly board position.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -437,7 +459,7 @@ Here we used <code class="docutils literal notranslate"><span class="pre">⍴</s
 </span></div></div>
 </div>
 <p>Each column is a board position. It feels more natural to have the board positions as rows,
-and APL has a handy transpose function <code class="docutils literal notranslate"><span class="pre">⍉</span></code> which will do the job.</p>
+and APL has a handy function <em>transpose</em> written <code class="docutils literal notranslate"><span class="pre">⍉</span></code> which will do the job.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⍉</span><span class="m">9</span> <span class="m">6</span><span class="o">↑</span><span class="nv">encoded</span>
@@ -454,6 +476,54 @@ and APL has a handy transpose function <code class="docutils literal notranslate
 </span></div></div>
 </div>
 <p>We’re going to do a lot of encoding, so it makes sense to create an <code class="docutils literal notranslate"><span class="pre">encode</span></code> function we can use repeatedly.</p>
+<p>In APL you can create a function by using a special syntax described below. It’s not the only way to define functions, but it’s the approach we will take thoughout this book.</p>
+<p>Functions created this way are referred to as <em>dfns</em>.</p>
+<p>Dfns are created by using braces (<code class="docutils literal notranslate"><span class="pre">{</span></code> and <code class="docutils literal notranslate"><span class="pre">}</span></code> to include the APL code to be run when the function is invoked.</p>
+<p>In APL, functions can take a single argument on the right or two arguments, one on the left and one on the right.</p>
+<p>Functions that take a single argument to the right are <em>monadic</em>. Functions that sit between two arguments are <em>dyadic</em>.</p>
+<p>Within a dfn the argument on the right is represented by the Greek letter <em>omega</em> <code class="docutils literal notranslate"><span class="pre">⍵</span></code> and the left arument, if there is one, is represented by <em>alpha</em> <code class="docutils literal notranslate"><span class="pre">⍺</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s possible to create <em>ambivalent</em> functions for which the left option is optional, though we do not need or use them in this book.</p>
+</div>
+<p>It is also possible to create <em>anonymous</em> (un-named) functions but throughout this book we will use assignment to associate the dfn by a name which we can use to invoke it.</p>
+<p>For more information about dfns, see the <a class="reference external" href="https://aplwiki.com/wiki/Dfn">APL Wiki</a>.</p>
+<p>We’ll also add comments to our code by using APL’s comment symbol, the <em>lamp</em> <code class="docutils literal notranslate"><span class="pre">⍝</span></code>.</p>
+<p>When APL encounters a lamp symbol in code it ignores the remainder of the line.</p>
+<p>Two examples should claify the notation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">increment</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">1</span> <span class="o">+</span> <span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ adds one to each element of its argument</span>
+<span class="nv">increment</span> <span class="m">2</span> <span class="m">4</span> <span class="m">6</span> <span class="m">8</span> <span class="m">10</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">3 5 7 9 11
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">add</span> <span class="kd">←</span> <span class="kt">{</span><span class="bp">⍺</span> <span class="o">+</span> <span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ adds its left and right arguments</span>
+<span class="m">2</span> <span class="nv">add</span> <span class="m">3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">5
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="m">2</span> <span class="m">4</span> <span class="m">6</span> <span class="nv">add</span> <span class="m">1</span> <span class="m">2</span> <span class="m">5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">3 6 11
+</span></div></div>
+</div>
+<p>Now let’s define our <code class="docutils literal notranslate"><span class="pre">encode</span></code> function</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">encode</span> <span class="kd">←</span> <span class="kt">{</span><span class="o">⍉</span><span class="p">(</span><span class="m">9</span><span class="o">⍴</span><span class="m">3</span><span class="p">)</span><span class="o">⊤</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ integer(s) to board vector/matrix</span>
@@ -481,7 +551,7 @@ and APL has a handy transpose function <code class="docutils literal notranslate
 <p>The function <code class="docutils literal notranslate"><span class="pre">decode</span></code> does that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">decode</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span><span class="o">⊥⍉</span><span class="bp">⍵</span><span class="kt">}</span> 
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">decode</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span><span class="o">⊥⍉</span><span class="bp">⍵</span><span class="kt">}</span> <span class="c1">⍝ convert position vector(s) to the unique number(s) corresponding to the position(s)</span>
 </pre></div>
 </div>
 </div>
@@ -509,13 +579,34 @@ and APL has a handy transpose function <code class="docutils literal notranslate
 ...
 </span></div></div>
 </div>
-<p>Oops! That just shows the first board position, which is rather boring, and not what we wanted.
-The current definition of <code class="docutils literal notranslate"><span class="pre">show</span></code> uses <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴</span></code> to generate its result,
+<p><strong>Oops!</strong></p>
+<p>That just shows the <em>first</em> board position, which is rather boring, and not what we wanted.</p>
+<p>The current definition of <code class="docutils literal notranslate"><span class="pre">show</span></code> uses <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴</span></code> to generate its result,
 so we only ever get 9 characters arranged as a 3 by 3 matrix. We need to modify <code class="docutils literal notranslate"><span class="pre">show</span></code> so that it displays each board.</p>
-<p>We’ll use APL’s <code class="docutils literal notranslate"><span class="pre">rank</span></code> operator <code class="docutils literal notranslate"><span class="pre">⍤</span></code> which we can use to control how the code is applied to the function’s argument.</p>
+<p>We’ll use APL’s <code class="docutils literal notranslate"><span class="pre">rank</span></code> operator <code class="docutils literal notranslate"><span class="pre">⍤</span></code> to control how the <code class="docutils literal notranslate"><span class="pre">show</span></code> function is applied to its argument.</p>
+</div>
+<div class="section" id="functions-and-operators">
+<h2>Functions And Operators<a class="headerlink" href="#functions-and-operators" title="Permalink to this headline">¶</a></h2>
+<p>In APL a <em>function</em> returns data, but an <em>operator</em> returns a function.</p>
+<p>The argument(s) to the operator are most often exisiting functions, primitive or defined, which are combined or modified to create a new function, but sometimes they are arrays.<a class="footnote-reference brackets" href="#exceptrank" id="id1">1</a></p>
+<p>The function created by an operator will need one or two data arguments to transform into its result.</p>
+<p>Some operators return <em>monadic functions</em> which take a single argument on their right.</p>
+<p>Some return <em>dyadic functions</em> which take two arguments: one on the left of the function and one on the right.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s also possible to create <em>ambivalent</em> functions for whihc the left option is optional, though we do not need or use them in this book.</p>
+</div>
+<div class="section" id="the-rank-operator">
+<h3>The Rank Operator<a class="headerlink" href="#the-rank-operator" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="https://aplwiki.com/wiki/Rank_(operator)"><em>rank</em> operator</a> applies the function on its left to <em>cells</em> of its arguments to create the cells of its result. The scope of the cells are determined by the numbers on its right.</p>
+<p>Rank is one of the most useful APL operators and Dyalog have published some great videos about its use:</p>
+<p>A gentle introduction <a class="reference external" href="https://dyalog.tv/Webinar/?v=IBct81IopRk">The Rank Operator</a></p>
+<p>and (more specialised)</p>
+<p><a class="reference external" href="https://dyalog.tv/Webinar/?v=zBqdeDJPPRc">The Rank Operator and Dyadic Transpose</a></p>
+<p><a class="reference external" href="https://dyalog.tv/Webinar/?v=5wW76XX0kqk">Advanced Use of The Rank Operator</a></p>
 <p>In this case we want <code class="docutils literal notranslate"><span class="pre">show</span></code> to apply to each vector along the last dimension of the argument we provide.</p>
-<p><code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴⍤</span> <span class="pre">1</span></code> allows us to do that.
-The <code class="docutils literal notranslate"><span class="pre">⊢</span></code> just serves to separate the <code class="docutils literal notranslate"><span class="pre">1</span></code> used with rank from the code that picks the characters to use as an argument.</p>
+<p><code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">3⍴⍤</span> <span class="pre">1</span></code> allows us to do that.</p>
+<p>We’ll use the <a class="reference external" href="https://help.dyalog.com/18.0/#Language/Primitive%20Functions/Same.htm"><em>same</em></a>function <code class="docutils literal notranslate"><span class="pre">⊢</span></code> to separate the <code class="docutils literal notranslate"><span class="pre">1</span></code> used as an argument to rank from the expression that picks the characters to display.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">show</span> <span class="kd">←</span> <span class="kt">{</span><span class="m">3</span> <span class="m">3</span><span class="o">⍴</span><span class="na">⍤</span> <span class="m">1</span> <span class="o">⊢</span><span class="s1">&#39;.×○&#39;</span><span class="sr">[</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
@@ -562,8 +653,8 @@ The <code class="docutils literal notranslate"><span class="pre">⊢</span></cod
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">show</span></code> now converts each vector on its right to a matrix.
 If we apply <code class="docutils literal notranslate"><span class="pre">show</span></code> to a matrix with one board per row it returns a 3d array with one plane for each board configuration.</p>
-<p>If there aren’t too many boards it can be easier to see the positions going <em>across</em> the page rather than down it.</p>
-<p>There’s an easy way to do that.</p>
+<p>Sometimes it can be easier to see the positions going <em>across</em> the page rather than down it.</p>
+<p>Here’s how we can make use of <em>rank</em> again to make our output neater.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">⊂</span><span class="na">⍤</span><span class="m">2</span> <span class="nv">show</span> <span class="nv">encode</span> <span class="o">⍳</span><span class="m">6</span>
@@ -578,13 +669,13 @@ If we apply <code class="docutils literal notranslate"><span class="pre">show</s
 └───┴───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
-<p>The expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span></code> converts the cube of characters returned by <code class="docutils literal notranslate"><span class="pre">show</span></code> into a vector (list) of matrices.</p>
-<p>We’ve now created the tools we need to work on the next stage of our implementation of MENACE.</p>
-<p>In the next notebook we will look at the relationship between symmetries (rotations and reflections) of board configurations.</p>
-<p>We will want to use <code class="docutils literal notranslate"><span class="pre">encode</span></code>, <code class="docutils literal notranslate"><span class="pre">decode</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> so we will save our work ready to reuse in the next notebook.</p>
-<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook2.dws</span></code>.</p>
-<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option because the notebook software silently loads a workspace with a different name.</p>
-<p>APL will not change that name unless we tell it to.</p>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span></code> converts the cube (or 3D array) of characters returned by <code class="docutils literal notranslate"><span class="pre">show</span></code> into a vector (a 1D array or list) of matrices (2D arrays).</p>
+<p>It uses one new function <em>enclose</em> <code class="docutils literal notranslate"><span class="pre">⊂</span></code>.</p>
+<p><a class="reference external" href="https://help.dyalog.com/18.0/#Language/Primitive%20Functions/Enclose.htm">Enclose</a> creates a <em>scalar</em> from its right argument. It allows you to create arrays of arrays.</p>
+<p><em>Rank</em> <code class="docutils literal notranslate"><span class="pre">⍤</span></code> was described above.</p>
+</div>
+<div class="section" id="defining-another-useful-function">
+<h3>Defining another useful function<a class="headerlink" href="#defining-another-useful-function" title="Permalink to this headline">¶</a></h3>
 <p>In the discussion that follows, we’ll use the expression <code class="docutils literal notranslate"><span class="pre">⊂⍤2</span> <span class="pre">show</span></code> a lot, so let’s make it a function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -601,15 +692,31 @@ If we apply <code class="docutils literal notranslate"><span class="pre">show</s
 └───┴───┴───┴───┴───┴───┘
 </span></div></div>
 </div>
+</div>
+<div class="section" id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<p>We’ve now created the tools we need to work on the next stage of our implementation of MENACE.</p>
+<p>In the next notebook we will look at the relationship between symmetries (rotations and reflections) of board configurations.</p>
+<p>We will want to use <code class="docutils literal notranslate"><span class="pre">encode</span></code>, <code class="docutils literal notranslate"><span class="pre">decode</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> so we will save our work ready to reuse in the next notebook.</p>
+<p><code class="docutils literal notranslate"><span class="pre">)save</span> <span class="pre">notebook3</span></code> is an APL <em>system command</em>. It saves the functions and variables we’ve created in a <em>workspace</em> file called <code class="docutils literal notranslate"><span class="pre">notebook2.dws</span></code>.</p>
+<p>In this case we need to use the <code class="docutils literal notranslate"><span class="pre">-force</span></code> option because the notebook software silently loads a workspace with a different name.</p>
+<p>APL will not change that name unless we tell it to.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook2</span> <span class="o">-</span><span class="nv">force</span>
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">)</span><span class="nv">save</span> <span class="nv">notebook1</span> <span class="o">-</span><span class="nv">force</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook2.dws saved Sat Dec 12 17:45:10 2020
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">notebook1.dws saved Mon Jan  4 07:22:50 2021
 </span></div></div>
+</div>
+<hr class="docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="exceptrank"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>As you have seen, rank <code class="docutils literal notranslate"><span class="pre">⍤</span></code> takes a function on its left and a <em>numeric</em> argument on its right.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
