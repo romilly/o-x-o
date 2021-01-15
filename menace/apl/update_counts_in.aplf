@@ -1,0 +1,10 @@
+ update_counts_in←{ ⍝ update the bead counts for moves made by a `menace_player`
+⍝ find ajustment based on whether × won, drew or lost
+     a←'×'adjustment cpos ⍵.game
+⍝ find all menace moves by '×'
+     xmoves←'x'played positions_of ⍵.menace_moves
+⍝ update them
+
+⍝ do the same for ○
+     ⍵
+ }

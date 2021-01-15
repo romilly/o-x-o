@@ -1,0 +1,1 @@
+ moves←{blanks←0=⍵ ⋄ bv←,show ⍵ ⋄ bv[⍸blanks]←1 0⍕1+⍳+/blanks ⋄ 3 3⍴bv}

@@ -1,0 +1,3 @@
+ played←{ ⍝ select the moves in ⍵ played by player ⍺
+     (⍺≠who ⍵)/⍵
+ }

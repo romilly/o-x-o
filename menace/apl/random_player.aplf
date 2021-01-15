@@ -1,0 +1,6 @@
+ random_player←{ ⍝ make a legal but random move
+     cp←cpos ⍵.game
+     i←⍸e←0=cp
+     cp[i[?+/e]]←np cp
+     ⍵.game⍪←cp ⍝ is that OK?
+     ⍵}

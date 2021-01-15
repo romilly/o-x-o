@@ -111,5 +111,17 @@ Today:
 1. Get the simple_menace_player working
 1. Plot the learning
 
+## Monday 11 January 2021
 
+Back after some work on this, and a lot on a planned blog post and on Hopfield related work.
+
+## Thursday 14 January 2021
+
+The fastest way to get the menace player working will be to use the debugger, so I will ]link and work in that.
+
+Later: Morten has got the latest ]link working for me.
+
+## Friday 15 January 2021
+
+Started by doing ` ]link.Create # apl` in a lear ws, and I have all the code!
 

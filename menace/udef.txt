@@ -1,6 +1,1 @@
-chapter-6.ipynb:    "We'll plug the players into a `game_runnner` which we will implement as a *user-defined* operator.\n",
-chapter-6.ipynb:    "The `game_runner` will be something we haven't met before: a *user-defined operator*.\n",
-chapter-6.ipynb:    "We've encountered two types of APL function: *primitive* functions like `+`, `⍴`, `⌽` which are built into the APL interpreter, and*user-defined* functions, like `initial_counts` where we named APL code so that we could reuse it wherever it was needed without having to repeat the code.\n",
 chapter-6.ipynb:    "We can write a `try` user-defined operator to stop invoking the player as soon as the game is over. We saw above that our first attempt at play failed if we carried on beyond the 9th move."
-chapter-6.ipynb:    "User-defined operators, like user-defined functions, can be created using direct definition.\n",
-chapter-6.ipynb:    "The argument(s) to the operator are most often exisiting functions[^exceptRank], primitive or user-defined, which are combined or modified to create a new function.\n",

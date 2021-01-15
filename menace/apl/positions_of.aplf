@@ -1,0 +1,3 @@
+ positions_of←{ ⍝ find the positions in an array of menace_moves
+     1⌷↑⍵
+ }

@@ -1,0 +1,8 @@
+ init←{ ⍝ create an initial configuration
+     config←⎕NS''
+     config.game←(1 9⍴0)
+     config.results←⍬
+     config.good←⍺
+     config.beads←⍺ initial_counts ⍵
+     config.menace_moves←⍬
+     config}

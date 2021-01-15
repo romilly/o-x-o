@@ -1,0 +1,1 @@
+ try←{gf cpos ⍵.game:⍵ ⋄ ⍺⍺ ⍵}
