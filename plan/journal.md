@@ -123,5 +123,42 @@ Later: Morten has got the latest ]link working for me.
 
 ## Friday 15 January 2021
 
-Started by doing ` ]link.Create # apl` in a lear ws, and I have all the code!
+Started by doing ` ]link.Create # apl` in a clear ws, and I have all the code!
+
+## Wednesday 20 January 2021
+
+Back to work after nibbling at this for several days.
+
+Workflow:
+
+1. Load clear ws in OXO RIDE environment
+1. ]link
+1. Code, adding stuff to link as necessary
+1. Use diffs, grep to see what notebooks need changing.
+
+```apl
+]LINK.create # apl
+config ← good init 20 
+config ← menace_player game_runner random_player⊢config
+config.menace_moves
+```
+
+
+### Simplification!
+
+Oh my, I just realised that I *don't* need to keep track of who made a bad move. A bad move is a bad move!
+
+
+## Thursday 21 January 2021
+
+So close to getting the menace player working. All I need to do is
+1. Finish the code that decides if the outcome is a loss (for `×`), a draw or a win.
+   1. Write a test script
+   1. Get the  test working
+1. Use that and ⌷-indexing to update the bead counts
+1. Plot the results of some games
+
+## Friday 22 January 2021
+
+Some testing works. More to do!
 

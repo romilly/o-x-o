@@ -4,5 +4,5 @@
      config.results←⍬
      config.good←⍺
      config.beads←⍺ initial_counts ⍵
-     config.menace_moves←⍬
+    ⍝ config.menace_moves←0 2⍴0
      config}

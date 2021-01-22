@@ -1,6 +1,6 @@
  game_runner←{ ⍝ play a game given two players and an initial configuration
      ⍵.game←1 9⍴0
-     ⍵.menace_moves←⍬
+     ⍵.menace_moves←0 2⍴0
      tmp←(⍺⍺ play_round ⍵⍵)⍣9⊢⍵
      ⍵.results,←result ⍵.game
      update_counts_in ⍵

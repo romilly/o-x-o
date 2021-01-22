@@ -1,8 +1,9 @@
  menace_player←{ ⍝ make a move using menace's rules and save it for later bead update
      cp←cpos ⍵.game
      counts←⍵.beads[⍵.good⍳decode cp;] ⍝ find the bead counts corresponding to the current position
-     cp[pick counts]←move←np cp ⍝ pick a move and update cp
+     ⍝ old←cp
+     cp[move←pick counts]←np cp ⍝ pick a move and update cp
      ⍵.game⍪←cp
-     ⍵.menace_moves,←⊂(decode cp)move ⍝ add position and move to the menace-based moves for this game
+     ⍝ ⍵.menace_moves⍪←move, decode old ⍝ add move and starting position
      ⍵
  }

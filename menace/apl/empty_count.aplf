@@ -1,1 +1,2 @@
- empty_count←{+/0=cpos ⍵}
+ empty_count←{ ⍝ how many empty positons in current position?
+     +/0=cpos ⍵}

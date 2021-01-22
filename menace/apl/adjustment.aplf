@@ -1,1 +1,7 @@
- adjustment←{draw ⍵:1 ⋄ ¯3 3[2|+/0≠⍵]}
+ adjustment←{ ⍝ find the adjustment
+     ⍝ ⍵ is a matrix of game positions
+     ⍝ this should be:
+     ⍝    1  1 for a draw
+     ⍝    3 ¯3 if x won
+     ⍝   ¯3  3 if ○ won
+     }

@@ -1,0 +1,8 @@
+ status ← { ⍝ status of game
+ ⍝ ¯1 - unfinished
+ ⍝  0 - draw
+ ⍝  1 - × won
+ ⍝  2 - ○ won
+ ~wf ⍵:  ¯1 0[draw ⍵]
+ 1 2[1⍳⍨is_win ⍵]
+ }
